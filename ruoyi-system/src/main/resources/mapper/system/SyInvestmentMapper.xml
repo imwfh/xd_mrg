@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SyInvestmentMapper">
+
+    <resultMap type="SyInvestment" id="SyInvestmentResult">
+        <result property="id" column="id"/>
+        <result property="investmentName" column="investment_name"/>
+        <result property="investmentCode" column="investment_code"/>
+        <result property="investmentTradeCode" column="investment_trade_code"/>
+        <result property="investmentMoney" column="investment_money"/>
+        <result property="userCode" column="user_code"/>
+        <result property="platformComfirm" column="platform_comfirm"/>
+        <result property="isOvertime" column="is_overtime"/>
+        <result property="btcCode" column="btc_code"/>
+        <result property="platBtcCode" column="plat_btc_code"/>
+        <result property="failDesc" column="fail_desc"/>
+        <result property="investmentTime" column="investment_time"/>
+        <result property="overTime" column="over_time"/>
+        <result property="comfirmTime" column="comfirm_time"/>
+        <result property="tkUrl" column="tk_url"/>
+        <result property="revertMoney" column="revert_money"/>
+        <result property="investmentRate" column="investment_rate"/>
+    </resultMap>
+
+    <sql id="selectSyInvestmentVo">
+        select tk_url, revert_money,investment_rate,  id, investment_name, investment_code, investment_trade_code,fail_desc, plat_btc_code, investment_money, user_code, platform_comfirm, is_overtime, btc_code, investment_time, over_time, comfirm_time from sy_investment
+    </sql>
+
+    <select id="selectSyInvestmentList" parameterType="SyInvestment" resultMap="SyInvestmentResult">
+        <include refid="selectSyInvestmentVo"/>
+        <where>
+            <if test="id != null ">and id = #{id}</if>
+            <if test="investmentName != null  and investmentName != '' ">and investment_name = #{investmentName}</if>
+            <if test="investmentCode != null  and investmentCode != '' ">and investment_code = #{investmentCode}</if>
+            <if test="investmentTradeCode != null  and investmentTradeCode != '' ">and investment_trade_code =
+                #{investmentTradeCode}
+            </if>
+            <if test="investmentMoney != null ">and investment_money = #{investmentMoney}</if>
+            <if test="userCode != null  and userCode != '' ">and user_code = #{userCode}</if>
+            <if test="platformComfirm != null ">and platform_comfirm = #{platformComfirm}</if>
+            <if test="isOvertime != null ">and is_overtime = #{isOvertime}</if>
+            <if test="btcCode != null  and btcCode != '' ">and btc_code = #{btcCode}</if>
+            <if test="platBtcCode != null  and platBtcCode != '' ">and plat_btc_code = #{platBtcCode}</if>
+            <if test="failDesc != null  and failDesc != '' ">and fail_desc = #{failDesc}</if>
+            <if test="tkUrl != null  and tkUrl != '' ">and tk_url = #{tkUrl}</if>
+            <if test="revertMoney != null  and revertMoney != '' ">and revert_money = #{revertMoney}</if>
+            <if test="investmentRate != null  and investmentRate != '' ">and investment_rate = #{investmentRate}</if>
+            <if test="investmentTime != null ">and investment_time = #{investmentTime}</if>
+            <if test="overTime != null ">and over_time = #{overTime}</if>
+            <if test="comfirmTime != null ">and comfirm_time = #{comfirmTime}</if>
+        </where>
+        order by investment_time desc
+    </select>
+
+    <select id="selectSyInvestmentById" parameterType="Integer" resultMap="SyInvestmentResult">
+        <include refid="selectSyInvestmentVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertSyInvestment" parameterType="SyInvestment" useGeneratedKeys="true" keyProperty="id">
+        insert into sy_investment
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="investmentName != null  and investmentName != ''  ">investment_name,</if>
+            <if test="investmentCode != null  and investmentCode != ''  ">investment_code,</if>
+            <if test="investmentTradeCode != null  and investmentTradeCode != ''  ">investment_trade_code,</if>
+            <if test="investmentMoney != null  ">investment_money,</if>
+            <if test="userCode != null  and userCode != ''  ">user_code,</if>
+            <if test="platformComfirm != null  ">platform_comfirm,</if>
+            <if test="isOvertime != null  ">is_overtime,</if>
+            <if test="btcCode != null  and btcCode != ''  ">btc_code,</if>
+            <if test="platBtcCode != null  and platBtcCode != ''  ">plat_btc_code,</if>
+            <if test="failDesc != null  and failDesc != ''  ">fail_desc,</if>
+            <if test="investmentTime != null  ">investment_time,</if>
+            <if test="overTime != null  ">over_time,</if>
+            <if test="comfirmTime != null  ">comfirm_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="investmentName != null  and investmentName != ''  ">#{investmentName},</if>
+            <if test="investmentCode != null  and investmentCode != ''  ">#{investmentCode},</if>
+            <if test="investmentTradeCode != null  and investmentTradeCode != ''  ">#{investmentTradeCode},</if>
+            <if test="investmentMoney != null  ">#{investmentMoney},</if>
+            <if test="userCode != null  and userCode != ''  ">#{userCode},</if>
+            <if test="platBtcCode != null  and platBtcCode != ''  ">#{platBtcCode},</if>
+            <if test="failDesc != null  and failDesc != ''  ">#{failDesc},</if>
+            <if test="platformComfirm != null  ">#{platformComfirm},</if>
+            <if test="isOvertime != null  ">#{isOvertime},</if>
+            <if test="btcCode != null  and btcCode != ''  ">#{btcCode},</if>
+            <if test="investmentTime != null  ">#{investmentTime},</if>
+            <if test="overTime != null  ">#{overTime},</if>
+            <if test="comfirmTime != null  ">#{comfirmTime},</if>
+        </trim>
+    </insert>
+
+    <update id="updateSyInvestment" parameterType="SyInvestment">
+        update sy_investment
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="investmentName != null  and investmentName != ''  ">investment_name = #{investmentName},</if>
+            <if test="investmentCode != null  and investmentCode != ''  ">investment_code = #{investmentCode},</if>
+            <if test="investmentTradeCode != null  and investmentTradeCode != ''  ">investment_trade_code =
+                #{investmentTradeCode},
+            </if>
+            <if test="investmentMoney != null  ">investment_money = #{investmentMoney},</if>
+            <if test="userCode != null  and userCode != ''  ">user_code = #{userCode},</if>
+            <if test="platformComfirm != null  ">platform_comfirm = #{platformComfirm},</if>
+            <if test="isOvertime != null  ">is_overtime = #{isOvertime},</if>
+            <if test="btcCode != null  and btcCode != ''  ">btc_code = #{btcCode},</if>
+            <if test="platBtcCode != null  and platBtcCode != ''  ">plat_btc_code = #{platBtcCode},</if>
+            <if test="tkUrl != null  and tkUrl != ''  ">tk_url = #{tkUrl},</if>
+            <if test="revertMoney != null  and revertMoney != ''  ">revert_money = #{revertMoney},</if>
+            <if test="investmentRate != null  and investmentRate != ''  ">investment_rate = #{investmentRate},</if>
+            <if test="failDesc != null  and failDesc != ''  ">fail_desc = #{failDesc},</if>
+            <if test="investmentTime != null  ">investment_time = #{investmentTime},</if>
+            <if test="overTime != null  ">over_time = #{overTime},</if>
+            <if test="comfirmTime != null  ">comfirm_time = #{comfirmTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteSyInvestmentById" parameterType="Integer">
+        delete from sy_investment where id = #{id}
+    </delete>
+
+    <delete id="deleteSyInvestmentByIds" parameterType="String">
+        delete from sy_investment where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

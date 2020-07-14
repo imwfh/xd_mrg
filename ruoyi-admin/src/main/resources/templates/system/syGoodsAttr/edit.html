@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="include :: header('修改商品属性')"/>
+    <th:block th:include="include :: bootstrap-fileinput-css"/>
+    <style>
+        .gg {
+            /*border: 1px red solid;*/
+        }
+    </style>
+</head>
+<body class="white-bg">
+<div class="wrapper wrapper-content animated fadeInRight ibox-content">
+    <form class="form-horizontal m" id="form-syGoodsAttr-edit" th:object="${syGoodsAttr}">
+        <input id="id" name="id" th:field="*{id}" type="hidden">
+        <input id="goodsSn" name="goodsSn" th:field="*{goodsSn}" type="hidden">
+        <input id="goodsDetailImgs" name="goodsDetailImgs" th:value="*{goodsDetailImgs}" class="form-control"
+               type="hidden">
+        <input id="goodsDetailReport" name="goodsDetailReport" th:value="*{goodsDetailReport}" class="form-control"
+               type="hidden">
+
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label">商品总库存：</label>
+            <div class="col-sm-8">
+                <input id="goodsTotalCount" name="goodsTotalCount" th:field="*{goodsTotalCount}" class="form-control"
+                       type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">商品剩余库存：</label>
+            <div class="col-sm-8">
+                <input id="goodsTotalCountSurplus" name="goodsTotalCountSurplus" th:field="*{goodsTotalCountSurplus}"
+                       disabled="disabled" class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">商品总销量：</label>
+            <div class="col-sm-8">
+                <input id="goodsSalesCount" name="goodsSalesCount" th:field="*{goodsSalesCount}" disabled="disabled"
+                       class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">商品规格：</label>
+            <fieldset>
+                <div class="gg">
+                    <!--<div class="col-sm-4">&ndash;&gt;-->
+                    <!--<button class="btn btn-primary " type="button"><i class="fa fa-check"></i>添加</button>-->
+                    <!--</div>-->
+                    <!--<div class="form-group">-->
+                    <!--<div class="col-sm-4">-->
+                    <!--<input type="text" name="" class="form-control" placeholder="规格名称">-->
+                    <!--</div>-->
+                    <!--<div class="col-sm-4">-->
+                    <!--<input type="text" name="" class="form-control" placeholder="规格值">-->
+                    <!--</div>-->
+                    <!--<div class="col-sm-4">-->
+                    <!--<button class="btn btn-primary " type="button"><i class="fa fa-check"></i>添加</button>-->
+                    <!--<button class="btn btn-primary " type="button"><i class="fa fa-check"></i>删除</button>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                </div>
+            </fieldset>
+
+
+            <input id="goodsSku" name="goodsSku" th:field="*{goodsSku}" class="form-control" type="hidden">
+            <input id="goodsPriceSku" name="goodsPriceSku" th:field="*{goodsPriceSku}" class="form-control"
+                   type="hidden">
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">价格编辑：</label>
+            <!--<div class="col-sm-8">-->
+            <!--<input id="goodsPriceSku" name="goodsPriceSku" th:field="*{goodsPriceSku}" class="form-control"-->
+            <!--type="text">-->
+            <!--</div>-->
+            <fieldset>
+                <div class="pp">
+                </div>
+            </fieldset>
+
+        </div>
+
+        <div class="form-group">
+            <label class="font-noraml">商品介绍详情图片</label>
+            <div class="file-loading">
+                <input id="fileinput-demo-1" type="file" multiple>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="font-noraml">商品质量信息图片</label>
+            <div class="file-loading">
+                <input id="fileinput-demo-2" type="file" multiple>
+            </div>
+        </div>
+    </form>
+</div>
+<div th:include="include::footer"></div>
+<th:block th:include="include :: bootstrap-fileinput-js"/>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        var img_1 = $("#goodsDetailImgs").val();
+        var img_2 = $("#goodsDetailReport").val();
+        var subMap = {};
+        var detailMap = {};
+
+
+        //初始化商品规格
+        var goodSku = $("#goodsSku").val();
+        if (goodSku) {
+            var dataObj = eval("(" + goodSku + ")");
+            for (var key in dataObj) {
+                var k = key;
+                var v = dataObj[key];
+
+                var ht = "<div class=\"form-group \"><div class=\"col-sm-4\">" +
+                        "<input type=\"text\" name=\"ggname\" class=\"form-control\" value='" + k + "' placeholder=\"规格名称\"></div><div class=\"col-sm-4\">" +
+                        "<input type=\"text\" name=\"ggvalue\" class=\"form-control\" value='" + v + "' placeholder=\"规格值\"></div>" +
+                        "<div class=\"col-sm-4\"> <button class=\"btn btn-primary addGG\" type=\"button\"><i class=\"fa fa-check\"></i>添加</button> " +
+                        "<button class=\"btn btn-danger delGG \" type=\"button\"><i class=\"fa fa-check\"></i>删除</button> </div></div > ";
+                $(".gg").append(ht);
+            }
+        }else{
+            var ht = "<div class=\"form-group \"><div class=\"col-sm-4\">" +
+                    "<input type=\"text\" name=\"ggname\" class=\"form-control\"  placeholder=\"规格名称\"></div><div class=\"col-sm-4\">" +
+                    "<input type=\"text\" name=\"ggvalue\" class=\"form-control\" k placeholder=\"规格值\"></div>" +
+                    "<div class=\"col-sm-4\"> <button class=\"btn btn-primary addGG\" type=\"button\"><i class=\"fa fa-check\"></i>添加</button> " +
+                    "<button class=\"btn btn-danger delGG \" type=\"button\"><i class=\"fa fa-check\"></i>删除</button> </div></div > ";
+            $(".gg").append(ht);
+        }
+
+        //添加规格html
+        $("body").delegate(".addGG", "click", function () {
+            var ht = "<div class=\"form-group\"><div class=\"col-sm-4\">" +
+                    "<input type=\"text\" name=\"ggname\" class=\"form-control\"  placeholder=\"规格名称\"></div><div class=\"col-sm-4\">" +
+                    "<input type=\"text\" name=\"ggvalue\" class=\"form-control\"  placeholder=\"规格值\"></div>" +
+                    "<div class=\"col-sm-4\"> <button class=\"btn btn-primary addGG\" type=\"button\"><i class=\"fa fa-check\"></i>添加</button> " +
+                    "<button class=\"btn btn-danger delGG\" type=\"button\"><i class=\"fa fa-check\"></i>删除</button> </div></div > ";
+            $(".gg").append(ht);
+        });
+
+        //删除规格html
+        $("body").delegate(".delGG", "click", function () {
+            var t = $(this).parent().parent();
+            t.remove();
+        });
+
+
+        //初始化价格
+        var goodPriceSku = $("#goodsPriceSku").val();
+        if (goodPriceSku) {
+            var dataPriceObj = eval("(" + goodPriceSku + ")");
+            for (var key in dataPriceObj) {
+                var k = key;
+                var v = dataPriceObj[key];
+
+                var ht = "<div class=\"form-group \"><div class=\"col-sm-4\">" +
+                        "<input type=\"text\" name=\"pricename\" class=\"form-control\" value='" + k + "' placeholder=\"价格范围\"></div><div class=\"col-sm-4\">" +
+                        "<input type=\"text\" name=\"pricevalue\" class=\"form-control\" value='" + v + "' placeholder=\"价格\"></div>" +
+                        "<div class=\"col-sm-4\"> <button class=\"btn btn-primary addPriceGG\" type=\"button\"><i class=\"fa fa-check\"></i>添加</button> ";
+                if ("title" !== k)
+                    ht += "<button class=\"btn btn-danger delPriceGG \" type=\"button\"><i class=\"fa fa-check\"></i>删除</button> </div></div > ";
+                $(".pp").append(ht);
+            }
+        } else {
+            var ht = "<div class=\"form-group \"><div class=\"col-sm-4\">" +
+                    "<input type=\"text\" name=\"pricename\" class=\"form-control\" placeholder=\"价格范围\"></div><div class=\"col-sm-4\">" +
+                    "<input type=\"text\" name=\"pricevalue\" class=\"form-control\"  placeholder=\"价格\"></div>" +
+                    "<div class=\"col-sm-4\"> <button class=\"btn btn-primary addPriceGG\" type=\"button\"><i class=\"fa fa-check\"></i>添加</button> ";
+
+            ht += "<button class=\"btn btn-danger delPriceGG \" type=\"button\"><i class=\"fa fa-check\"></i>删除</button> </div></div > ";
+            $(".pp").append(ht);
+        }
+
+        //添加价格html
+        $("body").delegate(".addPriceGG", "click", function () {
+            var ht = "<div class=\"form-group\"><div class=\"col-sm-4\">" +
+                    "<input type=\"text\" name=\"pricename\" class=\"form-control\"  placeholder=\"价格范围\"></div><div class=\"col-sm-4\">" +
+                    "<input type=\"text\" name=\"pricevalue\" class=\"form-control\"  placeholder=\"价格\"></div>" +
+                    "<div class=\"col-sm-4\"> <button class=\"btn btn-primary addPriceGG\" type=\"button\"><i class=\"fa fa-check\"></i>添加</button> " +
+                    "<button class=\"btn btn-danger delPriceGG\" type=\"button\"><i class=\"fa fa-check\"></i>删除</button> </div></div > ";
+            $(".pp").append(ht);
+        });
+
+        //删除价格html
+        $("body").delegate(".delPriceGG", "click", function () {
+            var t = $(this).parent().parent();
+            t.remove();
+        });
+
+
+        //详情图片
+        var i1array = img_1.split(",");
+        var tp1Array = new Array();
+        for (var i = 0; i < i1array.length; i++) {
+            var tmp = {caption: 'detailimg_' + i, width: '120px', url: '/common/file/del', key: i};
+            tp1Array[i] = tmp;
+            //存放于map中
+            detailMap["detailimg_" + i] = i1array[i];
+        }
+        $("#fileinput-demo-1").fileinput({
+            'theme': 'explorer-fas',
+            'uploadUrl': 'http://192.168.29.61/common/upload',
+            uploadExtraData:{"type":"0"},
+            overwriteInitial: false,
+            initialPreviewAsData: true,
+            showUpload: false,
+            dropZoneEnabled: false,
+            initialPreview: i1array,
+            initialPreviewConfig: tp1Array
+        }).on("fileuploaded", function (e, data, previewiId, index) {
+            var response = data.response;        // 响应
+            if (response.code == 0) {
+                var imgurl = response.url;
+                var lastUrl = $("#goodsDetailImgs").val();
+                lastUrl += "," + imgurl;
+                $("#goodsDetailImgs").val(lastUrl);
+
+                //添加至map中
+                var length = Object.keys(detailMap).length;
+                detailMap["detailimg_" + length] = imgurl;
+
+            }
+
+        }).on('filebeforedelete', function (e, data, previewId, key) {
+            var aborted = !window.confirm('确定要删除此图片?');
+            if (aborted) {
+                window.alert('File deletion was aborted! ');
+            }
+            return aborted;
+        }).on('filedeleted', function (event, key) {
+            //重载i2array,从localstore中取
+            var sk = "detailimg_" + key;
+            delete detailMap[sk];
+            var sms = Object.values(detailMap);
+            var smsTmp = "";
+            for (var j = 0; j < sms.length; j++) {
+                smsTmp += sms[j];
+                if (j != sms.length - 1) {
+                    smsTmp += ",";
+                }
+            }
+            $("#goodsDetailImgs").val(smsTmp);
+
+            setTimeout(function () {
+                window.alert('图片删除成功 ');
+            }, 500);
+        });
+
+
+        //质检信息图片
+        var i2array = img_2.split(",");
+        var tpArray = new Array();
+        for (var i = 0; i < i2array.length; i++) {
+            var tmp = {caption: 'subimg_' + i, width: '120px', url: '/common/file/del', key: i};
+            tpArray[i] = tmp;
+
+            //存放于map中
+            subMap["subimg_" + i] = i2array[i]
+        }
+
+        $("#fileinput-demo-2").fileinput({
+            'theme': 'explorer-fas',
+            'uploadUrl': 'http://192.168.29.61/common/upload',
+            uploadExtraData:{"type":"0"},
+            overwriteInitial: false,
+            initialPreviewAsData: true,
+            initialPreview: i2array,
+            initialPreviewConfig: tpArray
+        }).on("fileuploaded", function (e, data, previewiId, index) {
+            var response = data.response;        // 响应
+            if (response.code == 0) {
+                var imgurl = response.url;
+                var lastUrl = $("#goodsDetailReport").val();
+                lastUrl += "," + imgurl;
+                $("#goodsDetailReport").val(lastUrl);
+
+                //添加至map中
+                var length = Object.keys(subMap).length;
+                subMap["subimg_" + length] = imgurl;
+            }
+        }).on('filebeforedelete', function (e, data, previewId, key) {
+            var aborted = !window.confirm('确定要删除此图片?');
+            if (aborted) {
+                window.alert('File deletion was aborted! ');
+            }
+            return aborted;
+        }).on('filedeleted', function (event, key) {
+            //重载i2array,从localstore中取
+            var sk = "subimg_" + key;
+            delete subMap[sk];
+            var sms = Object.values(subMap);
+            var smsTmp = "";
+            for (var j = 0; j < sms.length; j++) {
+                smsTmp += sms[j];
+                if (j != sms.length - 1) {
+                    smsTmp += ",";
+                }
+            }
+            $("#goodsDetailReport").val(smsTmp);
+
+            setTimeout(function () {
+                window.alert('图片删除成功 ');
+            }, 500);
+        });
+    });
+
+    var prefix = ctx + "system/syGoodsAttr";
+    $("#form-syGoodsAttr-edit").validate({
+        rules: {
+            xxxx: {
+                required: true,
+            },
+        },
+        focusCleanup: true
+    });
+
+    function submitHandler() {
+        if ($.validate.form()) {
+            //组装属性sku  {"产品型号":"SFD-06","型号":"SFD-06","产品号":"SFD-06","产型":"SFD-06","品型号":"SFD-06"}
+            var xn = document.getElementsByName("ggname");
+            var xv = document.getElementsByName("ggvalue");
+            if (null != xn && undefined != xn) {
+                var sku = "{";
+                for (var i = 0; i < xn.length; i++) {
+                    var tmp = "";
+                    var xnV = xn[i].value;
+                    var xvV = xv[i].value;
+                    tmp += "\"" + xnV + "\":\"" + xvV + "\"";
+                    if (i != xn.length - 1)
+                        tmp += ",";
+                    sku += tmp;
+                }
+                sku += "}";
+                console.log(sku);
+                $("#goodsSku").val(sku);
+            }
+
+            //组装价格
+            var xnp = document.getElementsByName("pricename");
+            var xvp = document.getElementsByName("pricevalue");
+            if (null != xnp && undefined != xnp) {
+                var sku = "{";
+                for (var i = 0; i < xnp.length; i++) {
+                    var tmp = "";
+                    var xnV = xnp[i].value;
+                    var xvV = xvp[i].value;
+                    tmp += "\"" + xnV + "\":\"" + xvV + "\"";
+                    if (i != xnp.length - 1)
+                        tmp += ",";
+                    sku += tmp;
+                }
+                sku += "}";
+                console.log(sku);
+                $("#goodsPriceSku").val(sku);
+            }
+
+            $.operate.save(prefix + "/edit", $('#form-syGoodsAttr-edit').serialize());
+        }
+    }
+</script>
+</body>
+</html>

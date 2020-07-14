@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="include :: header('修改公告')"/>
+    <th:block th:include="include :: summernote-css"/>
+</head>
+
+<body class="white-bg">
+<div class="wrapper wrapper-content animated fadeInRight ibox-content">
+    <form class="form-horizontal m" id="form-syNotice-edit" th:object="${syNotice}">
+        <input id="id" name="id" th:field="*{id}" type="hidden">
+        <div class="form-group">
+            <label class="col-sm-2 control-label">公告标题(中文)：</label>
+            <div class="col-sm-10">
+                <input id="noticeTitle" name="noticeTitle" th:field="*{noticeTitle}" class="form-control" type="text">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">公告标题(英文)：</label>
+            <div class="col-sm-10">
+                <input id="noticeTitleEn" name="noticeTitleEn" th:field="*{noticeTitleEn}"class="form-control" type="text">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">公告内容(中文)：</label>
+            <div class="col-sm-10">
+                <input id="noticeContent" name="noticeContent" th:field="*{noticeContent}" type="hidden">
+                <div id="editor" class="summernote"></div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">公告内容(英文)：</label>
+            <div class="col-sm-10">
+                <input id="nc" name="nc" th:field="*{nc}" type="hidden">
+                <div id="editor2" class="summernote2"></div>
+            </div>
+        </div>
+
+    </form>
+</div>
+<div th:include="include::footer"></div>
+<th:block th:include="include :: summernote-js"/>
+<script type="text/javascript">
+    var prefix = ctx + "system/syNotice";
+    $("#form-syNotice-edit").validate({
+        rules: {
+            xxxx: {
+                required: true,
+            },
+        },
+        focusCleanup: true
+    });
+
+    function submitHandler() {
+        if ($.validate.form()) {
+            var sHTML = $('.summernote').summernote('code');
+            $("#noticeContent").val(sHTML);
+
+            var sHTML = $('.summernote2').summernote('code');
+            $("#nc").val(sHTML);
+
+            $.operate.save(prefix + "/edit", $('#form-syNotice-edit').serialize());
+        }
+    }
+
+
+    $(document).ready(function () {
+        $('.summernote').summernote({
+            placeholder: '请输入公告内容',
+            height: 192,
+            lang: 'zh-CN',
+            followingToolbar: false,
+            callbacks: {
+                onImageUpload: function (files) {
+                    sendFile(files[0], this);
+                }
+            }
+        });
+        var content = $("#noticeContent").val();
+        $('#editor').summernote('code', content);
+
+
+        $('.summernote2').summernote({
+            placeholder: 'please input content of english',
+            height: 192,
+            lang: 'en-US',
+            followingToolbar: false,
+            callbacks: {
+                onImageUpload: function (files) {
+                    sendFile(files[0], this);
+                }
+            }
+        });
+        var content = $("#nc").val();
+        $('#editor2').summernote('code', content);
+    });
+</script>
+</body>
+</html>

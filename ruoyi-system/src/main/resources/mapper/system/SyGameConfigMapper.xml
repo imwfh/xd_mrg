@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SyGameConfigMapper">
+    
+    <resultMap type="SyGameConfig" id="SyGameConfigResult">
+        <result property="id"    column="id"    />
+        <result property="gameName"    column="game_name"    />
+        <result property="gamePath"    column="game_path"    />
+        <result property="gameIco"    column="game_ico"    />
+        <result property="gameStatus"    column="game_status"    />
+    </resultMap>
+	
+	<sql id="selectSyGameConfigVo">
+        select id, game_name, game_path, game_ico, game_status from sy_game_config
+    </sql>
+	
+    <select id="selectSyGameConfigList" parameterType="SyGameConfig" resultMap="SyGameConfigResult">
+        <include refid="selectSyGameConfigVo"/>
+        <where>  
+            <if test="id != null "> and id = #{id}</if>
+             <if test="gameName != null  and gameName != '' "> and game_name = #{gameName}</if>
+             <if test="gamePath != null  and gamePath != '' "> and game_path = #{gamePath}</if>
+             <if test="gameIco != null  and gameIco != '' "> and game_ico = #{gameIco}</if>
+             <if test="gameStatus != null "> and game_status = #{gameStatus}</if>
+         </where>
+    </select>
+    
+    <select id="selectSyGameConfigById" parameterType="Integer" resultMap="SyGameConfigResult">
+        <include refid="selectSyGameConfigVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertSyGameConfig" parameterType="SyGameConfig" useGeneratedKeys="true" keyProperty="id">
+        insert into sy_game_config
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="gameName != null  and gameName != ''  ">game_name,</if>
+			<if test="gamePath != null  and gamePath != ''  ">game_path,</if>
+			<if test="gameIco != null  and gameIco != ''  ">game_ico,</if>
+			<if test="gameStatus != null  ">game_status,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="gameName != null  and gameName != ''  ">#{gameName},</if>
+			<if test="gamePath != null  and gamePath != ''  ">#{gamePath},</if>
+			<if test="gameIco != null  and gameIco != ''  ">#{gameIco},</if>
+			<if test="gameStatus != null  ">#{gameStatus},</if>
+         </trim>
+    </insert>
+	 
+    <update id="updateSyGameConfig" parameterType="SyGameConfig">
+        update sy_game_config
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="gameName != null  and gameName != ''  ">game_name = #{gameName},</if>
+            <if test="gamePath != null  and gamePath != ''  ">game_path = #{gamePath},</if>
+            <if test="gameIco != null  and gameIco != ''  ">game_ico = #{gameIco},</if>
+            <if test="gameStatus != null  ">game_status = #{gameStatus},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+	<delete id="deleteSyGameConfigById" parameterType="Integer">
+        delete from sy_game_config where id = #{id}
+    </delete>
+	
+    <delete id="deleteSyGameConfigByIds" parameterType="String">
+        delete from sy_game_config where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>

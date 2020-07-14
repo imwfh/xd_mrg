@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+	<th:block th:include="include :: header('新增提现记录')" />
+</head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-tbUserTx-add">
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">提现业务号：</label>
+				<div class="col-sm-8">
+					<input id="txSn" name="txSn" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">用户唯一编码：</label>
+				<div class="col-sm-8">
+					<input id="userCode" name="userCode" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">提现的金额：</label>
+				<div class="col-sm-8">
+					<input id="userTxMoney" name="userTxMoney" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">提现前的余额：</label>
+				<div class="col-sm-8">
+					<input id="userBeforeTxMoney" name="userBeforeTxMoney" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">提现后的余额(结余)：</label>
+				<div class="col-sm-8">
+					<input id="userAfterTxMoney" name="userAfterTxMoney" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">被扣除的金额：</label>
+				<div class="col-sm-8">
+					<input id="userKouMoney" name="userKouMoney" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">用户实际到账金额：</label>
+				<div class="col-sm-8">
+					<input id="userGetMoney" name="userGetMoney" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">备注：</label>
+				<div class="col-sm-8">
+					<input id="userDesc" name="userDesc" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">：</label>
+				<div class="col-sm-8">
+					<input id="bankNo" name="bankNo" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">0:提现中 1:提现成功 -1:提现失败：</label>
+				<div class="col-sm-8">
+					<input id="txStatus" name="txStatus" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">提现时间：</label>
+				<div class="col-sm-8">
+					<input id="createTime" name="createTime" class="form-control" type="text">
+				</div>
+			</div>
+		</form>
+	</div>
+    <div th:include="include::footer"></div>
+    <script type="text/javascript">
+		var prefix = ctx + "system/tbUserTx"
+		$("#form-tbUserTx-add").validate({
+			rules:{
+				xxxx:{
+					required:true,
+				},
+			},
+			focusCleanup: true
+		});
+		
+		function submitHandler() {
+	        if ($.validate.form()) {
+	            $.operate.save(prefix + "/add", $('#form-tbUserTx-add').serialize());
+	        }
+	    }
+	</script>
+</body>
+</html>

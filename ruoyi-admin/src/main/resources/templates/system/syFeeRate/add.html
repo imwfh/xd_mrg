@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+	<th:block th:include="include :: header('新增收益比率')" />
+</head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-syFeeRate-add">
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">费率对应的人数：</label>
+				<div class="col-sm-8">
+					<input id="rateNumber" name="rateNumber" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">一代对应的费率：</label>
+				<div class="col-sm-8">
+					<input id="rateFee" name="rateFee" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">达到指定人数后，团队长(团队管理奖)对应的费率：</label>
+				<div class="col-sm-8">
+					<input id="rateGroup" name="rateGroup" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">达到指定人数后，团队长拿平台利润比：</label>
+				<div class="col-sm-8">
+					<input id="ratePlatform" name="ratePlatform" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">表静态收益率：</label>
+				<div class="col-sm-8">
+					<input id="rateStaticFee" name="rateStaticFee" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">1:日类型 2:月类型：</label>
+				<div class="col-sm-8">
+					<input id="rateStaticType" name="rateStaticType" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">1:动态收益率 2:静态收益率：</label>
+				<div class="col-sm-8">
+					<input id="rateType" name="rateType" class="form-control" type="text">
+				</div>
+			</div>
+		</form>
+	</div>
+    <div th:include="include::footer"></div>
+    <script type="text/javascript">
+		var prefix = ctx + "system/syFeeRate"
+		$("#form-syFeeRate-add").validate({
+			rules:{
+				xxxx:{
+					required:true,
+				},
+			},
+			focusCleanup: true
+		});
+		
+		function submitHandler() {
+	        if ($.validate.form()) {
+	            $.operate.save(prefix + "/add", $('#form-syFeeRate-add').serialize());
+	        }
+	    }
+	</script>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SyFeeRateMapper">
+    
+    <resultMap type="SyFeeRate" id="SyFeeRateResult">
+        <result property="id"    column="id"    />
+        <result property="rateNumber"    column="rate_number"    />
+        <result property="rateFee"    column="rate_fee"    />
+        <result property="rateGroup"    column="rate_group"    />
+        <result property="ratePlatform"    column="rate_platform"    />
+        <result property="rateStaticFee"    column="rate_static_fee"    />
+        <result property="rateStaticType"    column="rate_static_type"    />
+        <result property="rateType"    column="rate_type"    />
+    </resultMap>
+	
+	<sql id="selectSyFeeRateVo">
+        select id, rate_number, rate_fee, rate_group, rate_platform, rate_static_fee, rate_static_type, rate_type from sy_fee_rate
+    </sql>
+	
+    <select id="selectSyFeeRateList" parameterType="SyFeeRate" resultMap="SyFeeRateResult">
+        <include refid="selectSyFeeRateVo"/>
+        <where>  
+            <if test="id != null "> and id = #{id}</if>
+             <if test="rateNumber != null "> and rate_number = #{rateNumber}</if>
+             <if test="rateFee != null "> and rate_fee = #{rateFee}</if>
+             <if test="rateGroup != null "> and rate_group = #{rateGroup}</if>
+             <if test="ratePlatform != null "> and rate_platform = #{ratePlatform}</if>
+             <if test="rateStaticFee != null "> and rate_static_fee = #{rateStaticFee}</if>
+             <if test="rateStaticType != null "> and rate_static_type = #{rateStaticType}</if>
+             <if test="rateType != null "> and rate_type = #{rateType}</if>
+         </where>
+    </select>
+    
+    <select id="selectSyFeeRateById" parameterType="Integer" resultMap="SyFeeRateResult">
+        <include refid="selectSyFeeRateVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertSyFeeRate" parameterType="SyFeeRate" useGeneratedKeys="true" keyProperty="id">
+        insert into sy_fee_rate
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="rateNumber != null  ">rate_number,</if>
+			<if test="rateFee != null  ">rate_fee,</if>
+			<if test="rateGroup != null  ">rate_group,</if>
+			<if test="ratePlatform != null  ">rate_platform,</if>
+			<if test="rateStaticFee != null  ">rate_static_fee,</if>
+			<if test="rateStaticType != null  ">rate_static_type,</if>
+			<if test="rateType != null  ">rate_type,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="rateNumber != null  ">#{rateNumber},</if>
+			<if test="rateFee != null  ">#{rateFee},</if>
+			<if test="rateGroup != null  ">#{rateGroup},</if>
+			<if test="ratePlatform != null  ">#{ratePlatform},</if>
+			<if test="rateStaticFee != null  ">#{rateStaticFee},</if>
+			<if test="rateStaticType != null  ">#{rateStaticType},</if>
+			<if test="rateType != null  ">#{rateType},</if>
+         </trim>
+    </insert>
+	 
+    <update id="updateSyFeeRate" parameterType="SyFeeRate">
+        update sy_fee_rate
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="rateNumber != null  ">rate_number = #{rateNumber},</if>
+            <if test="rateFee != null  ">rate_fee = #{rateFee},</if>
+            <if test="rateGroup != null  ">rate_group = #{rateGroup},</if>
+            <if test="ratePlatform != null  ">rate_platform = #{ratePlatform},</if>
+            <if test="rateStaticFee != null  ">rate_static_fee = #{rateStaticFee},</if>
+            <if test="rateStaticType != null  ">rate_static_type = #{rateStaticType},</if>
+            <if test="rateType != null  ">rate_type = #{rateType},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+	<delete id="deleteSyFeeRateById" parameterType="Integer">
+        delete from sy_fee_rate where id = #{id}
+    </delete>
+	
+    <delete id="deleteSyFeeRateByIds" parameterType="String">
+        delete from sy_fee_rate where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>

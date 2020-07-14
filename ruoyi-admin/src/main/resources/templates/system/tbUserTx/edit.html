@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="include :: header('修改提现记录')"/>
+</head>
+<body class="white-bg">
+<div class="wrapper wrapper-content animated fadeInRight ibox-content">
+    <form class="form-horizontal m" id="form-tbUserTx-edit" th:object="${tbUserTx}">
+        <input id="id" name="id" th:field="*{id}" type="hidden">
+        <div class="form-group">
+            <label class="col-sm-3 control-label">提现业务号：</label>
+            <div class="col-sm-8">
+                <input id="txSn" name="txSn" disabled th:field="*{txSn}" class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">用户唯一编码：</label>
+            <div class="col-sm-8">
+                <input id="userCode" name="userCode" disabled th:field="*{userCode}" class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">提现的金额：</label>
+            <div class="col-sm-8">
+                <input id="userTxMoney" disabled name="userTxMoney" th:field="*{userTxMoney}" class="form-control"
+                       type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">提现前的余额：</label>
+            <div class="col-sm-8">
+                <input id="userBeforeTxMoney" disabled name="userBeforeTxMoney" th:field="*{userBeforeTxMoney}"
+                       class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">提现后的余额(结余)：</label>
+            <div class="col-sm-8">
+                <input id="userAfterTxMoney" disabled name="userAfterTxMoney" th:field="*{userAfterTxMoney}"
+                       class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">被扣除的金额：</label>
+            <div class="col-sm-8">
+                <input id="userKouMoney" disabled name="userKouMoney" th:field="*{userKouMoney}" class="form-control"
+                       type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">用户实际到账金额：</label>
+            <div class="col-sm-8">
+                <input id="userGetMoney" disabled name="userGetMoney" th:field="*{userGetMoney}" class="form-control"
+                       type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">备注：</label>
+            <div class="col-sm-8">
+                <input id="userDesc" disabled name="userDesc" th:field="*{userDesc}" class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">收款账号：</label>
+            <div class="col-sm-8">
+                <input id="bankNo" disabled name="bankNo" th:field="*{bankNo}" class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">提现状态：</label>
+            <div class="col-sm-8">
+                <select name="txStatus" class="form-control m-b">
+                    <option value="">----请选择提现状态----</option>
+                    <option text="提现中" value="0" selected="*{txStatus == 0 ? selected : ''}"
+                            th:field="*{txStatus}">提现中
+                    </option>
+                    <option text="提现成功" value="1" selected="*{txStatus == 1 ? selected : ''}"
+                            th:field="*{txStatus}">提现成功
+                    </option>
+                    <option text="提现失败" value="-1" selected="*{txStatus == -1 ? selected : ''}"
+                            th:field="*{txStatus}">提现失败
+                    </option>
+                </select>
+            </div>
+
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">提现时间：</label>
+            <div class="col-sm-8">
+                <input id="createTime" name="createTime" th:field="*{createTime}" class="form-control" type="text">
+            </div>
+        </div>
+    </form>
+</div>
+<div th:include="include::footer"></div>
+<script type="text/javascript">
+    var prefix = ctx + "system/tbUserTx";
+    $("#form-tbUserTx-edit").validate({
+        rules: {
+            xxxx: {
+                required: true,
+            },
+        },
+        focusCleanup: true
+    });
+
+    function submitHandler() {
+        if ($.validate.form()) {
+            $.operate.save(prefix + "/edit", $('#form-tbUserTx-edit').serialize());
+        }
+    }
+</script>
+</body>
+</html>

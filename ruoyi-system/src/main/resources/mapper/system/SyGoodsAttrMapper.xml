@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SyGoodsAttrMapper">
+    
+    <resultMap type="SyGoodsAttr" id="SyGoodsAttrResult">
+        <result property="id"    column="id"    />
+        <result property="goodsSn"    column="goods_sn"    />
+        <result property="goodsTotalCount"    column="goods_total_count"    />
+        <result property="goodsTotalCountSurplus"    column="goods_total_count_surplus"    />
+        <result property="goodsSalesCount"    column="goods_sales_count"    />
+        <result property="goodsDetailImgs"    column="goods_detail_imgs"    />
+        <result property="goodsDetailReport"    column="goods_detail_report"    />
+        <result property="goodsSku"    column="goods_sku"    />
+        <result property="goodsPriceSku"    column="goods_price_sku"    />
+        <result property="createTime"    column="create_time"    />
+    </resultMap>
+	
+	<sql id="selectSyGoodsAttrVo">
+        select id, goods_sn, goods_total_count, goods_total_count_surplus, goods_sales_count, goods_detail_imgs, goods_detail_report, goods_sku, goods_price_sku, create_time from sy_goods_attr
+    </sql>
+	
+    <select id="selectSyGoodsAttrList" parameterType="SyGoodsAttr" resultMap="SyGoodsAttrResult">
+        <include refid="selectSyGoodsAttrVo"/>
+        <where>  
+            <if test="id != null "> and id = #{id}</if>
+             <if test="goodsSn != null  and goodsSn != '' "> and goods_sn = #{goodsSn}</if>
+             <if test="goodsTotalCount != null "> and goods_total_count = #{goodsTotalCount}</if>
+             <if test="goodsTotalCountSurplus != null "> and goods_total_count_surplus = #{goodsTotalCountSurplus}</if>
+             <if test="goodsSalesCount != null "> and goods_sales_count = #{goodsSalesCount}</if>
+             <if test="goodsDetailImgs != null  and goodsDetailImgs != '' "> and goods_detail_imgs = #{goodsDetailImgs}</if>
+             <if test="goodsDetailReport != null  and goodsDetailReport != '' "> and goods_detail_report = #{goodsDetailReport}</if>
+             <if test="goodsSku != null  and goodsSku != '' "> and goods_sku = #{goodsSku}</if>
+             <if test="goodsPriceSku != null  and goodsPriceSku != '' "> and goods_price_sku = #{goodsPriceSku}</if>
+             <if test="createTime != null "> and create_time = #{createTime}</if>
+         </where>
+    </select>
+    
+    <select id="selectSyGoodsAttrById" parameterType="Integer" resultMap="SyGoodsAttrResult">
+        <include refid="selectSyGoodsAttrVo"/>
+        where id = #{id}
+    </select>
+
+    <select id="selectSyGoodsAttrByGoodsSn" parameterType="String" resultMap="SyGoodsAttrResult">
+        <include refid="selectSyGoodsAttrVo"/>
+        where goods_sn = #{goodsSn}
+    </select>
+        
+    <insert id="insertSyGoodsAttr" parameterType="SyGoodsAttr" useGeneratedKeys="true" keyProperty="id">
+        insert into sy_goods_attr
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="goodsSn != null  and goodsSn != ''  ">goods_sn,</if>
+			<if test="goodsTotalCount != null  ">goods_total_count,</if>
+			<if test="goodsTotalCountSurplus != null  ">goods_total_count_surplus,</if>
+			<if test="goodsSalesCount != null  ">goods_sales_count,</if>
+			<if test="goodsDetailImgs != null  and goodsDetailImgs != ''  ">goods_detail_imgs,</if>
+			<if test="goodsDetailReport != null  and goodsDetailReport != ''  ">goods_detail_report,</if>
+			<if test="goodsSku != null  and goodsSku != ''  ">goods_sku,</if>
+			<if test="goodsPriceSku != null  and goodsPriceSku != ''  ">goods_price_sku,</if>
+			<if test="createTime != null  ">create_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="goodsSn != null  and goodsSn != ''  ">#{goodsSn},</if>
+			<if test="goodsTotalCount != null  ">#{goodsTotalCount},</if>
+			<if test="goodsTotalCountSurplus != null  ">#{goodsTotalCountSurplus},</if>
+			<if test="goodsSalesCount != null  ">#{goodsSalesCount},</if>
+			<if test="goodsDetailImgs != null  and goodsDetailImgs != ''  ">#{goodsDetailImgs},</if>
+			<if test="goodsDetailReport != null  and goodsDetailReport != ''  ">#{goodsDetailReport},</if>
+			<if test="goodsSku != null  and goodsSku != ''  ">#{goodsSku},</if>
+			<if test="goodsPriceSku != null  and goodsPriceSku != ''  ">#{goodsPriceSku},</if>
+			<if test="createTime != null  ">#{createTime},</if>
+         </trim>
+    </insert>
+	 
+    <update id="updateSyGoodsAttr" parameterType="SyGoodsAttr">
+        update sy_goods_attr
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="goodsSn != null  and goodsSn != ''  ">goods_sn = #{goodsSn},</if>
+            <if test="goodsTotalCount != null  ">goods_total_count = #{goodsTotalCount},</if>
+            <if test="goodsTotalCountSurplus != null  ">goods_total_count_surplus = #{goodsTotalCountSurplus},</if>
+            <if test="goodsSalesCount != null  ">goods_sales_count = #{goodsSalesCount},</if>
+            <if test="goodsDetailImgs != null  and goodsDetailImgs != ''  ">goods_detail_imgs = #{goodsDetailImgs},</if>
+            <if test="goodsDetailReport != null  and goodsDetailReport != ''  ">goods_detail_report = #{goodsDetailReport},</if>
+            <if test="goodsSku != null  and goodsSku != ''  ">goods_sku = #{goodsSku},</if>
+            <if test="goodsPriceSku != null  and goodsPriceSku != ''  ">goods_price_sku = #{goodsPriceSku},</if>
+            <if test="createTime != null  ">create_time = #{createTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+	<delete id="deleteSyGoodsAttrById" parameterType="Integer">
+        delete from sy_goods_attr where id = #{id}
+    </delete>
+	
+    <delete id="deleteSyGoodsAttrByIds" parameterType="String">
+        delete from sy_goods_attr where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>

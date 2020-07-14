@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.StaticsMapper">
+
+    <select id="getStatis" resultType="java.math.BigDecimal">
+        <![CDATA[
+
+                        -- 当天新注册的用户
+                        select count(1) c from tb_profit_user t where DATE_FORMAT(t.create_time, '%Y-%m-%d') =
+                        DATE_FORMAT(DATE_ADD(now(),interval -5 day), '%Y-%m-%d')
+                        UNION ALL
+                        -- 总用户数
+                        select count(1) c from tb_profit_user t
+                        UNION ALL
+                        -- 当日未被确认的订单总额
+                        select ROUND(IFNULL(sum(t.investment_money),0),2) c from sy_investment t where t.platform_comfirm
+                        <> 1 and DATE_FORMAT(t.investment_time, '%Y-%m-%d') = DATE_FORMAT(DATE_ADD(now(),interval -2 day), '%Y-%m-%d')
+                        UNION ALL
+                        -- 当日已被确认的订单总额
+                        select ROUND(IFNULL(sum(t.investment_money),0),2) c from sy_investment t where t.platform_comfirm = 1 and
+                        DATE_FORMAT(t.investment_time, '%Y-%m-%d') = DATE_FORMAT(DATE_ADD(now(),interval -2 day), '%Y-%m-%d')
+                        UNION ALL
+                        -- 当月未被确认的订单总额
+                        select ROUND(IFNULL(sum(t.investment_money),0),2) c from sy_investment t where t.platform_comfirm
+                        <> 1 and DATE_FORMAT(t.investment_time, '%Y-%m') = DATE_FORMAT(DATE_ADD(now(),interval -2 day), '%Y-%m')
+                        UNION ALL
+                        -- 当月已被确认的订单总额
+                        select ROUND(IFNULL(sum(t.investment_money),0),2) c from sy_investment t where t.platform_comfirm = 1 and
+                        DATE_FORMAT(t.investment_time, '%Y-%m') = DATE_FORMAT(DATE_ADD(now(),interval -2 day), '%Y-%m')
+
+        ]]>
+    </select>
+
+
+</mapper>

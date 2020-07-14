@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SyProfitRecMapper">
+    
+    <resultMap type="SyProfitRec" id="SyProfitRecResult">
+        <result property="id"    column="id"    />
+        <result property="profitMoney"    column="profit_money"    />
+        <result property="profitCode"    column="profit_code"    />
+        <result property="investmentCode"    column="investment_code"    />
+        <result property="userCode"    column="user_code"    />
+        <result property="fromCode"    column="from_code"    />
+        <result property="profitType"    column="profit_type"    />
+        <result property="profitTime"    column="profit_time"    />
+        <result property="computerTime"    column="computer_time"    />
+    </resultMap>
+	
+	<sql id="selectSyProfitRecVo">
+        select id, profit_money, profit_code, investment_code, user_code, from_code, profit_type, profit_time, computer_time from sy_profit_rec
+    </sql>
+	
+    <select id="selectSyProfitRecList" parameterType="SyProfitRec" resultMap="SyProfitRecResult">
+        <include refid="selectSyProfitRecVo"/>
+        <where>  
+            <if test="id != null "> and id = #{id}</if>
+             <if test="profitMoney != null "> and profit_money = #{profitMoney}</if>
+             <if test="profitCode != null  and profitCode != '' "> and profit_code = #{profitCode}</if>
+             <if test="investmentCode != null  and investmentCode != '' "> and investment_code = #{investmentCode}</if>
+             <if test="userCode != null  and userCode != '' "> and user_code = #{userCode}</if>
+             <if test="fromCode != null  and fromCode != '' "> and from_code = #{fromCode}</if>
+             <if test="profitType != null "> and profit_type = #{profitType}</if>
+             <if test="profitTime != null "> and profit_time = #{profitTime}</if>
+             <if test="computerTime != null "> and computer_time = #{computerTime}</if>
+         </where>
+         order by profit_time desc
+    </select>
+    
+    <select id="selectSyProfitRecById" parameterType="Integer" resultMap="SyProfitRecResult">
+        <include refid="selectSyProfitRecVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertSyProfitRec" parameterType="SyProfitRec" useGeneratedKeys="true" keyProperty="id">
+        insert into sy_profit_rec
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="profitMoney != null  ">profit_money,</if>
+			<if test="profitCode != null  and profitCode != ''  ">profit_code,</if>
+			<if test="investmentCode != null  and investmentCode != ''  ">investment_code,</if>
+			<if test="userCode != null  and userCode != ''  ">user_code,</if>
+			<if test="fromCode != null  and fromCode != ''  ">from_code,</if>
+			<if test="profitType != null  ">profit_type,</if>
+			<if test="profitTime != null  ">profit_time,</if>
+			<if test="computerTime != null  ">computer_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="profitMoney != null  ">#{profitMoney},</if>
+			<if test="profitCode != null  and profitCode != ''  ">#{profitCode},</if>
+			<if test="investmentCode != null  and investmentCode != ''  ">#{investmentCode},</if>
+			<if test="userCode != null  and userCode != ''  ">#{userCode},</if>
+			<if test="fromCode != null  and fromCode != ''  ">#{fromCode},</if>
+			<if test="profitType != null  ">#{profitType},</if>
+			<if test="profitTime != null  ">#{profitTime},</if>
+			<if test="computerTime != null  ">#{computerTime},</if>
+         </trim>
+    </insert>
+	 
+    <update id="updateSyProfitRec" parameterType="SyProfitRec">
+        update sy_profit_rec
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="profitMoney != null  ">profit_money = #{profitMoney},</if>
+            <if test="profitCode != null  and profitCode != ''  ">profit_code = #{profitCode},</if>
+            <if test="investmentCode != null  and investmentCode != ''  ">investment_code = #{investmentCode},</if>
+            <if test="userCode != null  and userCode != ''  ">user_code = #{userCode},</if>
+            <if test="fromCode != null  and fromCode != ''  ">from_code = #{fromCode},</if>
+            <if test="profitType != null  ">profit_type = #{profitType},</if>
+            <if test="profitTime != null  ">profit_time = #{profitTime},</if>
+            <if test="computerTime != null  ">computer_time = #{computerTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+	<delete id="deleteSyProfitRecById" parameterType="Integer">
+        delete from sy_profit_rec where id = #{id}
+    </delete>
+	
+    <delete id="deleteSyProfitRecByIds" parameterType="String">
+        delete from sy_profit_rec where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>

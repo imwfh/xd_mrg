@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <th:block th:include="include :: header('用户基本列表')"/>
+</head>
+<body class="gray-bg">
+<div class="container-div">
+    <div class="row">
+        <div class="col-sm-12 search-collapse">
+            <form id="formId">
+                <div class="select-list">
+                    <ul>
+
+                        <li>
+                            手机号：<input type="text" name="mobile"/>
+                        </li>
+
+                        <li>
+                            用户编码：<input type="text" name="userCode"/>
+                        </li>
+
+                        <li>
+                            父级编码：<input type="text" name="parentCode"/>
+                        </li>
+
+                        <li>
+                            审核状态：
+                            <select name="isExamine">
+                                <option value="">所有</option>
+                                <option text="待审核" value="0">待审核</option>
+                                <option text="审核成功" value="1">审核成功</option>
+                                <option text="审核失败" value="2">审核失败</option>
+                            </select>
+                        </li>
+
+                        <li>
+                            用户级别：
+                            <select name="userLevel">
+                                <option value="">所有</option>
+                                <option text="普通用户" value="0">普通用户</option>
+                                <option text="铜级用户" value="1">铜级用户</option>
+                                <option text="银级用户" value="2">银级用户</option>
+                                <option text="金级用户" value="3">金级用户</option>
+                            </select>
+                        </li>
+
+                        <li>
+                            账户状态：
+                            <select name="userStatus">
+                                <option value="">所有</option>
+                                <option text="正常" value="0">正常</option>
+                                <option text="锁定" value="-1">锁定</option>
+                            </select>
+                        </li>
+
+                        <li>
+                            <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i
+                                    class="fa fa-search"></i>&nbsp;搜索</a>
+                            <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i
+                                    class="fa fa-refresh"></i>&nbsp;重置</a>
+                        </li>
+                    </ul>
+                </div>
+            </form>
+        </div>
+
+        <div class="btn-group-sm" id="toolbar" role="group">
+            <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="system:tbProfitUser:export">
+                <i class="fa fa-download"></i> 导出
+            </a>
+        </div>
+        <div class="col-sm-12 select-table table-striped">
+            <table id="bootstrap-table" data-mobile-responsive="true"></table>
+        </div>
+    </div>
+</div>
+<div th:include="include :: footer"></div>
+<script th:inline="javascript">
+    var editFlag = [[${@permission.hasPermi('system:tbProfitUser:edit')}]];
+    var removeFlag = [[${@permission.hasPermi('system:tbProfitUser:remove')}]];
+    var prefix = ctx + "system/tbProfitUser";
+
+    $(function () {
+        var options = {
+            url: prefix + "/list",
+            createUrl: prefix + "/add",
+            updateUrl: prefix + "/edit/{id}",
+            removeUrl: prefix + "/remove",
+            exportUrl: prefix + "/export",
+            modalName: "用户基本",
+            showExport: true,
+            columns: [{
+                checkbox: true
+            },
+                {
+                    field: 'userLevel',
+                    title: '用户级别',
+                    sortable: true,
+                    formatter: function (value, row, index) {
+                        if (value == 0) {
+                            return '<span class="badge badge-info">普通用户</span>';
+                        } else if (value == 1) {
+                            return '<span class="badge badge-primary">铜级用户</span>';
+                        } else if (value == 2) {
+                            return '<span class="badge badge-important">银级用户</span>';
+                        } else if (value == 3) {
+                            return '<span class="badge badge-success">金级用户</span>';
+                        }
+                    }
+                },
+                {
+                    field: 'userCode',
+                    title: '用户编码',
+                    sortable: true
+                },
+                {
+                    field: 'mobile',
+                    title: '手机号',
+                    sortable: true
+                },
+                {
+                    field: 'username',
+                    title: '用户名',
+                    sortable: true
+                },
+                {
+                    field: 'parentCode',
+                    title: '所属父级',
+                    sortable: true
+                },
+
+
+                {
+                    field: 'userMoney',
+                    title: '钱包余额',
+                    sortable: true
+                },
+
+                {
+                    field: 'userGpfg',
+                    title: 'GPFG',
+                    sortable: true
+                },
+                {
+                    field: 'userStatus',
+                    title: '账户状态',
+                    sortable: true,
+                    formatter: function (value, row, index) {
+                        if (value == -1) {
+                            return '<span class="badge badge-danger">锁定</span>';
+                        } else if (value == 0) {
+                            return '<span class="badge badge-primary">正常</span>';
+                        }
+                    }
+                },
+                {
+                    field: 'isExamine',
+                    title: '资料状态',
+                    sortable: true,
+                    formatter: function (value, row, index) {
+                        if (value == 1) {
+                            return '<span class="badge badge-primary">已通过</span>';
+                        } else if (value == 0) {
+                            return '<span class="badge badge-warning">待审核</span>';
+                        } else if (value == 2) {
+                            return '<span class="badge badge-danger">审核失败</span>';
+                        }
+                    }
+                },
+                {
+                    field: 'createTime',
+                    title: '注册时间',
+                    sortable: true
+                },
+                {
+                    title: '操作',
+                    align: 'center',
+                    formatter: function (value, row, index) {
+                        var actions = [];
+                        actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="$.operate.edit(\'' + row.userId + '\')"><i class="fa fa-edit"></i>编辑</a> ');
+                        // actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.userId + '\')"><i class="fa fa-remove"></i>删除</a>');
+                        return actions.join('');
+                    }
+                }]
+        };
+        $.table.init(options);
+    });
+</script>
+</body>
+</html>

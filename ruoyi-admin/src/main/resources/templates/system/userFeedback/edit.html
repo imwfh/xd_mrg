@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="include :: header('修改用户反馈')"/>
+</head>
+<body class="white-bg">
+<div class="wrapper wrapper-content animated fadeInRight ibox-content">
+    <form class="form-horizontal m" id="form-userFeedback-edit" th:object="${userFeedback}">
+        <input id="id" name="id" th:field="*{id}" type="hidden">
+        <div class="form-group">
+            <label class="col-sm-3 control-label">用户编码：</label>
+            <div class="col-sm-8">
+                <input id="userCode" name="userCode" th:field="*{userCode}" class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">反馈内容：</label>
+            <div class="col-sm-8">
+                <textarea id="content" name="content" disabled th:field="*{content}" class="form-control"
+                          type="text"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">平台回复内容：</label>
+            <div class="col-sm-8">
+                <textarea id="replayContent" name="replayContent" th:field="*{replayContent}" class="form-control"
+						  type="text"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">反馈时间：</label>
+            <div class="col-sm-8">
+                <input id="createTime" name="createTime" disabled th:field="*{createTime}" class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">平台答复时间：</label>
+            <div class="col-sm-8">
+                <input id="ansTime" name="ansTime" disabled th:field="*{ansTime}" class="form-control" type="text">
+            </div>
+        </div>
+
+    </form>
+</div>
+<div th:include="include::footer"></div>
+<script type="text/javascript">
+    var prefix = ctx + "system/userFeedback";
+    $("#form-userFeedback-edit").validate({
+        rules: {
+            xxxx: {
+                required: true,
+            },
+        },
+        focusCleanup: true
+    });
+
+    function submitHandler() {
+        if ($.validate.form()) {
+            $.operate.save(prefix + "/edit", $('#form-userFeedback-edit').serialize());
+        }
+    }
+</script>
+</body>
+</html>

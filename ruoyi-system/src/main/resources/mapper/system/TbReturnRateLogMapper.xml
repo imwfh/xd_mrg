@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.TbReturnRateLogMapper">
+
+    <resultMap type="TbReturnRateLog" id="TbReturnRateLogResult">
+        <result property="id" column="id"/>
+        <result property="userCode" column="user_code"/>
+        <result property="parentCode" column="parent_code"/>
+        <result property="rate" column="rate"/>
+        <result property="returnMoney" column="return_money"/>
+        <result property="orderSn" column="order_sn"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+
+    <sql id="selectTbReturnRateLogVo">
+        select id, user_code, parent_code, rate, return_money, order_sn, create_time from tb_return_rate_log
+    </sql>
+
+    <select id="selectTbReturnRateLogList" parameterType="TbReturnRateLog" resultMap="TbReturnRateLogResult">
+        select a.*, b.username parentUserName, b.mobile parentMobile from (
+        select t.*, t1.username, t1.mobile from tb_return_rate_log t LEFT JOIN tb_user t1 on t.user_code = t1.user_code)
+        a
+        LEFT JOIN tb_user b on a.parent_code = b.user_code
+        <where>
+            <if test="id != null ">and a.id = #{id}</if>
+            <if test="userCode != null  and userCode != '' ">and a.user_code like concat ('%', #{userCode}, '%')</if>
+            <if test="parentCode != null  and parentCode != '' ">and a.parent_code like concat ('%', #{parentCode},
+                '%')
+            </if>
+            <if test="rate != null ">and a.rate = #{rate}</if>
+            <if test="returnMoney != null ">and a.return_money = #{returnMoney}</if>
+            <if test="orderSn != null  and orderSn != '' ">and a.order_sn = #{orderSn}</if>
+            <if test="createTime != null ">and a.create_time = #{createTime}</if>
+        </where>
+    </select>
+
+    <select id="selectTbReturnRateLogById" parameterType="Long" resultMap="TbReturnRateLogResult">
+        <include refid="selectTbReturnRateLogVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertTbReturnRateLog" parameterType="TbReturnRateLog" useGeneratedKeys="true" keyProperty="id">
+        insert into tb_return_rate_log
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userCode != null  and userCode != ''  ">user_code,</if>
+            <if test="parentCode != null  and parentCode != ''  ">parent_code,</if>
+            <if test="rate != null  ">rate,</if>
+            <if test="returnMoney != null  ">return_money,</if>
+            <if test="orderSn != null  and orderSn != ''  ">order_sn,</if>
+            <if test="createTime != null  ">create_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userCode != null  and userCode != ''  ">#{userCode},</if>
+            <if test="parentCode != null  and parentCode != ''  ">#{parentCode},</if>
+            <if test="rate != null  ">#{rate},</if>
+            <if test="returnMoney != null  ">#{returnMoney},</if>
+            <if test="orderSn != null  and orderSn != ''  ">#{orderSn},</if>
+            <if test="createTime != null  ">#{createTime},</if>
+        </trim>
+    </insert>
+
+    <update id="updateTbReturnRateLog" parameterType="TbReturnRateLog">
+        update tb_return_rate_log
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userCode != null  and userCode != ''  ">user_code = #{userCode},</if>
+            <if test="parentCode != null  and parentCode != ''  ">parent_code = #{parentCode},</if>
+            <if test="rate != null  ">rate = #{rate},</if>
+            <if test="returnMoney != null  ">return_money = #{returnMoney},</if>
+            <if test="orderSn != null  and orderSn != ''  ">order_sn = #{orderSn},</if>
+            <if test="createTime != null  ">create_time = #{createTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTbReturnRateLogById" parameterType="Long">
+        delete from tb_return_rate_log where id = #{id}
+    </delete>
+
+    <delete id="deleteTbReturnRateLogByIds" parameterType="String">
+        delete from tb_return_rate_log where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

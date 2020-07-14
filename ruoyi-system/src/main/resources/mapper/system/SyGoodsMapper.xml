@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SyGoodsMapper">
+
+    <resultMap type="SyGoods" id="SyGoodsResult">
+        <result property="id" column="id"/>
+        <result property="goodsSn" column="goods_sn"/>
+        <result property="goodsName" column="goods_name"/>
+        <result property="goodsImg" column="goods_img"/>
+        <result property="goodsSubimg" column="goods_subimg"/>
+        <result property="shopPrice" column="shop_price"/>
+        <result property="goodsStatus" column="goods_status"/>
+        <result property="createTime" column="create_time"/>
+        <result property="saleTime" column="sale_time"/>
+        <result property="isSale" column="is_sale"/>
+        <result property="isHot" column="is_hot"/>
+        <result property="isNew" column="is_new"/>
+        <result property="dataFlag" column="data_flag"/>
+    </resultMap>
+
+    <sql id="selectSyGoodsVo">
+        select id, goods_sn, goods_name, goods_img, goods_subimg, shop_price, goods_status, create_time, sale_time, is_sale, is_hot, is_new, data_flag from sy_goods
+    </sql>
+
+    <select id="selectSyGoodsList" parameterType="SyGoods" resultMap="SyGoodsResult">
+        SELECT
+        t.id,
+        t.goods_sn,
+        t.goods_name,
+        t.goods_img,
+        t.goods_subimg,
+        t.shop_price,
+        t.goods_status,
+        t.create_time,
+        t.sale_time,
+        t.is_sale,
+        t.is_hot,
+        t.is_new,
+        t.data_flag,
+        IF(t1.goods_sn IS NULL,0,1)  haveAttr
+        FROM
+        sy_goods t
+        LEFT JOIN sy_goods_attr t1 ON t.goods_sn = t1.goods_sn
+        <where>
+            <if test="id != null ">and id = #{id}</if>
+            <if test="goodsSn != null  and goodsSn != '' ">and goods_sn = #{goodsSn}</if>
+            <if test="goodsName != null  and goodsName != '' ">and goods_name like concat('%', #{goodsName}, '%')</if>
+            <if test="goodsImg != null  and goodsImg != '' ">and goods_img = #{goodsImg}</if>
+            <if test="goodsSubimg != null  and goodsSubimg != '' ">and goods_subimg = #{goodsSubimg}</if>
+            <if test="shopPrice != null ">and shop_price = #{shopPrice}</if>
+            <if test="goodsStatus != null ">and goods_status = #{goodsStatus}</if>
+            <if test="createTime != null ">and create_time = #{createTime}</if>
+            <if test="saleTime != null ">and sale_time = #{saleTime}</if>
+            <if test="isSale != null ">and is_sale = #{isSale}</if>
+            <if test="isHot != null ">and is_hot = #{isHot}</if>
+            <if test="isNew != null ">and is_new = #{isNew}</if>
+            <if test="dataFlag != null ">and data_flag = #{dataFlag}</if>
+        </where>
+        order by create_time desc
+    </select>
+
+    <select id="selectSyGoodsById" parameterType="Integer" resultMap="SyGoodsResult">
+        <include refid="selectSyGoodsVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertSyGoods" parameterType="SyGoods" useGeneratedKeys="true" keyProperty="id">
+        insert into sy_goods
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="goodsSn != null  and goodsSn != ''  ">goods_sn,</if>
+            <if test="goodsName != null  and goodsName != ''  ">goods_name,</if>
+            <if test="goodsImg != null  and goodsImg != ''  ">goods_img,</if>
+            <if test="goodsSubimg != null  and goodsSubimg != ''  ">goods_subimg,</if>
+            <if test="shopPrice != null  ">shop_price,</if>
+            <if test="goodsStatus != null  ">goods_status,</if>
+            <if test="createTime != null  ">create_time,</if>
+            <if test="saleTime != null  ">sale_time,</if>
+            <if test="isSale != null  ">is_sale,</if>
+            <if test="isHot != null  ">is_hot,</if>
+            <if test="isNew != null  ">is_new,</if>
+            <if test="dataFlag != null  ">data_flag,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="goodsSn != null  and goodsSn != ''  ">#{goodsSn},</if>
+            <if test="goodsName != null  and goodsName != ''  ">#{goodsName},</if>
+            <if test="goodsImg != null  and goodsImg != ''  ">#{goodsImg},</if>
+            <if test="goodsSubimg != null  and goodsSubimg != ''  ">#{goodsSubimg},</if>
+            <if test="shopPrice != null  ">#{shopPrice},</if>
+            <if test="goodsStatus != null  ">#{goodsStatus},</if>
+            <if test="createTime != null  ">#{createTime},</if>
+            <if test="saleTime != null  ">#{saleTime},</if>
+            <if test="isSale != null  ">#{isSale},</if>
+            <if test="isHot != null  ">#{isHot},</if>
+            <if test="isNew != null  ">#{isNew},</if>
+            <if test="dataFlag != null  ">#{dataFlag},</if>
+        </trim>
+    </insert>
+
+    <update id="updateSyGoods" parameterType="SyGoods">
+        update sy_goods
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="goodsSn != null  and goodsSn != ''  ">goods_sn = #{goodsSn},</if>
+            <if test="goodsName != null   ">goods_name = #{goodsName},</if>
+            <if test="goodsImg != null    ">goods_img = #{goodsImg},</if>
+            <if test="goodsSubimg != null   ">goods_subimg = #{goodsSubimg},</if>
+            <if test="shopPrice != null  ">shop_price = #{shopPrice},</if>
+            <if test="goodsStatus != null  ">goods_status = #{goodsStatus},</if>
+            <if test="createTime != null  ">create_time = #{createTime},</if>
+            <if test="saleTime != null  ">sale_time = #{saleTime},</if>
+            <if test="isSale != null  ">is_sale = #{isSale},</if>
+            <if test="isHot != null  ">is_hot = #{isHot},</if>
+            <if test="isNew != null  ">is_new = #{isNew},</if>
+            <if test="dataFlag != null  ">data_flag = #{dataFlag},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteSyGoodsById" parameterType="Integer">
+        delete from sy_goods where id = #{id}
+    </delete>
+
+    <delete id="deleteSyGoodsByIds" parameterType="String">
+        delete from sy_goods where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

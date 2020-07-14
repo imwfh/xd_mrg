@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SyRevAccountMapper">
+    
+    <resultMap type="SyRevAccount" id="SyRevAccountResult">
+        <result property="id"    column="id"    />
+        <result property="revAccount"    column="rev_account"    />
+        <result property="revName"    column="rev_name"    />
+        <result property="revPhone"    column="rev_phone"    />
+        <result property="revStatus"    column="rev_status"    />
+        <result property="revWeight"    column="rev_weight"    />
+        <result property="revTime"    column="rev_time"    />
+    </resultMap>
+	
+	<sql id="selectSyRevAccountVo">
+        select id, rev_account, rev_name, rev_phone, rev_status, rev_weight, rev_time from sy_rev_account
+    </sql>
+	
+    <select id="selectSyRevAccountList" parameterType="SyRevAccount" resultMap="SyRevAccountResult">
+        <include refid="selectSyRevAccountVo"/>
+        <where>  
+            <if test="id != null "> and id = #{id}</if>
+             <if test="revAccount != null  and revAccount != '' "> and rev_account = #{revAccount}</if>
+             <if test="revName != null  and revName != '' "> and rev_name = #{revName}</if>
+             <if test="revPhone != null  and revPhone != '' "> and rev_phone = #{revPhone}</if>
+             <if test="revStatus != null "> and rev_status = #{revStatus}</if>
+             <if test="revWeight != null "> and rev_weight = #{revWeight}</if>
+             <if test="revTime != null "> and rev_time = #{revTime}</if>
+         </where>
+         order by rev_time desc
+    </select>
+    
+    <select id="selectSyRevAccountById" parameterType="Integer" resultMap="SyRevAccountResult">
+        <include refid="selectSyRevAccountVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertSyRevAccount" parameterType="SyRevAccount" useGeneratedKeys="true" keyProperty="id">
+        insert into sy_rev_account
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="revAccount != null  and revAccount != ''  ">rev_account,</if>
+			<if test="revName != null  and revName != ''  ">rev_name,</if>
+			<if test="revPhone != null  and revPhone != ''  ">rev_phone,</if>
+			<if test="revStatus != null  ">rev_status,</if>
+			<if test="revWeight != null  ">rev_weight,</if>
+			<if test="revTime != null  ">rev_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="revAccount != null  and revAccount != ''  ">#{revAccount},</if>
+			<if test="revName != null  and revName != ''  ">#{revName},</if>
+			<if test="revPhone != null  and revPhone != ''  ">#{revPhone},</if>
+			<if test="revStatus != null  ">#{revStatus},</if>
+			<if test="revWeight != null  ">#{revWeight},</if>
+			<if test="revTime != null  ">#{revTime},</if>
+         </trim>
+    </insert>
+	 
+    <update id="updateSyRevAccount" parameterType="SyRevAccount">
+        update sy_rev_account
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="revAccount != null  and revAccount != ''  ">rev_account = #{revAccount},</if>
+            <if test="revName != null  and revName != ''  ">rev_name = #{revName},</if>
+            <if test="revPhone != null  and revPhone != ''  ">rev_phone = #{revPhone},</if>
+            <if test="revStatus != null  ">rev_status = #{revStatus},</if>
+            <if test="revWeight != null  ">rev_weight = #{revWeight},</if>
+            <if test="revTime != null  ">rev_time = #{revTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+	<delete id="deleteSyRevAccountById" parameterType="Integer">
+        delete from sy_rev_account where id = #{id}
+    </delete>
+	
+    <delete id="deleteSyRevAccountByIds" parameterType="String">
+        delete from sy_rev_account where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>

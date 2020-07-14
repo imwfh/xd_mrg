@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.TbReturnRateMapper">
+
+    <resultMap type="TbReturnRate" id="TbReturnRateResult">
+        <result property="id" column="id"/>
+        <result property="userCode" column="user_code"/>
+        <result property="parentCode" column="parent_code"/>
+        <result property="rate" column="rate"/>
+        <result property="createTime" column="create_time"/>
+        <result property="rStatus" column="r_status"/>
+    </resultMap>
+
+    <sql id="selectTbReturnRateVo">
+        select id, user_code, parent_code, rate, create_time, r_status from tb_return_rate
+    </sql>
+
+    <select id="selectTbReturnRateList" parameterType="TbReturnRate" resultMap="TbReturnRateResult">
+        select a.*, t2.username parentName from (
+        SELECT
+        t.id,
+        t.user_code,
+        t.parent_code,
+        t.rate,
+        t.r_status,
+        t1.username userName
+        FROM
+        tb_return_rate t
+        LEFT JOIN tb_user t1 ON t.user_code = t1.user_code) a
+        left join tb_user t2 on a.parent_code = t2.user_code
+        <where>
+            <if test="id != null ">and a.id = #{id}</if>
+            <if test="userCode != null  and userCode != '' ">and a.user_code like concat('%', #{userCode}, '%')</if>
+            <if test="parentCode != null  and parentCode != '' ">and a.parent_code like concat('%', #{parentCode}, '%')</if>
+            <if test="rate != null ">and a.rate = #{rate}</if>
+            <if test="rStatus != null ">and a.r_status = #{rStatus}</if>
+        </where>
+    </select>
+
+    <select id="selectTbReturnRateById" parameterType="Long" resultMap="TbReturnRateResult">
+        <include refid="selectTbReturnRateVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertTbReturnRate" parameterType="TbReturnRate" useGeneratedKeys="true" keyProperty="id">
+        insert into tb_return_rate
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userCode != null  and userCode != ''  ">user_code,</if>
+            <if test="parentCode != null  and parentCode != ''  ">parent_code,</if>
+            <if test="rate != null  ">rate,</if>
+            <if test="createTime != null  ">create_time,</if>
+            <if test="rStatus != null  ">r_status,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userCode != null  and userCode != ''  ">#{userCode},</if>
+            <if test="parentCode != null  and parentCode != ''  ">#{parentCode},</if>
+            <if test="rate != null  ">#{rate},</if>
+            <if test="createTime != null  ">#{createTime},</if>
+            <if test="rStatus != null  ">#{rStatus},</if>
+        </trim>
+    </insert>
+
+    <update id="updateTbReturnRate" parameterType="TbReturnRate">
+        update tb_return_rate
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userCode != null  and userCode != ''  ">user_code = #{userCode},</if>
+            <if test="parentCode != null  and parentCode != ''  ">parent_code = #{parentCode},</if>
+            <if test="rate != null  ">rate = #{rate},</if>
+            <if test="createTime != null  ">create_time = #{createTime},</if>
+            <if test="rStatus != null  ">r_status = #{rStatus},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTbReturnRateById" parameterType="Long">
+        delete from tb_return_rate where id = #{id}
+    </delete>
+
+    <delete id="deleteTbReturnRateByIds" parameterType="String">
+        delete from tb_return_rate where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

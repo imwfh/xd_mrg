@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <th:block th:include="include :: header('收益比率列表')"/>
+</head>
+<body class="gray-bg">
+<div class="container-div">
+	<!--
+    <div class="row">
+        <div class="col-sm-12 search-collapse">
+            <form id="formId">
+                <div class="select-list">
+                    <ul>
+                        <li>
+                            费率对应的人数：<input type="text" name="rateNumber"/>
+                        </li>
+
+                        <li>
+                            一代对应的费率：<input type="text" name="rateFee"/>
+                        </li>
+
+                        <li>
+                            达到指定人数后，团队长(团队管理奖)对应的费率：<input type="text" name="rateGroup"/>
+                        </li>
+
+                        <li>
+                            达到指定人数后，团队长拿平台利润比：<input type="text" name="ratePlatform"/>
+                        </li>
+
+                        <li>
+                            表静态收益率：<input type="text" name="rateStaticFee"/>
+                        </li>
+
+                        <li>
+                            1:日类型 2:月类型：<input type="text" name="rateStaticType"/>
+                        </li>
+
+                        <li>
+                            1:动态收益率 2:静态收益率：<input type="text" name="rateType"/>
+                        </li>
+
+                        <li>
+                            <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i
+                                    class="fa fa-search"></i>&nbsp;搜索</a>
+                            <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i
+                                    class="fa fa-refresh"></i>&nbsp;重置</a>
+                        </li>
+                    </ul>
+                </div>
+            </form>
+        </div>
+        -->
+
+        <div class="btn-group-sm" id="toolbar" role="group">
+            <a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="system:syFeeRate:add">
+                <i class="fa fa-plus"></i> 添加
+            </a>
+            <a class="btn btn-primary btn-edit disabled" onclick="$.operate.edit()"
+               shiro:hasPermission="system:syFeeRate:edit">
+                <i class="fa fa-edit"></i> 修改
+            </a>
+            <a class="btn btn-danger btn-del disabled" onclick="$.operate.removeAll()"
+               shiro:hasPermission="system:syFeeRate:remove">
+                <i class="fa fa-remove"></i> 删除
+            </a>
+            <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="system:syFeeRate:export">
+                <i class="fa fa-download"></i> 导出
+            </a>
+        </div>
+        <div class="col-sm-12 select-table table-striped">
+            <table id="bootstrap-table" data-mobile-responsive="true"></table>
+        </div>
+    </div>
+</div>
+<div th:include="include :: footer"></div>
+<script th:inline="javascript">
+    var editFlag = [[${@permission.hasPermi('system:syFeeRate:edit')}]];
+    var removeFlag = [[${@permission.hasPermi('system:syFeeRate:remove')}]];
+    var prefix = ctx + "system/syFeeRate";
+
+    $(function () {
+        var options = {
+            url: prefix + "/list",
+            createUrl: prefix + "/add",
+            updateUrl: prefix + "/edit/{id}",
+            removeUrl: prefix + "/remove",
+            exportUrl: prefix + "/export",
+            modalName: "收益比率",
+            showExport: true,
+            columns: [{
+                checkbox: true
+            },
+                {
+                    field: 'rateNumber',
+                    title: '满团人数',
+                    sortable: true
+                },
+                {
+                    field: 'rateGroup',
+                    title: '满团人数费率',
+                    sortable: true
+                },
+                {
+                    field: 'ratePlatform',
+                    title: '满团，团队长平台利润',
+                    sortable: true
+                },
+                {
+                    field: 'rateFee',
+                    title: '直推费率',
+                    sortable: true
+                },
+                {
+                    field: 'rateStaticFee',
+                    title: '静态收益率',
+                    sortable: true
+                },
+                {
+                    field: 'rateStaticType',
+                    title: '静态收益类型',
+                    sortable: true,
+                    formatter: function (value, row, index) {
+                        if (value == 1) {
+                            return '<span class="badge badge-danger">日收益</span>';
+                        } else if (value == 2) {
+                            return '<span class="badge badge-primary">月收益</span>';
+                        }
+                    }
+                },
+                {
+                    field: 'rateType',
+                    title: '收益种类',
+                    sortable: true,
+                    formatter: function (value, row, index) {
+                        if (value == 2) {
+                            return '<span class="badge badge-danger">静态收益</span>';
+                        } else if (value == 1) {
+                            return '<span class="badge badge-primary">动态收益</span>';
+                        }else if (value == 6) {
+                            return '<span class="badge badge-primary">直推奖励</span>';
+                        }else if (value == 4) {
+                            return '<span class="badge badge-primary">团队长奖励</span>';
+                        }
+                    }
+                },
+                {
+                    title: '操作',
+                    align: 'center',
+                    formatter: function (value, row, index) {
+                        var actions = [];
+                        actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="$.operate.edit(\'' + row.id + '\')"><i class="fa fa-edit"></i>编辑</a> ');
+                        actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.id + '\')"><i class="fa fa-remove"></i>删除</a>');
+                        return actions.join('');
+                    }
+                }]
+        };
+        $.table.init(options);
+    });
+</script>
+</body>
+</html>

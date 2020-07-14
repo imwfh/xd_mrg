@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+	<th:block th:include="include :: header('修改游戏配置')" />
+</head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-syGameConfig-edit" th:object="${syGameConfig}">
+            <input id="id" name="id" th:field="*{id}"  type="hidden">
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">游戏名称：</label>
+				<div class="col-sm-8">
+					<input id="gameName" name="gameName" th:field="*{gameName}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">游戏页面路由：</label>
+				<div class="col-sm-8">
+					<input id="gamePath" name="gamePath" th:field="*{gamePath}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">游戏图标地址：</label>
+				<div class="col-sm-8">
+					<input id="gameIco" name="gameIco" th:field="*{gameIco}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">游戏状态：</label>
+				<div class="col-sm-8">
+					<input id="gameStatus" name="gameStatus" th:field="*{gameStatus}" class="form-control" type="text">
+				</div>
+			</div>
+		</form>
+    </div>
+    <div th:include="include::footer"></div>
+    <script type="text/javascript">
+		var prefix = ctx + "system/syGameConfig";
+		$("#form-syGameConfig-edit").validate({
+			rules:{
+				xxxx:{
+					required:true,
+				},
+			},
+			focusCleanup: true
+		});
+		
+		function submitHandler() {
+	        if ($.validate.form()) {
+	            $.operate.save(prefix + "/edit", $('#form-syGameConfig-edit').serialize());
+	        }
+	    }
+	</script>
+</body>
+</html>

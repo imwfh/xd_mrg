@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.TbUserTxMapper">
+    
+    <resultMap type="TbUserTx" id="TbUserTxResult">
+        <result property="id"    column="id"    />
+        <result property="txSn"    column="tx_sn"    />
+        <result property="userCode"    column="user_code"    />
+        <result property="userTxMoney"    column="user_tx_money"    />
+        <result property="userBeforeTxMoney"    column="user_before_tx_money"    />
+        <result property="userAfterTxMoney"    column="user_after_tx_money"    />
+        <result property="userKouMoney"    column="user_kou_money"    />
+        <result property="userGetMoney"    column="user_get_money"    />
+        <result property="userDesc"    column="user_desc"    />
+        <result property="bankNo"    column="bank_no"    />
+        <result property="txStatus"    column="tx_status"    />
+        <result property="createTime"    column="create_time"    />
+    </resultMap>
+	
+	<sql id="selectTbUserTxVo">
+        select id, tx_sn, user_code, user_tx_money, user_before_tx_money, user_after_tx_money, user_kou_money, user_get_money, user_desc, bank_no, tx_status, create_time from tb_user_tx
+    </sql>
+	
+    <select id="selectTbUserTxList" parameterType="TbUserTx" resultMap="TbUserTxResult">
+        <include refid="selectTbUserTxVo"/>
+        <where>  
+            <if test="id != null "> and id = #{id}</if>
+             <if test="txSn != null  and txSn != '' "> and tx_sn = #{txSn}</if>
+             <if test="userCode != null  and userCode != '' "> and user_code = #{userCode}</if>
+             <if test="userTxMoney != null "> and user_tx_money = #{userTxMoney}</if>
+             <if test="userBeforeTxMoney != null "> and user_before_tx_money = #{userBeforeTxMoney}</if>
+             <if test="userAfterTxMoney != null "> and user_after_tx_money = #{userAfterTxMoney}</if>
+             <if test="userKouMoney != null "> and user_kou_money = #{userKouMoney}</if>
+             <if test="userGetMoney != null "> and user_get_money = #{userGetMoney}</if>
+             <if test="userDesc != null  and userDesc != '' "> and user_desc = #{userDesc}</if>
+             <if test="bankNo != null  and bankNo != '' "> and bank_no = #{bankNo}</if>
+             <if test="txStatus != null "> and tx_status = #{txStatus}</if>
+             <if test="createTime != null "> and create_time = #{createTime}</if>
+         </where>
+         order by create_time desc
+    </select>
+    
+    <select id="selectTbUserTxById" parameterType="Long" resultMap="TbUserTxResult">
+        <include refid="selectTbUserTxVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertTbUserTx" parameterType="TbUserTx" useGeneratedKeys="true" keyProperty="id">
+        insert into tb_user_tx
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="txSn != null  and txSn != ''  ">tx_sn,</if>
+			<if test="userCode != null  and userCode != ''  ">user_code,</if>
+			<if test="userTxMoney != null  ">user_tx_money,</if>
+			<if test="userBeforeTxMoney != null  ">user_before_tx_money,</if>
+			<if test="userAfterTxMoney != null  ">user_after_tx_money,</if>
+			<if test="userKouMoney != null  ">user_kou_money,</if>
+			<if test="userGetMoney != null  ">user_get_money,</if>
+			<if test="userDesc != null  and userDesc != ''  ">user_desc,</if>
+			<if test="bankNo != null  and bankNo != ''  ">bank_no,</if>
+			<if test="txStatus != null  ">tx_status,</if>
+			<if test="createTime != null  ">create_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="txSn != null  and txSn != ''  ">#{txSn},</if>
+			<if test="userCode != null  and userCode != ''  ">#{userCode},</if>
+			<if test="userTxMoney != null  ">#{userTxMoney},</if>
+			<if test="userBeforeTxMoney != null  ">#{userBeforeTxMoney},</if>
+			<if test="userAfterTxMoney != null  ">#{userAfterTxMoney},</if>
+			<if test="userKouMoney != null  ">#{userKouMoney},</if>
+			<if test="userGetMoney != null  ">#{userGetMoney},</if>
+			<if test="userDesc != null  and userDesc != ''  ">#{userDesc},</if>
+			<if test="bankNo != null  and bankNo != ''  ">#{bankNo},</if>
+			<if test="txStatus != null  ">#{txStatus},</if>
+			<if test="createTime != null  ">#{createTime},</if>
+         </trim>
+    </insert>
+	 
+    <update id="updateTbUserTx" parameterType="TbUserTx">
+        update tb_user_tx
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="txSn != null  and txSn != ''  ">tx_sn = #{txSn},</if>
+            <if test="userCode != null  and userCode != ''  ">user_code = #{userCode},</if>
+            <if test="userTxMoney != null  ">user_tx_money = #{userTxMoney},</if>
+            <if test="userBeforeTxMoney != null  ">user_before_tx_money = #{userBeforeTxMoney},</if>
+            <if test="userAfterTxMoney != null  ">user_after_tx_money = #{userAfterTxMoney},</if>
+            <if test="userKouMoney != null  ">user_kou_money = #{userKouMoney},</if>
+            <if test="userGetMoney != null  ">user_get_money = #{userGetMoney},</if>
+            <if test="userDesc != null  and userDesc != ''  ">user_desc = #{userDesc},</if>
+            <if test="bankNo != null  and bankNo != ''  ">bank_no = #{bankNo},</if>
+            <if test="txStatus != null  ">tx_status = #{txStatus},</if>
+            <if test="createTime != null  ">create_time = #{createTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+	<delete id="deleteTbUserTxById" parameterType="Long">
+        delete from tb_user_tx where id = #{id}
+    </delete>
+	
+    <delete id="deleteTbUserTxByIds" parameterType="String">
+        delete from tb_user_tx where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>

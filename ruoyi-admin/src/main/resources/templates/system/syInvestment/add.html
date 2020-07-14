@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+	<th:block th:include="include :: header('新增用户投资')" />
+</head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-syInvestment-add">
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">投资商品名称：</label>
+				<div class="col-sm-8">
+					<input id="investmentName" name="investmentName" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">投资记录编码：</label>
+				<div class="col-sm-8">
+					<input id="investmentCode" name="investmentCode" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">商品编码：</label>
+				<div class="col-sm-8">
+					<input id="investmentTradeCode" name="investmentTradeCode" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">投资商品金额：</label>
+				<div class="col-sm-8">
+					<input id="investmentMoney" name="investmentMoney" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">投资人编码：</label>
+				<div class="col-sm-8">
+					<input id="userCode" name="userCode" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">0:待平台确认 1:平台已确认(已收账)：</label>
+				<div class="col-sm-8">
+					<input id="platformComfirm" name="platformComfirm" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">0:正常 -1:订单已超时：</label>
+				<div class="col-sm-8">
+					<input id="isOvertime" name="isOvertime" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">投资人投资账号BTC：</label>
+				<div class="col-sm-8">
+					<input id="btcCode" name="btcCode" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">投资时间：</label>
+				<div class="col-sm-8">
+					<input id="investmentTime" name="investmentTime" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">订单过期时间：</label>
+				<div class="col-sm-8">
+					<input id="overTime" name="overTime" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">投资平台确认时间：</label>
+				<div class="col-sm-8">
+					<input id="comfirmTime" name="comfirmTime" class="form-control" type="text">
+				</div>
+			</div>
+		</form>
+	</div>
+    <div th:include="include::footer"></div>
+    <script type="text/javascript">
+		var prefix = ctx + "system/syInvestment"
+		$("#form-syInvestment-add").validate({
+			rules:{
+				xxxx:{
+					required:true,
+				},
+			},
+			focusCleanup: true
+		});
+		
+		function submitHandler() {
+	        if ($.validate.form()) {
+	            $.operate.save(prefix + "/add", $('#form-syInvestment-add').serialize());
+	        }
+	    }
+	</script>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SyGameRateMapper">
+    
+    <resultMap type="SyGameRate" id="SyGameRateResult">
+        <result property="id"    column="id"    />
+        <result property="name"    column="name"    />
+        <result property="gradeNum"    column="grade_num"    />
+        <result property="groupMoney"    column="group_money"    />
+        <result property="profitRate"    column="profit_rate"    />
+        <result property="gradeDesc"    column="grade_desc"    />
+        <result property="addTime"    column="add_time"    />
+        <result property="isDel"    column="is_del"    />
+    </resultMap>
+	
+	<sql id="selectSyGameRateVo">
+        select id, name, grade_num, group_money, profit_rate, grade_desc, add_time, is_del from sy_game_rate
+    </sql>
+	
+    <select id="selectSyGameRateList" parameterType="SyGameRate" resultMap="SyGameRateResult">
+        <include refid="selectSyGameRateVo"/>
+        <where>  
+            <if test="id != null "> and id = #{id}</if>
+             <if test="name != null  and name != '' "> and name = #{name}</if>
+             <if test="gradeNum != null "> and grade_num = #{gradeNum}</if>
+             <if test="groupMoney != null "> and group_money = #{groupMoney}</if>
+             <if test="profitRate != null "> and profit_rate = #{profitRate}</if>
+             <if test="gradeDesc != null  and gradeDesc != '' "> and grade_desc = #{gradeDesc}</if>
+             <if test="addTime != null "> and add_time = #{addTime}</if>
+             <if test="isDel != null "> and is_del = #{isDel}</if>
+         </where>
+    </select>
+    
+    <select id="selectSyGameRateById" parameterType="Integer" resultMap="SyGameRateResult">
+        <include refid="selectSyGameRateVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertSyGameRate" parameterType="SyGameRate" useGeneratedKeys="true" keyProperty="id">
+        insert into sy_game_rate
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="name != null  and name != ''  ">name,</if>
+			<if test="gradeNum != null  ">grade_num,</if>
+			<if test="groupMoney != null  ">group_money,</if>
+			<if test="profitRate != null  ">profit_rate,</if>
+			<if test="gradeDesc != null  and gradeDesc != ''  ">grade_desc,</if>
+			<if test="addTime != null  ">add_time,</if>
+			<if test="isDel != null  ">is_del,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="name != null  and name != ''  ">#{name},</if>
+			<if test="gradeNum != null  ">#{gradeNum},</if>
+			<if test="groupMoney != null  ">#{groupMoney},</if>
+			<if test="profitRate != null  ">#{profitRate},</if>
+			<if test="gradeDesc != null  and gradeDesc != ''  ">#{gradeDesc},</if>
+			<if test="addTime != null  ">#{addTime},</if>
+			<if test="isDel != null  ">#{isDel},</if>
+         </trim>
+    </insert>
+	 
+    <update id="updateSyGameRate" parameterType="SyGameRate">
+        update sy_game_rate
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null  and name != ''  ">name = #{name},</if>
+            <if test="gradeNum != null  ">grade_num = #{gradeNum},</if>
+            <if test="groupMoney != null  ">group_money = #{groupMoney},</if>
+            <if test="profitRate != null  ">profit_rate = #{profitRate},</if>
+            <if test="gradeDesc != null  and gradeDesc != ''  ">grade_desc = #{gradeDesc},</if>
+            <if test="addTime != null  ">add_time = #{addTime},</if>
+            <if test="isDel != null  ">is_del = #{isDel},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+	<delete id="deleteSyGameRateById" parameterType="Integer">
+        delete from sy_game_rate where id = #{id}
+    </delete>
+	
+    <delete id="deleteSyGameRateByIds" parameterType="String">
+        delete from sy_game_rate where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>
