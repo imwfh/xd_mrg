@@ -15,30 +15,6 @@
 							</li>
 
 							<li>
-								会员等级：<input type="text" name="gradeNum"/>
-							</li>
-
-							<li>
-								团队流水：<input type="text" name="groupMoney"/>
-							</li>
-
-							<li>
-								返佣比例：<input type="text" name="profitRate"/>
-							</li>
-
-							<li>
-								说明：<input type="text" name="gradeDesc"/>
-							</li>
-
-							<li>
-								添加时间：<input type="text" name="addTime"/>
-							</li>
-
-							<li>
-								是否删除.1=删除,0=未删除：<input type="text" name="isDel"/>
-							</li>
-
-							<li>
 								<a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
 								<a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
 							</li>
@@ -48,18 +24,18 @@
 			</div>
 			
 	        <div class="btn-group-sm" id="toolbar" role="group">
-				<a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="system:syGameRate:add">
-					<i class="fa fa-plus"></i> 添加
-				</a>
-				<a class="btn btn-primary btn-edit disabled" onclick="$.operate.edit()" shiro:hasPermission="system:syGameRate:edit">
-					<i class="fa fa-edit"></i> 修改
-				</a>
-				<a class="btn btn-danger btn-del disabled" onclick="$.operate.removeAll()" shiro:hasPermission="system:syGameRate:remove">
-					<i class="fa fa-remove"></i> 删除
-				</a>
-				<a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="system:syGameRate:export">
-						<i class="fa fa-download"></i> 导出
-				 </a>
+<!--				<a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="system:syGameRate:add">-->
+<!--					<i class="fa fa-plus"></i> 添加-->
+<!--				</a>-->
+<!--				<a class="btn btn-primary btn-edit disabled" onclick="$.operate.edit()" shiro:hasPermission="system:syGameRate:edit">-->
+<!--					<i class="fa fa-edit"></i> 修改-->
+<!--				</a>-->
+<!--				<a class="btn btn-danger btn-del disabled" onclick="$.operate.removeAll()" shiro:hasPermission="system:syGameRate:remove">-->
+<!--					<i class="fa fa-remove"></i> 删除-->
+<!--				</a>-->
+<!--				<a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="system:syGameRate:export">-->
+<!--						<i class="fa fa-download"></i> 导出-->
+<!--				 </a>-->
 			</div>
 			<div class="col-sm-12 select-table table-striped">
 				<table id="bootstrap-table" data-mobile-responsive="true"></table>
@@ -107,21 +83,6 @@
 				{
 					field : 'profitRate', 
 					title : '返佣比例',
-					sortable: true
-				},
-				{
-					field : 'gradeDesc', 
-					title : '说明',
-					sortable: true
-				},
-				{
-					field : 'addTime', 
-					title : '添加时间',
-					sortable: true
-				},
-				{
-					field : 'isDel', 
-					title : '是否删除.1=删除,0=未删除',
 					sortable: true
 				},
 		        {

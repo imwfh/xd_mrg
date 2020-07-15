@@ -114,6 +114,7 @@
                 {
                     field: 'userKouMoney',
                     title: '扣除金额',
+                    visible: false,
                     sortable: true
                 },
                 {
@@ -137,6 +138,20 @@
                             return '<span class="badge badge-danger">提现中</span>';
                         } else if (value == -1) {
                             return '<span class="badge badge-danger">提现失败</span>';
+                        }
+                    }
+                },
+                {
+                    field: 'txType',
+                    title: '提现类型',
+                    sortable: true,
+                    formatter: function (value, row, index) {
+                        if (value == 100) {
+                            return '<span class="badge badge-primary">余额提现</span>';
+                        } else if (value == 101) {
+                            return '<span class="badge badge-danger">收益提现</span>';
+                        } else if (value == 102) {
+                            return '<span class="badge badge-danger">赢利提现</span>';
                         }
                     }
                 },

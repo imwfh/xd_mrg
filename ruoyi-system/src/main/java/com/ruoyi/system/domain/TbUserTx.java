@@ -38,7 +38,19 @@ public class TbUserTx extends BaseEntity
 	/** 0:提现中 1:提现成功 -1:提现失败 */
 	private Integer txStatus;
 
-	public void setId(Long id) 
+	//**100:本金钱包提现   101:用户收益流水钱包  102:赢利钱包提现
+
+	private Integer txType;
+
+	public Integer getTxType() {
+		return txType;
+	}
+
+	public void setTxType(Integer txType) {
+		this.txType = txType;
+	}
+
+	public void setId(Long id)
 	{
 		this.id = id;
 	}

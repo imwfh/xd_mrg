@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SyTradeRecMapper">
+    
+    <resultMap type="SyTradeRec" id="SyTradeRecResult">
+        <result property="id"    column="id"    />
+        <result property="tradeMoney"    column="trade_money"    />
+        <result property="tradeCode"    column="trade_code"    />
+        <result property="userCode"    column="user_code"    />
+        <result property="moneyFrom"    column="money_from"    />
+        <result property="moneyTo"    column="money_to"    />
+        <result property="tradeType"    column="trade_type"    />
+        <result property="operaType"    column="opera_type"    />
+        <result property="createTime"    column="create_time"    />
+    </resultMap>
+	
+	<sql id="selectSyTradeRecVo">
+        select id, trade_money, trade_code, user_code, money_from, money_to, trade_type, opera_type, create_time from sy_trade_rec
+    </sql>
+	
+    <select id="selectSyTradeRecList" parameterType="SyTradeRec" resultMap="SyTradeRecResult">
+        <include refid="selectSyTradeRecVo"/>
+        <where>  
+            <if test="id != null "> and id = #{id}</if>
+             <if test="tradeMoney != null "> and trade_money = #{tradeMoney}</if>
+             <if test="tradeCode != null  and tradeCode != '' "> and trade_code = #{tradeCode}</if>
+             <if test="userCode != null  and userCode != '' "> and user_code = #{userCode}</if>
+             <if test="moneyFrom != null "> and money_from = #{moneyFrom}</if>
+             <if test="moneyTo != null "> and money_to = #{moneyTo}</if>
+             <if test="tradeType != null "> and trade_type = #{tradeType}</if>
+             <if test="operaType != null "> and opera_type = #{operaType}</if>
+             <if test="createTime != null and createTime != '' "> and create_time = #{createTime}</if>
+         </where>
+    </select>
+    
+    <select id="selectSyTradeRecById" parameterType="Integer" resultMap="SyTradeRecResult">
+        <include refid="selectSyTradeRecVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertSyTradeRec" parameterType="SyTradeRec" useGeneratedKeys="true" keyProperty="id">
+        insert into sy_trade_rec
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="tradeMoney != null  ">trade_money,</if>
+			<if test="tradeCode != null  and tradeCode != ''  ">trade_code,</if>
+			<if test="userCode != null  and userCode != ''  ">user_code,</if>
+			<if test="moneyFrom != null  ">money_from,</if>
+			<if test="moneyTo != null  ">money_to,</if>
+			<if test="tradeType != null  ">trade_type,</if>
+			<if test="operaType != null  ">opera_type,</if>
+			<if test="createTime != null and createTime != '' ">create_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="tradeMoney != null  ">#{tradeMoney},</if>
+			<if test="tradeCode != null  and tradeCode != ''  ">#{tradeCode},</if>
+			<if test="userCode != null  and userCode != ''  ">#{userCode},</if>
+			<if test="moneyFrom != null  ">#{moneyFrom},</if>
+			<if test="moneyTo != null  ">#{moneyTo},</if>
+			<if test="tradeType != null  ">#{tradeType},</if>
+			<if test="operaType != null  ">#{operaType},</if>
+			<if test="createTime != null and createTime != '' ">#{createTime},</if>
+         </trim>
+    </insert>
+	 
+    <update id="updateSyTradeRec" parameterType="SyTradeRec">
+        update sy_trade_rec
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="tradeMoney != null  ">trade_money = #{tradeMoney},</if>
+            <if test="tradeCode != null  and tradeCode != ''  ">trade_code = #{tradeCode},</if>
+            <if test="userCode != null  and userCode != ''  ">user_code = #{userCode},</if>
+            <if test="moneyFrom != null  ">money_from = #{moneyFrom},</if>
+            <if test="moneyTo != null  ">money_to = #{moneyTo},</if>
+            <if test="tradeType != null  ">trade_type = #{tradeType},</if>
+            <if test="operaType != null  ">opera_type = #{operaType},</if>
+            <if test="createTime != null and createTime != '' ">create_time = #{createTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+	<delete id="deleteSyTradeRecById" parameterType="Integer">
+        delete from sy_trade_rec where id = #{id}
+    </delete>
+	
+    <delete id="deleteSyTradeRecByIds" parameterType="String">
+        delete from sy_trade_rec where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>

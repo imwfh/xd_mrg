@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <th:block th:include="include :: header('账变记录列表')"/>
+</head>
+<body class="gray-bg">
+<div class="container-div">
+    <div class="row">
+        <div class="col-sm-12 search-collapse">
+            <form id="formId">
+                <div class="select-list">
+                    <ul>
+                        <li>
+                            记录编码：<input type="text" name="tradeCode"/>
+                        </li>
+
+                        <li>
+                            用户编码：<input type="text" name="userCode"/>
+                        </li>
+
+                        <li>
+                            收益类型
+                            <select name="tradeType">
+                                <option value="">所有</option>
+                                <option text="本金转金币" value="1">本金转金币</option>
+                                <option text="金币转本金" value="2">金币转本金</option>
+                                <option text="收益转盈利" value="3">收益转盈利</option>
+                                <option text="盈利转本金" value="4">盈利转本金</option>
+                                <option text="获得中奖" value="5">获得中奖</option>
+                                <option text="获取返佣" value="6">获取返佣</option>
+                            </select>
+                        </li>
+
+
+                        <li>
+                            <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i
+                                    class="fa fa-search"></i>&nbsp;搜索</a>
+                            <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i
+                                    class="fa fa-refresh"></i>&nbsp;重置</a>
+                        </li>
+                    </ul>
+                </div>
+            </form>
+        </div>
+
+        <div class="btn-group-sm" id="toolbar" role="group">
+            <!--            <a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="system:syTradeRec:add">-->
+            <!--                <i class="fa fa-plus"></i> 添加-->
+            <!--            </a>-->
+            <!--            <a class="btn btn-primary btn-edit disabled" onclick="$.operate.edit()"-->
+            <!--               shiro:hasPermission="system:syTradeRec:edit">-->
+            <!--                <i class="fa fa-edit"></i> 修改-->
+            <!--            </a>-->
+            <!--            <a class="btn btn-danger btn-del disabled" onclick="$.operate.removeAll()"-->
+            <!--               shiro:hasPermission="system:syTradeRec:remove">-->
+            <!--                <i class="fa fa-remove"></i> 删除-->
+            <!--            </a>-->
+            <!--            <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="system:syTradeRec:export">-->
+            <!--                <i class="fa fa-download"></i> 导出-->
+            <!--            </a>-->
+        </div>
+        <div class="col-sm-12 select-table table-striped">
+            <table id="bootstrap-table" data-mobile-responsive="true"></table>
+        </div>
+    </div>
+</div>
+<div th:include="include :: footer"></div>
+<script th:inline="javascript">
+    var editFlag = [[${@permission.hasPermi('system:syTradeRec:edit')}]];
+    var removeFlag = [[${@permission.hasPermi('system:syTradeRec:remove')}]];
+    var prefix = ctx + "system/syTradeRec";
+
+    $(function () {
+        var options = {
+            url: prefix + "/list",
+            createUrl: prefix + "/add",
+            updateUrl: prefix + "/edit/{id}",
+            removeUrl: prefix + "/remove",
+            exportUrl: prefix + "/export",
+            modalName: "账变记录",
+            showExport: true,
+            columns: [{
+                checkbox: true
+            },
+                {
+                    field: 'id',
+                    title: '编号',
+                    visible: false
+                },
+                {
+                    field: 'tradeCode',
+                    title: '记录编码',
+                    sortable: true
+                },
+                {
+                    field: 'tradeMoney',
+                    title: '交易金额',
+                    sortable: true
+                },
+                {
+                    field: 'userCode',
+                    title: '用户编码',
+                    sortable: true
+                },
+                {
+                    field: 'moneyFrom',
+                    title: '变动前余额',
+                    sortable: true
+                },
+                {
+                    field: 'moneyTo',
+                    title: '变动后余额',
+                    sortable: true
+                },
+                {
+                    field: 'tradeType',
+                    title: '收益类型',
+                    sortable: true,
+                    formatter: function (value, row, index) {
+                        if (value == '1') {
+                            return '<span class="badge badge-primary">本金转金币</span>';
+                        } else if (value == '2') {
+                            return '<span class="badge badge-danger">金币转本金</span>';
+                        } else if (value == '3') {
+                            return '<span class="badge badge-info">收益转盈利</span>';
+                        } else if (value == '4') {
+                            return '<span class="badge badge-inverse">盈利转本金</span>';
+                        } else if (value == '5') {
+                            return '<span class="badge badge-warning">获得中奖</span>';
+                        } else if (value == '6') {
+                            return '<span class="badge badge-success">获取返佣</span>';
+                        }
+                    }
+                },
+                {
+                    field: 'operaType',
+                    title: '操作类型 ',
+                    sortable: true,
+                    formatter: function (value, row, index) {
+                        if (value == '1') {
+                            return '<span class="badge badge-primary">增加</span>';
+                        } else if (value == '-1') {
+                            return '<span class="badge badge-danger">减少</span>';
+                        }
+                    }
+                },
+                {
+                    field: 'createTime',
+                    title: '收益计算时间',
+                    sortable: true
+                },
+                {
+                    title: '操作',
+                    align: 'center',
+                    formatter: function (value, row, index) {
+                        var actions = [];
+                        actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="$.operate.edit(\'' + row.id + '\')"><i class="fa fa-edit"></i>编辑</a> ');
+                        actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.id + '\')"><i class="fa fa-remove"></i>删除</a>');
+                        return actions.join('');
+                    }
+                }]
+        };
+        $.table.init(options);
+    });
+</script>
+</body>
+</html>

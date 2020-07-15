@@ -43,6 +43,14 @@ public class TbProfitUser extends BaseEntity
 	private Integer isAuth;
 	/** 用户钱包值 充值的钱 */
 	private BigDecimal userMoney;
+
+	private BigDecimal userJbMoney;
+
+	private BigDecimal userYlMoney;
+
+	private BigDecimal userSyMoney;
+
+
 	/** 用户所获得的返佣金额，可用于提现或支付 */
 	private BigDecimal userReturnMoney;
 	/** 是否是首次充值 0：未充过值  1:已经充值过 */
@@ -277,6 +285,30 @@ public class TbProfitUser extends BaseEntity
 
 	public void setUserGpfg(BigDecimal userGpfg) {
 		this.userGpfg = userGpfg;
+	}
+
+	public BigDecimal getUserJbMoney() {
+		return userJbMoney;
+	}
+
+	public void setUserJbMoney(BigDecimal userJbMoney) {
+		this.userJbMoney = userJbMoney;
+	}
+
+	public BigDecimal getUserYlMoney() {
+		return userYlMoney;
+	}
+
+	public void setUserYlMoney(BigDecimal userYlMoney) {
+		this.userYlMoney = userYlMoney;
+	}
+
+	public BigDecimal getUserSyMoney() {
+		return userSyMoney;
+	}
+
+	public void setUserSyMoney(BigDecimal userSyMoney) {
+		this.userSyMoney = userSyMoney;
 	}
 
 	public String toString() {

@@ -40,13 +40,13 @@
                        class="form-control" type="text">
             </div>
         </div>
-        <div class="form-group">
-            <label class="col-sm-3 control-label">被扣除的金额：</label>
-            <div class="col-sm-8">
-                <input id="userKouMoney" disabled name="userKouMoney" th:field="*{userKouMoney}" class="form-control"
-                       type="text">
-            </div>
-        </div>
+        <!--        <div class="form-group">-->
+        <!--            <label class="col-sm-3 control-label">被扣除的金额：</label>-->
+        <!--            <div class="col-sm-8">-->
+        <!--                <input id="userKouMoney" disabled name="userKouMoney" th:field="*{userKouMoney}" class="form-control"-->
+        <!--                       type="text">-->
+        <!--            </div>-->
+        <!--        </div>-->
         <div class="form-group">
             <label class="col-sm-3 control-label">用户实际到账金额：</label>
             <div class="col-sm-8">
@@ -55,14 +55,9 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-3 control-label">备注：</label>
-            <div class="col-sm-8">
-                <input id="userDesc" disabled name="userDesc" th:field="*{userDesc}" class="form-control" type="text">
-            </div>
-        </div>
-        <div class="form-group">
             <label class="col-sm-3 control-label">收款账号：</label>
             <div class="col-sm-8">
+                <div id="code"></div>
                 <input id="bankNo" disabled name="bankNo" th:field="*{bankNo}" class="form-control" type="text">
             </div>
         </div>
@@ -82,15 +77,24 @@
                     </option>
                 </select>
             </div>
-
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">备注：</label>
+            <div class="col-sm-8">
+                <input id="userDesc" name="userDesc" th:field="*{userDesc}" class="form-control" type="text">
+            </div>
         </div>
         <div class="form-group">
             <label class="col-sm-3 control-label">提现时间：</label>
             <div class="col-sm-8">
-                <input id="createTime" name="createTime" th:field="*{createTime}" class="form-control" type="text">
+                <input id="createTime" name="createTime" disabled th:field="*{createTime}" class="form-control" type="text">
             </div>
         </div>
     </form>
+    <div>
+        <p>本金钱包提现 USDT=(需提钱包值-需提钱包值*提现率)/汇率</p>
+        <p>用户收益流水钱包与 赢利钱包 USDT=需提钱包值/汇率-1</p>
+    </div>
 </div>
 <div th:include="include::footer"></div>
 <script type="text/javascript">
@@ -109,6 +113,14 @@
             $.operate.save(prefix + "/edit", $('#form-tbUserTx-edit').serialize());
         }
     }
+
+    var qrcode = new QRCode(document.getElementById("code"), {
+        width: 201,
+        height: 201
+    })
+
+
+    qrcode.makeCode($("#bankNo").val())
 </script>
 </body>
 </html>
