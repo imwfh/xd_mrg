@@ -7,28 +7,47 @@
     <select id="getStatis" resultType="java.math.BigDecimal">
         <![CDATA[
 
-                        -- 当天新注册的用户
+                                               -- 当天新注册的用户
                         select count(1) c from tb_profit_user t where DATE_FORMAT(t.create_time, '%Y-%m-%d') =
-                        DATE_FORMAT(DATE_ADD(now(),interval -5 day), '%Y-%m-%d')
+                        DATE_FORMAT(now(), '%Y-%m-%d')
                         UNION ALL
                         -- 总用户数
                         select count(1) c from tb_profit_user t
                         UNION ALL
                         -- 当日未被确认的订单总额
-                        select ROUND(IFNULL(sum(t.investment_money),0),2) c from sy_investment t where t.platform_comfirm
-                        <> 1 and DATE_FORMAT(t.investment_time, '%Y-%m-%d') = DATE_FORMAT(DATE_ADD(now(),interval -2 day), '%Y-%m-%d')
+                        select ROUND(IFNULL(sum(t.revert_money),0),2) c from sy_investment t where t.platform_comfirm
+                        <> 1 and DATE_FORMAT(t.investment_time, '%Y-%m-%d') = DATE_FORMAT(now(), '%Y-%m-%d')
                         UNION ALL
                         -- 当日已被确认的订单总额
-                        select ROUND(IFNULL(sum(t.investment_money),0),2) c from sy_investment t where t.platform_comfirm = 1 and
-                        DATE_FORMAT(t.investment_time, '%Y-%m-%d') = DATE_FORMAT(DATE_ADD(now(),interval -2 day), '%Y-%m-%d')
+                        select ROUND(IFNULL(sum(t.revert_money),0),2) c from sy_investment t where t.platform_comfirm = 1 and
+                        DATE_FORMAT(t.investment_time, '%Y-%m-%d') = DATE_FORMAT(now(), '%Y-%m-%d')
                         UNION ALL
                         -- 当月未被确认的订单总额
-                        select ROUND(IFNULL(sum(t.investment_money),0),2) c from sy_investment t where t.platform_comfirm
-                        <> 1 and DATE_FORMAT(t.investment_time, '%Y-%m') = DATE_FORMAT(DATE_ADD(now(),interval -2 day), '%Y-%m')
+                        select ROUND(IFNULL(sum(t.revert_money),0),2) c from sy_investment t where t.platform_comfirm
+                        <> 1 and DATE_FORMAT(t.investment_time, '%Y-%m') = DATE_FORMAT(now(), '%Y-%m')
                         UNION ALL
                         -- 当月已被确认的订单总额
-                        select ROUND(IFNULL(sum(t.investment_money),0),2) c from sy_investment t where t.platform_comfirm = 1 and
-                        DATE_FORMAT(t.investment_time, '%Y-%m') = DATE_FORMAT(DATE_ADD(now(),interval -2 day), '%Y-%m')
+                        select ROUND(IFNULL(sum(t.revert_money),0),2) c from sy_investment t where t.platform_comfirm = 1 and
+                        DATE_FORMAT(t.investment_time, '%Y-%m') = DATE_FORMAT(now(), '%Y-%m')
+												UNION ALL
+												-- 当天申请提现人数
+												select count(1) c from tb_user_tx t where DATE_FORMAT(t.create_time, '%Y-%m-%d') = DATE_FORMAT(now(), '%Y-%m-%d') and t.tx_status = 0
+												UNION ALL
+												-- 当天申请提现金额
+												select ROUND(IFNULL(sum(t.user_tx_money),0),2) c from tb_user_tx t where DATE_FORMAT(t.create_time, '%Y-%m-%d') = DATE_FORMAT(now(), '%Y-%m-%d') and t.tx_status = 1
+												UNION ALL
+												-- 当天通过申请提现人数
+												select count(1) c from tb_user_tx t where DATE_FORMAT(t.create_time, '%Y-%m-%d') = DATE_FORMAT(now(), '%Y-%m-%d') and t.tx_status = 1
+												UNION ALL
+												-- 当天通过申请提现金额
+												select ROUND(IFNULL(sum(t.user_tx_money),0),2) c from tb_user_tx t where DATE_FORMAT(t.create_time, '%Y-%m-%d') = DATE_FORMAT(now(), '%Y-%m-%d') and t.tx_status = 1
+												UNION ALL
+												-- 所有通过申请提现人数
+												select count(1) c from tb_user_tx t where t.tx_status = 1
+												UNION ALL
+												-- 所有通过申请提现金额
+												select ROUND(IFNULL(sum(t.user_tx_money),0),2) c from tb_user_tx t where t.tx_status = 1
+
 
         ]]>
     </select>

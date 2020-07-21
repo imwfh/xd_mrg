@@ -35,6 +35,72 @@ public class StaticsRet {
      */
     private String userTotal;
 
+    //当天申请提现人数
+    private String nowDayUserTxTotal;
+
+    //当天申请提现金额
+    private String nowDayUserTxMoney;
+
+    //当天通过申请提现人数
+    private String nowDayPassUserTxTotal;
+
+    //当天通过申请提现金额
+    private String nowDayPassUserTxMoney;
+
+    //所有通过申请提现人数
+    private String allPassTxTotal;
+
+    //所有通过申请提现金额
+    private String allPassTxMoney;
+
+    public String getNowDayUserTxTotal() {
+        return nowDayUserTxTotal;
+    }
+
+    public void setNowDayUserTxTotal(String nowDayUserTxTotal) {
+        this.nowDayUserTxTotal = nowDayUserTxTotal;
+    }
+
+    public String getNowDayUserTxMoney() {
+        return nowDayUserTxMoney;
+    }
+
+    public void setNowDayUserTxMoney(String nowDayUserTxMoney) {
+        this.nowDayUserTxMoney = nowDayUserTxMoney;
+    }
+
+    public String getNowDayPassUserTxTotal() {
+        return nowDayPassUserTxTotal;
+    }
+
+    public void setNowDayPassUserTxTotal(String nowDayPassUserTxTotal) {
+        this.nowDayPassUserTxTotal = nowDayPassUserTxTotal;
+    }
+
+    public String getNowDayPassUserTxMoney() {
+        return nowDayPassUserTxMoney;
+    }
+
+    public void setNowDayPassUserTxMoney(String nowDayPassUserTxMoney) {
+        this.nowDayPassUserTxMoney = nowDayPassUserTxMoney;
+    }
+
+    public String getAllPassTxTotal() {
+        return allPassTxTotal;
+    }
+
+    public void setAllPassTxTotal(String allPassTxTotal) {
+        this.allPassTxTotal = allPassTxTotal;
+    }
+
+    public String getAllPassTxMoney() {
+        return allPassTxMoney;
+    }
+
+    public void setAllPassTxMoney(String allPassTxMoney) {
+        this.allPassTxMoney = allPassTxMoney;
+    }
+
     public String getNowDayNoComfireOrderTotal() {
         return nowDayNoComfireOrderTotal;
     }

@@ -34,6 +34,18 @@ public class StaticsServiceImpl implements StaticsService {
         ret.setNowMonthNoComfireOrderTotal(its.get(4).toPlainString());
         //当月已被确认的订单总额
         ret.setNowMonthYesComfireOrderTotal(its.get(5).toPlainString());
+        //当天申请提现人数
+        ret.setNowDayUserTxTotal(its.get(6).toPlainString());
+        //当天申请提现金额
+        ret.setNowDayUserTxMoney(its.get(7).toPlainString());
+        //当天通过申请提现人数
+        ret.setNowDayPassUserTxTotal(its.get(8).toPlainString());
+        //当天通过申请提现金额
+        ret.setNowDayPassUserTxMoney(its.get(9).toPlainString());
+        //所有通过申请提现人数
+        ret.setAllPassTxTotal(its.get(10).toPlainString());
+        //所有通过申请提现金额
+        ret.setAllPassTxMoney(its.get(11).toPlainString());
         return ret;
     }
 }

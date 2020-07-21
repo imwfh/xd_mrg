@@ -15,15 +15,15 @@
 <body class="gray-bg">
 <div class="wrapper wrapper-content">
 
-    <div class="row">
+    <div class="row" style="border-bottom: #1cc09f 2px solid">
         <div class="col-sm-3">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <span class="label label-primary pull-right">日</span>
-                    <h5>日总收入(未确认)</h5>
+                    <span class="label label-primary pull-right">未确认</span>
+                    <h5>日总收入</h5>
                 </div>
                 <div class="ibox-content">
-                    <h1 class="no-margins">[[${ret.nowDayNoComfireOrderTotal}]]</h1>
+                    <h1 class="no-margins">[[${ret.nowDayNoComfireOrderTotal}]] <span style="color: #1a2226; font-size: 12px">rmb</span> </h1>
                     <div class="stat-percent font-bold text-primary">当日未被确认的订单总额 <i class="fa fa-bolt"></i>
                     </div>
                     <small>说明</small>
@@ -33,11 +33,11 @@
         <div class="col-sm-3">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <span class="label label-primary pull-right">日</span>
-                    <h5>日总收入(已确认)</h5>
+                    <span class="label label-info pull-right">已确认</span>
+                    <h5>日总收入</h5>
                 </div>
                 <div class="ibox-content">
-                    <h1 class="no-margins">[[${ret.nowDayYesComfireOrderTotal}]]</h1>
+                    <h1 class="no-margins">[[${ret.nowDayYesComfireOrderTotal}]] <span style="color: #1a2226; font-size: 12px">rmb</span></h1>
                     <div class="stat-percent font-bold text-primary">当日已被确认的订单总额 <i class="fa fa-bolt"></i>
                     </div>
                     <small>说明</small>
@@ -48,11 +48,11 @@
         <div class="col-sm-3">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <span class="label label-success pull-right">月</span>
-                    <h5>月总收入(未确认)</h5>
+                    <span class="label label-inverse pull-right">未确认</span>
+                    <h5>月总收入</h5>
                 </div>
                 <div class="ibox-content">
-                    <h1 class="no-margins">[[${ret.nowMonthNoComfireOrderTotal}]]</h1>
+                    <h1 class="no-margins">[[${ret.nowMonthNoComfireOrderTotal}]] <span style="color: #1a2226; font-size: 12px">rmb</span></h1>
                     <div class="stat-percent font-bold text-success">当月未被确认的订单总额 <i class="fa fa-bolt"></i>
                     </div>
                     <small>说明</small>
@@ -62,11 +62,11 @@
         <div class="col-sm-3">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <span class="label label-success pull-right">月</span>
-                    <h5>月总收入(已确认)</h5>
+                    <span class="label label-success pull-right">已确认</span>
+                    <h5>月总收入</h5>
                 </div>
                 <div class="ibox-content">
-                    <h1 class="no-margins">[[${ret.nowMonthYesComfireOrderTotal}]]</h1>
+                    <h1 class="no-margins">[[${ret.nowMonthYesComfireOrderTotal}]] <span style="color: #1a2226; font-size: 12px">rmb</span></h1>
                     <div class="stat-percent font-bold text-success">当月已被确认的订单总额 <i class="fa fa-bolt"></i>
                     </div>
                     <small>说明</small>
@@ -76,12 +76,12 @@
 
     </div>
 
-    <div class="row">
+    <div class="row" style="border-bottom: #1cc09f 2px solid">
         <div class="col-sm-3">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <span class="label label-danger pull-right">今天</span>
-                    <h5>总用户</h5>
+                    <h5>总用户(日)</h5>
                 </div>
                 <div class="ibox-content">
                     <h1 class="no-margins">[[${ret.newUserTotal}]]</h1>
@@ -94,11 +94,98 @@
         <div class="col-sm-3">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <span class="label label-danger pull-right">当月</span>
-                    <h5>总用户</h5>
+                    <span class="label label-success pull-right">所有</span>
+                    <h5>总用户(全)</h5>
                 </div>
                 <div class="ibox-content">
                     <h1 class="no-margins">[[${ret.userTotal}]]</h1>
+                    <div class="stat-percent font-bold text-info">平台所有用户 <i class="fa fa-level-up"></i>
+                    </div>
+                    <small>说明</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" style="border-bottom: #1cc09f 2px solid">
+        <div class="col-sm-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="label label-danger pull-right">今天</span>
+                    <h5>申请提现人数</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins">[[${ret.nowDayUserTxTotal}]]</h1>
+                    <div class="stat-percent font-bold text-info">当天申请提现人数 <i class="fa fa-level-up"></i>
+                    </div>
+                    <small>说明</small>
+                </div>
+            </div>
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="label label-danger pull-right">今天</span>
+                    <h5>申请提现金额</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins">[[${ret.nowDayUserTxMoney}]]</h1>
+                    <div class="stat-percent font-bold text-info">当天申请提现金额 <i class="fa fa-level-up"></i>
+                    </div>
+                    <small>说明</small>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-sm-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="label label-danger pull-right">今天</span>
+                    <h5>通过申请提现人数</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins">[[${ret.nowDayPassUserTxTotal}]]</h1>
+                    <div class="stat-percent font-bold text-info">当天通过申请提现人数 <i class="fa fa-level-up"></i>
+                    </div>
+                    <small>说明</small>
+                </div>
+            </div>
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="label label-danger pull-right">今天</span>
+                    <h5>通过申请提现金额</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins">[[${ret.nowDayPassUserTxMoney}]]</h1>
+                    <div class="stat-percent font-bold text-info">当天通过申请提现金额 <i class="fa fa-level-up"></i>
+                    </div>
+                    <small>说明</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="label label-info pull-right">所有</span>
+                    <h5>通过申请提现人数</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins">[[${ret.allPassTxTotal}]]</h1>
+                    <div class="stat-percent font-bold text-info">所有通过申请提现人数 <i class="fa fa-level-up"></i>
+                    </div>
+                    <small>说明</small>
+                </div>
+            </div>
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="label label-info pull-right">所有</span>
+                    <h5>通过申请提现金额</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins">[[${ret.allPassTxMoney}]]</h1>
+                    <div class="stat-percent font-bold text-info">所有通过申请提现金额 <i class="fa fa-level-up"></i>
+                    </div>
+                    <small>说明</small>
                 </div>
             </div>
         </div>
