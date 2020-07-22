@@ -80,29 +80,31 @@ public class SyInvestmentServiceImpl implements ISyInvestmentService {
     @Override
     public int updateSyInvestment(SyInvestment syInvestment) {
         syInvestment.setComfirmTime(new Date());
+        SyInvestment si = selectSyInvestmentById(syInvestment.getId());
+        TbProfitUser user = iTbProfitUserService.selectTbProfitUserByUserCode(si.getUserCode());
         //将订单中的余额更新到用户账户中 只有当审核通过时才会执行
-        if (new Integer("1").compareTo(syInvestment.getPlatformComfirm()) == 0) {
-            SyInvestment si = selectSyInvestmentById(syInvestment.getId());
-            TbProfitUser user = iTbProfitUserService.selectTbProfitUserByUserCode(si.getUserCode());
-            if (null != user) {
-                BigDecimal orderMoney = si.getRevertMoney().setScale(2, BigDecimal.ROUND_HALF_UP);
-                BigDecimal userMoney = user.getUserMoney();
-                BigDecimal totalMoney = userMoney.add(orderMoney).setScale(2, BigDecimal.ROUND_HALF_UP);
-                //更新余额
-                Map<String, Object> p = new HashMap<>();
-                p.put("userCode", si.getUserCode());
-                p.put("userMoney", totalMoney);
-                p.put("version", user.getVersion());
-                int i = iTbProfitUserService.updateMoney(p);
-                int y = syInvestmentMapper.updateSyInvestment(syInvestment);
-                return i > 0 && y > 0 ? 1 : -1;
-            }
+        if (new Integer("1").compareTo(syInvestment.getPlatformComfirm()) == 0 && null != user) {
+            BigDecimal orderMoney = si.getRevertMoney().setScale(2, BigDecimal.ROUND_HALF_UP);
+            BigDecimal userMoney = user.getUserMoney();
+            BigDecimal totalMoney = userMoney.add(orderMoney).setScale(2, BigDecimal.ROUND_HALF_UP);
+            //更新余额
+            Map<String, Object> p = new HashMap<>();
+            p.put("userCode", si.getUserCode());
+            p.put("userMoney", totalMoney);
+            p.put("version", user.getVersion());
+            int i = iTbProfitUserService.updateMoney(p);
+            int y = syInvestmentMapper.updateSyInvestment(syInvestment);
+            return i > 0 && y > 0 ? 1 : -1;
         } else {
+            BigDecimal tm = user.getTotalMoney();
+            BigDecimal total = tm.add(syInvestment.getRevertMoney());
+            Map<String, Object> p = new HashMap<>();
+            p.put("userCode", si.getUserCode());
+            p.put("userTotalMoney", total);
+            iTbProfitUserService.updateMoney(p);
             int y = syInvestmentMapper.updateSyInvestment(syInvestment);
             return y;
         }
-
-        return -1;
     }
 
     /**

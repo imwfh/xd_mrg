@@ -181,6 +181,7 @@
             <if test="userMoney != null  and userMoney != ''  ">user_money = #{userMoney},</if>
             <if test="userYlMoney != null  and userYlMoney != ''  ">user_yl_money = #{userYlMoney},</if>
             <if test="userSyMoney != null  and userSyMoney != ''  ">user_sy_money = #{userSyMoney},</if>
+            <if test="userTotalMoney != null  and userTotalMoney != ''  ">total_money = #{userTotalMoney},</if>
             <if test="version != null  and version != ''  ">version = #{version} + 1,</if>
         </trim>
         where version = #{version} and user_code = #{userCode}
