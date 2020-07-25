@@ -37,6 +37,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
              <if test="status != null "> and status = #{status}</if>
              <if test="gameType != null "> and game_type = #{gameType}</if>
          </where>
+        order by add_time desc
     </select>
     
     <select id="selectGameInOrderById" parameterType="Integer" resultMap="GameInOrderResult">

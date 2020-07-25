@@ -66,4 +66,6 @@ public class RedisKey {
 
     public static final String SY_CONFIG = "SY_CONFIG";
 
+    public static final String SY_GAME_RATE_ = "SY_GAME_RATE_";
+
 }

@@ -1,7 +1,15 @@
 package com.ruoyi.system.service.impl;
 
 import java.util.List;
+import java.util.Map;
+import java.util.function.BiConsumer;
+import java.util.stream.Collectors;
+
+import com.alibaba.fastjson.JSONObject;
+import com.ruoyi.common.redis.RedisKey;
+import com.ruoyi.system.domain.SyConfig;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import com.ruoyi.system.mapper.SyGameRateMapper;
 import com.ruoyi.system.domain.SyGameRate;
@@ -19,6 +27,9 @@ public class SyGameRateServiceImpl implements ISyGameRateService
 {
 	@Autowired
 	private SyGameRateMapper syGameRateMapper;
+
+	@Autowired
+	private RedisTemplate redisTemplate;
 
 	/**
      * 查询用户等级信息
@@ -53,7 +64,9 @@ public class SyGameRateServiceImpl implements ISyGameRateService
 	@Override
 	public int insertSyGameRate(SyGameRate syGameRate)
 	{
-	    return syGameRateMapper.insertSyGameRate(syGameRate);
+		int i =syGameRateMapper.insertSyGameRate(syGameRate);
+		cache();
+	    return i;
 	}
 	
 	/**
@@ -65,7 +78,9 @@ public class SyGameRateServiceImpl implements ISyGameRateService
 	@Override
 	public int updateSyGameRate(SyGameRate syGameRate)
 	{
-	    return syGameRateMapper.updateSyGameRate(syGameRate);
+		int i = syGameRateMapper.updateSyGameRate(syGameRate);
+		cache();
+	    return i;
 	}
 
 	/**
@@ -77,7 +92,23 @@ public class SyGameRateServiceImpl implements ISyGameRateService
 	@Override
 	public int deleteSyGameRateByIds(String ids)
 	{
-		return syGameRateMapper.deleteSyGameRateByIds(Convert.toStrArray(ids));
+		int i = syGameRateMapper.deleteSyGameRateByIds(Convert.toStrArray(ids));
+		cache();
+		return i;
+	}
+
+	private void cache() {
+		redisTemplate.delete(RedisKey.SY_GAME_RATE_);
+		List<SyGameRate> scs = this.selectSyGameRateList(null);
+		Map<Integer, List<SyGameRate>> configs = scs.stream().collect(Collectors.groupingByConcurrent(SyGameRate::getGradeNum));
+		configs.forEach(new BiConsumer<Integer, List<SyGameRate>>() {
+			@Override
+			public void accept(Integer key, List<SyGameRate> syConfigs) {
+				String subKey = key + "";
+				SyGameRate value = syConfigs.get(0);
+				redisTemplate.opsForHash().put(RedisKey.SY_GAME_RATE_, subKey, JSONObject.toJSON(value));
+			}
+		});
 	}
 	
 }

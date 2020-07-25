@@ -87,24 +87,32 @@ public class SyInvestmentServiceImpl implements ISyInvestmentService {
             BigDecimal orderMoney = si.getRevertMoney().setScale(2, BigDecimal.ROUND_HALF_UP);
             BigDecimal userMoney = user.getUserMoney();
             BigDecimal totalMoney = userMoney.add(orderMoney).setScale(2, BigDecimal.ROUND_HALF_UP);
+
+            BigDecimal tm = user.getTotalMoney();
+            BigDecimal total = tm.add(syInvestment.getRevertMoney());
+
             //更新余额
             Map<String, Object> p = new HashMap<>();
             p.put("userCode", si.getUserCode());
             p.put("userMoney", totalMoney);
+           // p.put("userTotalMoney", total);
             p.put("version", user.getVersion());
             int i = iTbProfitUserService.updateMoney(p);
             int y = syInvestmentMapper.updateSyInvestment(syInvestment);
+
             return i > 0 && y > 0 ? 1 : -1;
-        } else {
-            BigDecimal tm = user.getTotalMoney();
-            BigDecimal total = tm.add(syInvestment.getRevertMoney());
-            Map<String, Object> p = new HashMap<>();
-            p.put("userCode", si.getUserCode());
-            p.put("userTotalMoney", total);
-            iTbProfitUserService.updateMoney(p);
-            int y = syInvestmentMapper.updateSyInvestment(syInvestment);
-            return y;
         }
+//        else {
+//            BigDecimal tm = user.getTotalMoney();
+//            BigDecimal total = tm.add(syInvestment.getRevertMoney());
+//            Map<String, Object> p = new HashMap<>();
+//            p.put("userCode", si.getUserCode());
+//            p.put("userTotalMoney", total);
+//            iTbProfitUserService.updateMoney(p);
+//            int y = syInvestmentMapper.updateSyInvestment(syInvestment);
+//            return y;
+//        }
+        return 0;
     }
 
     /**
