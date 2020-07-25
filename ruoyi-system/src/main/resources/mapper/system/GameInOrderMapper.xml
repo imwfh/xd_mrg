@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.GameInOrderMapper">
+    
+    <resultMap type="GameInOrder" id="GameInOrderResult">
+        <result property="id"    column="id"    />
+        <result property="userCode"    column="user_code"    />
+        <result property="stageNo"    column="stage_no"    />
+        <result property="inNums"    column="in_nums"    />
+        <result property="inRank"    column="in_rank"    />
+        <result property="inJf"    column="in_jf"    />
+        <result property="revJf"    column="rev_jf"    />
+        <result property="inTimes"    column="in_times"    />
+        <result property="addTime"    column="add_time"    />
+        <result property="status"    column="status"    />
+        <result property="gameType"    column="game_type"    />
+    </resultMap>
+	
+	<sql id="selectGameInOrderVo">
+        select id, user_code, stage_no, in_nums, in_rank, in_jf, rev_jf, in_times, add_time, status, game_type from game_in_order
+    </sql>
+	
+    <select id="selectGameInOrderList" parameterType="GameInOrder" resultMap="GameInOrderResult">
+        <include refid="selectGameInOrderVo"/>
+        <where>  
+            <if test="id != null "> and id = #{id}</if>
+             <if test="userCode != null  and userCode != '' "> and user_code = #{userCode}</if>
+             <if test="stageNo != null  and stageNo != '' "> and stage_no = #{stageNo}</if>
+             <if test="inNums != null  and inNums != '' "> and in_nums = #{inNums}</if>
+             <if test="inRank != null  and inRank != '' "> and in_rank = #{inRank}</if>
+             <if test="inJf != null "> and in_jf = #{inJf}</if>
+             <if test="revJf != null "> and rev_jf = #{revJf}</if>
+             <if test="inTimes != null "> and in_times = #{inTimes}</if>
+             <if test="addTime != null "> and add_time = #{addTime}</if>
+             <if test="status != null "> and status = #{status}</if>
+             <if test="gameType != null "> and game_type = #{gameType}</if>
+         </where>
+    </select>
+    
+    <select id="selectGameInOrderById" parameterType="Integer" resultMap="GameInOrderResult">
+        <include refid="selectGameInOrderVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertGameInOrder" parameterType="GameInOrder" useGeneratedKeys="true" keyProperty="id">
+        insert into game_in_order
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="userCode != null  and userCode != ''  ">user_code,</if>
+			<if test="stageNo != null  and stageNo != ''  ">stage_no,</if>
+			<if test="inNums != null  and inNums != ''  ">in_nums,</if>
+			<if test="inRank != null  and inRank != ''  ">in_rank,</if>
+			<if test="inJf != null  ">in_jf,</if>
+			<if test="revJf != null  ">rev_jf,</if>
+			<if test="inTimes != null  ">in_times,</if>
+			<if test="addTime != null  ">add_time,</if>
+			<if test="status != null  ">status,</if>
+			<if test="gameType != null  ">game_type,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="userCode != null  and userCode != ''  ">#{userCode},</if>
+			<if test="stageNo != null  and stageNo != ''  ">#{stageNo},</if>
+			<if test="inNums != null  and inNums != ''  ">#{inNums},</if>
+			<if test="inRank != null  and inRank != ''  ">#{inRank},</if>
+			<if test="inJf != null  ">#{inJf},</if>
+			<if test="revJf != null  ">#{revJf},</if>
+			<if test="inTimes != null  ">#{inTimes},</if>
+			<if test="addTime != null  ">#{addTime},</if>
+			<if test="status != null  ">#{status},</if>
+			<if test="gameType != null  ">#{gameType},</if>
+         </trim>
+    </insert>
+	 
+    <update id="updateGameInOrder" parameterType="GameInOrder">
+        update game_in_order
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userCode != null  and userCode != ''  ">user_code = #{userCode},</if>
+            <if test="stageNo != null  and stageNo != ''  ">stage_no = #{stageNo},</if>
+            <if test="inNums != null  and inNums != ''  ">in_nums = #{inNums},</if>
+            <if test="inRank != null  and inRank != ''  ">in_rank = #{inRank},</if>
+            <if test="inJf != null  ">in_jf = #{inJf},</if>
+            <if test="revJf != null  ">rev_jf = #{revJf},</if>
+            <if test="inTimes != null  ">in_times = #{inTimes},</if>
+            <if test="addTime != null  ">add_time = #{addTime},</if>
+            <if test="status != null  ">status = #{status},</if>
+            <if test="gameType != null  ">game_type = #{gameType},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+	<delete id="deleteGameInOrderById" parameterType="Integer">
+        delete from game_in_order where id = #{id}
+    </delete>
+	
+    <delete id="deleteGameInOrderByIds" parameterType="String">
+        delete from game_in_order where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+	<th:block th:include="include :: header('修改用户下zhu记录')" />
+</head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-gameInOrder-edit" th:object="${gameInOrder}">
+            <input id="id" name="id" th:field="*{id}"  type="hidden">
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">用户编码：</label>
+				<div class="col-sm-8">
+					<input id="userCode" name="userCode" disabled th:field="*{userCode}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">期数：</label>
+				<div class="col-sm-8">
+					<input id="stageNo" name="stageNo" disabled th:field="*{stageNo}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">购买号码记录：</label>
+				<div class="col-sm-8">
+					<input id="inNums" name="inNums" th:field="*{inNums}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">名次：</label>
+				<div class="col-sm-8">
+					<input id="inRank" name="inRank" th:field="*{inRank}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">支出积分：</label>
+				<div class="col-sm-8">
+					<input id="inJf" name="inJf" th:field="*{inJf}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">收获积分：</label>
+				<div class="col-sm-8">
+					<input id="revJf" name="revJf" th:field="*{revJf}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">下单倍数：</label>
+				<div class="col-sm-8">
+					<input id="inTimes" name="inTimes" th:field="*{inTimes}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">添加时间：</label>
+				<div class="col-sm-8">
+					<input id="addTime" name="addTime" disabled th:field="*{addTime}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">状态</label>
+				<div class="col-sm-8">
+<!--					<input id="status" name="status" th:field="*{status}"  class="form-control" type="hidden">-->
+					<select name="status" disabled class="form-control m-b">
+						<option value="">----状态----</option>
+						<option text="待中" value="0" selected="*{status == 0 ? selected : ''}"
+								th:field="*{status}">待中
+						</option>
+						<option text="已中" value="1" selected="*{status == 1 ? selected : ''}"
+								th:field="*{status}">已中
+						</option>
+						<option text="无效" value="-1" selected="*{status == -1 ? selected : ''}"
+								th:field="*{status}">无效
+						</option>
+					</select>
+
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">0:赛车  1:飞艇：</label>
+				<div class="col-sm-8">
+<!--					<input id="gameType" name="gameType" th:field="*{gameType}" class="form-control" type="hidden">-->
+					<select name="status" disabled class="form-control m-b">
+						<option value="">----状态----</option>
+						<option text="赛车" value="0" selected="*{gameType == 0 ? selected : ''}"
+								th:field="*{gameType}">赛车
+						</option>
+						<option text="飞艇" value="1" selected="*{gameType == 1 ? selected : ''}"
+								th:field="*{gameType}">飞艇
+						</option>
+					</select>
+				</div>
+			</div>
+		</form>
+    </div>
+    <div th:include="include::footer"></div>
+    <script type="text/javascript">
+		var prefix = ctx + "system/gameInOrder";
+		$("#form-gameInOrder-edit").validate({
+			rules:{
+				xxxx:{
+					required:true,
+				},
+			},
+			focusCleanup: true
+		});
+		
+		function submitHandler() {
+	        if ($.validate.form()) {
+	            $.operate.save(prefix + "/edit", $('#form-gameInOrder-edit').serialize());
+	        }
+	    }
+	</script>
+</body>
+</html>
