@@ -58,8 +58,8 @@ user:
 # Spring配置
 spring:
   redis:
-    password: redis_suplier
-    host: 47.244.138.155
+    password: redis_xdap
+    host: 127.0.0.1
     port: 6380
     timeout: 1000
     jedis:
