@@ -88,8 +88,8 @@ public class SyInvestmentServiceImpl implements ISyInvestmentService {
             BigDecimal userMoney = user.getUserMoney();
             BigDecimal totalMoney = userMoney.add(orderMoney).setScale(2, BigDecimal.ROUND_HALF_UP);
 
-            BigDecimal tm = user.getTotalMoney();
-            BigDecimal total = tm.add(syInvestment.getRevertMoney());
+//            BigDecimal tm = user.getTotalMoney();
+//            BigDecimal total = tm.add(syInvestment.getRevertMoney());
 
             //更新余额
             Map<String, Object> p = new HashMap<>();
