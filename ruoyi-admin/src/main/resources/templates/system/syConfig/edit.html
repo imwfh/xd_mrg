@@ -35,7 +35,7 @@
                 <div class="input-group date">
                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                     <input type="text" id="startTime" name="startTime" th:field="*{startTime}" class="form-control"
-                           placeholder="yyyy-MM-dd HH:mm:ss">
+                           placeholder="HH:mm:ss">
                 </div>
             </div>
         </div>
@@ -45,7 +45,7 @@
                 <div class="input-group date">
                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                     <input type="text" id="endTime" name="endTime" th:field="*{endTime}" class="form-control"
-                           placeholder="yyyy-MM-dd HH:mm:ss">
+                           placeholder="HH:mm:ss">
                 </div>
             </div>
         </div>
@@ -82,14 +82,14 @@
             laydate.render({
                 elem: '#startTime',
                 type: 'datetime',
-                format: 'yyyy-MM-dd HH:mm:ss',
+                format: 'HH:mm:ss',
                 trigger: 'click'
             });
 
 			laydate.render({
 				elem: '#endTime',
 				type: 'datetime',
-				format: 'yyyy-MM-dd HH:mm:ss',
+				format: 'HH:mm:ss',
 				trigger: 'click'
 			});
         });
