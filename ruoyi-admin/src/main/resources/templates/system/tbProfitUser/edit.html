@@ -51,6 +51,36 @@
         </div>
 
         <div class="form-group">
+            <label class="col-sm-3 control-label">用户级别：</label>
+            <div class="col-sm-8">
+                <select name="userLevel" class="form-control m-b">
+                    <option value="">----请选择用户级别----</option>
+                    <option text="V0" value="0" selected="*{userLevel == 0 ? selected : ''}"
+                            th:field="*{userLevel}">V0
+                    </option>
+                    <option text="V1" value="1" selected="*{userLevel == 1 ? selected : ''}"
+                            th:field="*{userLevel}">V1
+                    </option>
+                    <option text="V2" value="2" selected="*{userLevel == 2 ? selected : ''}"
+                            th:field="*{userLevel}">V2
+                    </option>
+                    <option text="V3" value="3" selected="*{userLevel == 3 ? selected : ''}"
+                            th:field="*{userLevel}">V3
+                    </option>
+                    <option text="V4" value="4" selected="*{userLevel == 4 ? selected : ''}"
+                            th:field="*{userLevel}">V4
+                    </option>
+                    <option text="V5" value="5" selected="*{userLevel == 5 ? selected : ''}"
+                            th:field="*{userLevel}">V5
+                    </option>
+                    <option text="V6" value="6" selected="*{userLevel == 6 ? selected : ''}"
+                            th:field="*{userLevel}">V6
+                    </option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
             <label class="col-sm-3 control-label">钱包余额：</label>
             <div class="col-sm-8">
                 <input id="userMoney" disabled name="userMoney" th:field="*{userMoney}" class="form-control"
