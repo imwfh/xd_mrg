@@ -22,41 +22,44 @@
         <result property="tkUrl" column="tk_url"/>
         <result property="revertMoney" column="revert_money"/>
         <result property="investmentRate" column="investment_rate"/>
+        <result property="userName" column="username"/>
     </resultMap>
 
     <sql id="selectSyInvestmentVo">
-        select tk_url, revert_money,investment_rate,  id, investment_name, investment_code, investment_trade_code,fail_desc, plat_btc_code, investment_money, user_code, platform_comfirm, is_overtime, btc_code, investment_time, over_time, comfirm_time from sy_investment
+        select t1.username, t.tk_url, t.revert_money,t.investment_rate,  t.id, t.investment_name, t.investment_code, t.investment_trade_code,t.fail_desc, t.plat_btc_code,
+        t.investment_money, t.user_code, t.platform_comfirm, t.is_overtime, t.btc_code, t.investment_time, t.over_time, t.comfirm_time
+        from sy_investment t inner join tb_profit_user t1 on t.user_code = t1.user_code
     </sql>
 
     <select id="selectSyInvestmentList" parameterType="SyInvestment" resultMap="SyInvestmentResult">
         <include refid="selectSyInvestmentVo"/>
         <where>
-            <if test="id != null ">and id = #{id}</if>
-            <if test="investmentName != null  and investmentName != '' ">and investment_name = #{investmentName}</if>
-            <if test="investmentCode != null  and investmentCode != '' ">and investment_code = #{investmentCode}</if>
-            <if test="investmentTradeCode != null  and investmentTradeCode != '' ">and investment_trade_code =
+            <if test="id != null ">and t.id = #{id}</if>
+            <if test="investmentName != null  and investmentName != '' ">and t.investment_name = #{investmentName}</if>
+            <if test="investmentCode != null  and investmentCode != '' ">and t.investment_code = #{investmentCode}</if>
+            <if test="investmentTradeCode != null  and investmentTradeCode != '' ">and t.investment_trade_code =
                 #{investmentTradeCode}
             </if>
-            <if test="investmentMoney != null ">and investment_money = #{investmentMoney}</if>
-            <if test="userCode != null  and userCode != '' ">and user_code = #{userCode}</if>
-            <if test="platformComfirm != null ">and platform_comfirm = #{platformComfirm}</if>
-            <if test="isOvertime != null ">and is_overtime = #{isOvertime}</if>
-            <if test="btcCode != null  and btcCode != '' ">and btc_code = #{btcCode}</if>
-            <if test="platBtcCode != null  and platBtcCode != '' ">and plat_btc_code = #{platBtcCode}</if>
-            <if test="failDesc != null  and failDesc != '' ">and fail_desc = #{failDesc}</if>
-            <if test="tkUrl != null  and tkUrl != '' ">and tk_url = #{tkUrl}</if>
-            <if test="revertMoney != null  and revertMoney != '' ">and revert_money = #{revertMoney}</if>
-            <if test="investmentRate != null  and investmentRate != '' ">and investment_rate = #{investmentRate}</if>
-            <if test="investmentTime != null ">and investment_time = #{investmentTime}</if>
-            <if test="overTime != null ">and over_time = #{overTime}</if>
-            <if test="comfirmTime != null ">and comfirm_time = #{comfirmTime}</if>
+            <if test="investmentMoney != null ">and t.investment_money = #{investmentMoney}</if>
+            <if test="userCode != null  and userCode != '' ">and t.user_code = #{userCode}</if>
+            <if test="platformComfirm != null ">and t.platform_comfirm = #{platformComfirm}</if>
+            <if test="isOvertime != null ">and t.is_overtime = #{isOvertime}</if>
+            <if test="btcCode != null  and btcCode != '' ">and t.btc_code = #{btcCode}</if>
+            <if test="platBtcCode != null  and platBtcCode != '' ">and t.plat_btc_code = #{platBtcCode}</if>
+            <if test="failDesc != null  and failDesc != '' ">and t.fail_desc = #{failDesc}</if>
+            <if test="tkUrl != null  and tkUrl != '' ">and t.tk_url = #{tkUrl}</if>
+            <if test="revertMoney != null  and revertMoney != '' ">and t.revert_money = #{revertMoney}</if>
+            <if test="investmentRate != null  and investmentRate != '' ">and t.investment_rate = #{investmentRate}</if>
+            <if test="investmentTime != null ">and t.investment_time = #{investmentTime}</if>
+            <if test="overTime != null ">and t.over_time = #{overTime}</if>
+            <if test="comfirmTime != null ">and t.comfirm_time = #{comfirmTime}</if>
         </where>
-        order by investment_time desc
+        order by t.investment_time desc
     </select>
 
     <select id="selectSyInvestmentById" parameterType="Integer" resultMap="SyInvestmentResult">
         <include refid="selectSyInvestmentVo"/>
-        where id = #{id}
+        where t.id = #{id}
     </select>
 
     <insert id="insertSyInvestment" parameterType="SyInvestment" useGeneratedKeys="true" keyProperty="id">

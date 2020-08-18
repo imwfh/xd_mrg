@@ -18,10 +18,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="txStatus"    column="tx_status"    />
         <result property="txType"    column="tx_type"    />
         <result property="createTime"    column="create_time"    />
+        <result property="userName" column="username"/>
     </resultMap>
 	
 	<sql id="selectTbUserTxVo">
-        select id, tx_type, tx_sn, user_code, user_tx_money, user_before_tx_money, user_after_tx_money, user_kou_money, user_get_money, user_desc, bank_no, tx_status, create_time from tb_user_tx
+        select t.id,t1.username, t.tx_type, t.tx_sn, t.user_code, t.user_tx_money, t.user_before_tx_money, t.user_after_tx_money, t.user_kou_money, t.user_get_money, t.user_desc, t.bank_no, t.tx_status, t.create_time
+         from tb_user_tx t inner join tb_profit_user t1 on t.user_code = t1.user_code
     </sql>
 	
     <select id="selectTbUserTxList" parameterType="TbUserTx" resultMap="TbUserTxResult">

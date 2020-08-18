@@ -14,30 +14,31 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="tradeType"    column="trade_type"    />
         <result property="operaType"    column="opera_type"    />
         <result property="createTime"    column="create_time"    />
+        <result property="userName" column="username"/>
     </resultMap>
 	
 	<sql id="selectSyTradeRecVo">
-        select id, trade_money, trade_code, user_code, money_from, money_to, trade_type, opera_type, create_time from sy_trade_rec
+        select t.id, t1.username, t.trade_money, t.trade_code, t.user_code, t.money_from, t.money_to, t.trade_type, t.opera_type, t.create_time from sy_trade_rec t inner join tb_profit_user t1 on t.user_code = t1.user_code
     </sql>
 	
     <select id="selectSyTradeRecList" parameterType="SyTradeRec" resultMap="SyTradeRecResult">
         <include refid="selectSyTradeRecVo"/>
         <where>  
-            <if test="id != null "> and id = #{id}</if>
-             <if test="tradeMoney != null "> and trade_money = #{tradeMoney}</if>
-             <if test="tradeCode != null  and tradeCode != '' "> and trade_code = #{tradeCode}</if>
-             <if test="userCode != null  and userCode != '' "> and user_code = #{userCode}</if>
-             <if test="moneyFrom != null "> and money_from = #{moneyFrom}</if>
-             <if test="moneyTo != null "> and money_to = #{moneyTo}</if>
-             <if test="tradeType != null "> and trade_type = #{tradeType}</if>
-             <if test="operaType != null "> and opera_type = #{operaType}</if>
-             <if test="createTime != null and createTime != '' "> and create_time = #{createTime}</if>
+            <if test="id != null "> and t.id = #{id}</if>
+             <if test="tradeMoney != null "> and t.trade_money = #{tradeMoney}</if>
+             <if test="tradeCode != null  and tradeCode != '' "> and t.trade_code = #{tradeCode}</if>
+             <if test="userCode != null  and userCode != '' "> and t.user_code = #{userCode}</if>
+             <if test="moneyFrom != null "> and t.money_from = #{moneyFrom}</if>
+             <if test="moneyTo != null "> and t.money_to = #{moneyTo}</if>
+             <if test="tradeType != null "> and t.trade_type = #{tradeType}</if>
+             <if test="operaType != null "> and t.opera_type = #{operaType}</if>
+             <if test="createTime != null and createTime != '' "> and t.create_time = #{createTime}</if>
          </where>
     </select>
     
     <select id="selectSyTradeRecById" parameterType="Integer" resultMap="SyTradeRecResult">
         <include refid="selectSyTradeRecVo"/>
-        where id = #{id}
+        where t.id = #{id}
     </select>
         
     <insert id="insertSyTradeRec" parameterType="SyTradeRec" useGeneratedKeys="true" keyProperty="id">

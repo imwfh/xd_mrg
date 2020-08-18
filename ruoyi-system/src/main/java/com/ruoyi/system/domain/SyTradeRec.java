@@ -22,6 +22,7 @@ public class SyTradeRec extends BaseEntity
 	private String tradeCode;
 	/** 人编码 */
 	private String userCode;
+	private String userName;
 	/** 变动前余额 */
 	private Float moneyFrom;
 	/** 变动后余额 */
@@ -31,7 +32,15 @@ public class SyTradeRec extends BaseEntity
 	/** 操作类型   */
 	private Integer operaType;
 
-	public void setId(Integer id) 
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public void setId(Integer id)
 	{
 		this.id = id;
 	}

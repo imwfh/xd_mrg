@@ -1,5 +1,6 @@
 package com.ruoyi.system.service.impl;
 
+import com.ruoyi.common.utils.DateUtils;
 import com.ruoyi.system.domain.StaticsRet;
 import com.ruoyi.system.mapper.StaticsMapper;
 import com.ruoyi.system.service.StaticsService;
@@ -7,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by MR.Wu on 2019-12-30.
@@ -46,6 +49,27 @@ public class StaticsServiceImpl implements StaticsService {
         ret.setAllPassTxTotal(its.get(10).toPlainString());
         //所有通过申请提现金额
         ret.setAllPassTxMoney(its.get(11).toPlainString());
+
+        //沉淀利润=总充值-提现数
+        Map<String, Object> p = new HashMap<>();
+
+        //今天的沉淀利润
+        p.clear();
+        p.put("times", DateUtils.addOrDisOneDayOfNow(0));
+        BigDecimal fillSumToday = staticsMapper.getFillSum(p);
+        BigDecimal txSumToday = staticsMapper.getTxSum(p);
+        BigDecimal fxt = fillSumToday.subtract(txSumToday);
+        ret.setFxt(fxt);
+
+        //所有沉淀利润
+        BigDecimal fillSumAll = staticsMapper.getFillSum(null);
+        BigDecimal txSumAll = staticsMapper.getTxSum(null);
+        BigDecimal fxAll = fillSumAll.subtract(txSumAll);
+        ret.setFxAll(fxAll);
+
+        //净利润=总充值-提现数-用户账户总额度（四个钱包）
+
+        //今天的净利润
         return ret;
     }
 }

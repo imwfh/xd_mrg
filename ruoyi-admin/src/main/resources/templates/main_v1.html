@@ -191,6 +191,67 @@
         </div>
     </div>
 
+    <div class="row" style="border-bottom: #1cc09f 2px solid">
+        <div class="col-sm-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="label label-danger pull-right">今天</span>
+                    <h5>净利润</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins">[[${ret.fxy}]]</h1>
+                    <div class="stat-percent font-bold text-info">净利润=总充值-提现数-用户账户总额度 <i class="fa fa-level-up"></i>
+                    </div>
+                    <small>说明</small>
+                </div>
+            </div>
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="label label-danger pull-right">今天</span>
+                    <h5>沉淀利润</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins">[[${ret.fxt}]]</h1>
+                    <div class="stat-percent font-bold text-info">沉淀利润=总充值-提现数 <i class="fa fa-level-up"></i>
+                    </div>
+                    <small>说明</small>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <div class="col-sm-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="label label-info pull-right">所有</span>
+                    <h5>净利润</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins">[[${ret.allPassTxTotal}]]</h1>
+                    <div class="stat-percent font-bold text-info">所有净利润 <i class="fa fa-level-up"></i>
+                    </div>
+                    <small>说明</small>
+                </div>
+            </div>
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="label label-info pull-right">所有</span>
+                    <h5>沉淀利润</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins">[[${ret.fxAll}]]</h1>
+                    <div class="stat-percent font-bold text-info">所有沉淀利润 <i class="fa fa-level-up"></i>
+                    </div>
+                    <small>说明</small>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
     <!--    <div class="row">-->
     <!--        <div class="col-sm-12">-->
     <!--            <div class="ibox float-e-margins">-->

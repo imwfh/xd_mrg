@@ -1,5 +1,7 @@
 package com.ruoyi.system.domain;
 
+import java.math.BigDecimal;
+
 /**
  * Created by MR.Wu on 2019-12-30.
  */
@@ -52,6 +54,39 @@ public class StaticsRet {
 
     //所有通过申请提现金额
     private String allPassTxMoney;
+
+    //昨天的沉淀利润
+    private BigDecimal fxy;
+
+    //今天的沉淀利润
+    private BigDecimal fxt;
+
+    //所有沉淀利润
+    private BigDecimal fxAll;
+
+    public BigDecimal getFxAll() {
+        return fxAll;
+    }
+
+    public void setFxAll(BigDecimal fxAll) {
+        this.fxAll = fxAll;
+    }
+
+    public BigDecimal getFxy() {
+        return fxy;
+    }
+
+    public void setFxy(BigDecimal fxy) {
+        this.fxy = fxy;
+    }
+
+    public BigDecimal getFxt() {
+        return fxt;
+    }
+
+    public void setFxt(BigDecimal fxt) {
+        this.fxt = fxt;
+    }
 
     public String getNowDayUserTxTotal() {
         return nowDayUserTxTotal;

@@ -16,33 +16,38 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="addTime"    column="add_time"    />
         <result property="status"    column="status"    />
         <result property="gameType"    column="game_type"    />
+        <result property="userName"    column="username"    />
+        <result property="yinl"    column="yinl"    />
+        <result property="kuis"    column="kuis"    />
     </resultMap>
 	
 	<sql id="selectGameInOrderVo">
-        select id, user_code, stage_no, in_nums, in_rank, in_jf, rev_jf, in_times, add_time, status, game_type from game_in_order
+        select t.id, t.user_code, t1.username, t.stage_no, t.in_nums, t.in_rank, t.in_jf, t.rev_jf, IFNULL(case t.`status` when -1 then t.in_jf end,0)  as yinl,
+  IFNULL(case t.`status` when 1 then t.rev_jf - t.in_jf end,0) as kuis, t.in_times, t.add_time, t.status, t.game_type
+        from game_in_order t inner join tb_profit_user t1 on t.user_code = t1.user_code
     </sql>
 	
     <select id="selectGameInOrderList" parameterType="GameInOrder" resultMap="GameInOrderResult">
         <include refid="selectGameInOrderVo"/>
         <where>  
-            <if test="id != null "> and id = #{id}</if>
-             <if test="userCode != null  and userCode != '' "> and user_code = #{userCode}</if>
-             <if test="stageNo != null  and stageNo != '' "> and stage_no = #{stageNo}</if>
-             <if test="inNums != null  and inNums != '' "> and in_nums = #{inNums}</if>
-             <if test="inRank != null  and inRank != '' "> and in_rank = #{inRank}</if>
-             <if test="inJf != null "> and in_jf = #{inJf}</if>
-             <if test="revJf != null "> and rev_jf = #{revJf}</if>
-             <if test="inTimes != null "> and in_times = #{inTimes}</if>
-             <if test="addTime != null "> and add_time = #{addTime}</if>
-             <if test="status != null "> and status = #{status}</if>
-             <if test="gameType != null "> and game_type = #{gameType}</if>
+            <if test="id != null "> and t.id = #{id}</if>
+             <if test="userCode != null  and userCode != '' "> and t.user_code = #{userCode}</if>
+             <if test="stageNo != null  and stageNo != '' "> and t.stage_no = #{stageNo}</if>
+             <if test="inNums != null  and inNums != '' "> and t.in_nums = #{inNums}</if>
+             <if test="inRank != null  and inRank != '' "> and t.in_rank = #{inRank}</if>
+             <if test="inJf != null "> and t.in_jf = #{inJf}</if>
+             <if test="revJf != null "> and t.rev_jf = #{revJf}</if>
+             <if test="inTimes != null "> and t.in_times = #{inTimes}</if>
+             <if test="addTime != null "> and t.add_time = #{addTime}</if>
+             <if test="status != null "> and t.status = #{status}</if>
+             <if test="gameType != null "> and t.game_type = #{gameType}</if>
          </where>
-        order by add_time desc
+        order by t.add_time desc
     </select>
     
     <select id="selectGameInOrderById" parameterType="Integer" resultMap="GameInOrderResult">
         <include refid="selectGameInOrderVo"/>
-        where id = #{id}
+        where t.id = #{id}
     </select>
         
     <insert id="insertGameInOrder" parameterType="GameInOrder" useGeneratedKeys="true" keyProperty="id">

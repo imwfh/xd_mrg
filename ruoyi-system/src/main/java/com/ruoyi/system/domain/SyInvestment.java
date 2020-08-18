@@ -29,6 +29,7 @@ public class SyInvestment extends BaseEntity
 	private Float investmentMoney;
 	/** 投资人编码 */
 	private String userCode;
+	private String userName;
 	/** 0:待平台确认 1:平台已确认(已收账) */
 	private Integer platformComfirm;
 	/** 0:正常 -1:订单已超时 */
@@ -68,6 +69,14 @@ public class SyInvestment extends BaseEntity
 	 * 凭证
 	 */
 	private String tkUrl;
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
 
 	public BigDecimal getInvestmentRate() {
 		return investmentRate;

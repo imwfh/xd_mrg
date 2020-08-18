@@ -20,6 +20,7 @@ public class GameInOrder extends BaseEntity
 	private Integer id;
 	/** 用户编码 */
 	private String userCode;
+	private String userName;
 	/** 期数 */
 	private String stageNo;
 	/** 购买号码记录 */
@@ -30,6 +31,8 @@ public class GameInOrder extends BaseEntity
 	private BigDecimal inJf;
 	/** 将要收获多少积分 */
 	private BigDecimal revJf;
+	private BigDecimal yinl;
+	private BigDecimal kuis;
 	/** 下单倍数 */
 	private Integer inTimes;
 	/** 添加时间 */
@@ -39,7 +42,23 @@ public class GameInOrder extends BaseEntity
 	/** 0:赛车  1:飞艇 */
 	private Integer gameType;
 
-	public void setId(Integer id) 
+	public BigDecimal getYinl() {
+		return yinl;
+	}
+
+	public void setYinl(BigDecimal yinl) {
+		this.yinl = yinl;
+	}
+
+	public BigDecimal getKuis() {
+		return kuis;
+	}
+
+	public void setKuis(BigDecimal kuis) {
+		this.kuis = kuis;
+	}
+
+	public void setId(Integer id)
 	{
 		this.id = id;
 	}
@@ -139,7 +158,15 @@ public class GameInOrder extends BaseEntity
 		return gameType;
 	}
 
-    public String toString() {
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
             .append("id", getId())
             .append("userCode", getUserCode())

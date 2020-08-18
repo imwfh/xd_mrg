@@ -21,6 +21,7 @@ public class TbUserTx extends BaseEntity
 	private String txSn;
 	/** 用户唯一编码 */
 	private String userCode;
+	private String userName;
 	/** 提现的金额 */
 	private BigDecimal userTxMoney;
 	/** 提现前的余额 */
@@ -41,6 +42,14 @@ public class TbUserTx extends BaseEntity
 	//**100:本金钱包提现   101:用户收益流水钱包  102:赢利钱包提现
 
 	private Integer txType;
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
 
 	public Integer getTxType() {
 		return txType;

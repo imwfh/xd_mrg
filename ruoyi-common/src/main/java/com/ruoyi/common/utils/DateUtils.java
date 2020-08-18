@@ -1,10 +1,12 @@
 package com.ruoyi.common.utils;
 
+import org.apache.commons.lang3.time.DateFormatUtils;
+
 import java.lang.management.ManagementFactory;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
-import org.apache.commons.lang3.time.DateFormatUtils;
 
 /**
  * 时间工具类
@@ -129,6 +131,22 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils
     {
         long time = ManagementFactory.getRuntimeMXBean().getStartTime();
         return new Date(time);
+    }
+
+    public static String addOrDisOneDayOfNow(int dis) {
+        try {
+            Date date = new Date();
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(date);
+            calendar.add(Calendar.DAY_OF_MONTH, dis);
+            Date tomorrow = calendar.getTime();
+            SimpleDateFormat sdf = new SimpleDateFormat(YYYY_MM_DD_HH_MM_SS);
+            return sdf.format(tomorrow);
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**
