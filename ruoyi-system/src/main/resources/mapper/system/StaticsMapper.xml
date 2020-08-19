@@ -4,6 +4,17 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ruoyi.system.mapper.StaticsMapper">
 
+    <select id="getUserWallet" parameterType="java.util.Map" resultType="com.ruoyi.system.domain.UserStatInfo">
+        select sum(t1.user_money) userMoney, sum(t1.user_jb_money) userJbMoney, sum(t1.user_yl_money) userYlMoney, sum(t1.user_sy_money)  userSyMoney from tb_profit_user t1
+        where EXISTS (select t.user_code from sy_investment t
+        <where>
+            t.platform_comfirm = 1 and t.user_code = t1.user_code
+            <if test="times != null ">and DATE_FORMAT(t.comfirm_time,'%Y-%m-%d') =  DATE_FORMAT(#{times},'%Y-%m-%d')
+            </if>
+        </where>
+        )
+    </select>
+
     <select id="getFillSum" parameterType="java.util.Map" resultType="java.math.BigDecimal">
         select IFNULL(sum(t.revert_money),0) fillMoney from sy_investment t
         <where>
@@ -29,46 +40,48 @@
 
 
 
-                                                               -- 当天新注册的用户
-                                        select count(1) c from tb_profit_user t where DATE_FORMAT(t.create_time, '%Y-%m-%d') =
-                                        DATE_FORMAT(now(), '%Y-%m-%d')
-                                        UNION ALL
-                                        -- 总用户数
-                                        select count(1) c from tb_profit_user t
-                                        UNION ALL
-                                        -- 当日未被确认的订单总额
-                                        select ROUND(IFNULL(sum(t.revert_money),0),2) c from sy_investment t where t.platform_comfirm
-                                        <> 1 and DATE_FORMAT(t.investment_time, '%Y-%m-%d') = DATE_FORMAT(now(), '%Y-%m-%d')
-                                        UNION ALL
-                                        -- 当日已被确认的订单总额
-                                        select ROUND(IFNULL(sum(t.revert_money),0),2) c from sy_investment t where t.platform_comfirm = 1 and
-                                        DATE_FORMAT(t.investment_time, '%Y-%m-%d') = DATE_FORMAT(now(), '%Y-%m-%d')
-                                        UNION ALL
-                                        -- 当月未被确认的订单总额
-                                        select ROUND(IFNULL(sum(t.revert_money),0),2) c from sy_investment t where t.platform_comfirm
-                                        <> 1 and DATE_FORMAT(t.investment_time, '%Y-%m') = DATE_FORMAT(now(), '%Y-%m')
-                                        UNION ALL
-                                        -- 当月已被确认的订单总额
-                                        select ROUND(IFNULL(sum(t.revert_money),0),2) c from sy_investment t where t.platform_comfirm = 1 and
-                                        DATE_FORMAT(t.investment_time, '%Y-%m') = DATE_FORMAT(now(), '%Y-%m')
-                                                                UNION ALL
-                                                                -- 当天申请提现人数
-                                                                select count(1) c from tb_user_tx t where DATE_FORMAT(t.create_time, '%Y-%m-%d') = DATE_FORMAT(now(), '%Y-%m-%d') and t.tx_status = 0
-                                                                UNION ALL
-                                                                -- 当天申请提现金额
-                                                                select ROUND(IFNULL(sum(t.user_tx_money),0),2) c from tb_user_tx t where DATE_FORMAT(t.create_time, '%Y-%m-%d') = DATE_FORMAT(now(), '%Y-%m-%d') and t.tx_status = 1
-                                                                UNION ALL
-                                                                -- 当天通过申请提现人数
-                                                                select count(1) c from tb_user_tx t where DATE_FORMAT(t.create_time, '%Y-%m-%d') = DATE_FORMAT(now(), '%Y-%m-%d') and t.tx_status = 1
-                                                                UNION ALL
-                                                                -- 当天通过申请提现金额
-                                                                select ROUND(IFNULL(sum(t.user_tx_money),0),2) c from tb_user_tx t where DATE_FORMAT(t.create_time, '%Y-%m-%d') = DATE_FORMAT(now(), '%Y-%m-%d') and t.tx_status = 1
-                                                                UNION ALL
-                                                                -- 所有通过申请提现人数
-                                                                select count(1) c from tb_user_tx t where t.tx_status = 1
-                                                                UNION ALL
-                                                                -- 所有通过申请提现金额
-                                                                select ROUND(IFNULL(sum(t.user_tx_money),0),2) c from tb_user_tx t where t.tx_status = 1
+
+                                                                       -- 当天新注册的用户
+                                                select count(1) c from tb_profit_user t where DATE_FORMAT(t.create_time, '%Y-%m-%d') =
+                                                DATE_FORMAT(now(), '%Y-%m-%d')
+                                                UNION ALL
+                                                -- 总用户数
+                                                select count(1) c from tb_profit_user t
+                                                UNION ALL
+                                                -- 当日未被确认的订单总额
+                                                select ROUND(IFNULL(sum(t.revert_money),0),2) c from sy_investment t where t.platform_comfirm
+                                                <> 1 and DATE_FORMAT(t.comfirm_time, '%Y-%m-%d') = DATE_FORMAT(now(), '%Y-%m-%d')
+                                                UNION ALL
+                                                -- 当日已被确认的订单总额
+                                                select ROUND(IFNULL(sum(t.revert_money),0),2) c from sy_investment t where t.platform_comfirm = 1 and
+                                                DATE_FORMAT(t.comfirm_time, '%Y-%m-%d') = DATE_FORMAT(now(), '%Y-%m-%d')
+                                                UNION ALL
+                                                -- 当月未被确认的订单总额
+                                                select ROUND(IFNULL(sum(t.revert_money),0),2) c from sy_investment t where t.platform_comfirm
+                                                <> 1 and DATE_FORMAT(t.comfirm_time, '%Y-%m') = DATE_FORMAT(now(), '%Y-%m')
+                                                UNION ALL
+                                                -- 当月已被确认的订单总额
+                                                select ROUND(IFNULL(sum(t.revert_money),0),2) c from sy_investment t where t.platform_comfirm = 1 and
+                                                DATE_FORMAT(t.comfirm_time, '%Y-%m') = DATE_FORMAT(now(), '%Y-%m')
+                                                UNION ALL
+                                                -- 当天申请提现人数
+                                                select count(1) c from tb_user_tx t where DATE_FORMAT(t.create_time, '%Y-%m-%d') = DATE_FORMAT(now(), '%Y-%m-%d') and t.tx_status = 0
+                                                UNION ALL
+                                                -- 当天申请提现金额
+                                                select ROUND(IFNULL(sum(t.user_tx_money),0),2) c from tb_user_tx t where DATE_FORMAT(t.create_time, '%Y-%m-%d') = DATE_FORMAT(now(), '%Y-%m-%d') and t.tx_status = 1
+                                                UNION ALL
+                                                -- 当天通过申请提现人数
+                                                select count(1) c from tb_user_tx t where DATE_FORMAT(t.create_time, '%Y-%m-%d') = DATE_FORMAT(now(), '%Y-%m-%d') and t.tx_status = 1
+                                                UNION ALL
+                                                -- 当天通过申请提现金额
+                                                select ROUND(IFNULL(sum(t.user_tx_money),0),2) c from tb_user_tx t where DATE_FORMAT(t.create_time, '%Y-%m-%d') = DATE_FORMAT(now(), '%Y-%m-%d') and t.tx_status = 1
+                                                UNION ALL
+                                                -- 所有通过申请提现人数
+                                                select count(1) c from tb_user_tx t where t.tx_status = 1
+                                                UNION ALL
+                                                -- 所有通过申请提现金额
+                                                select ROUND(IFNULL(sum(t.user_tx_money),0),2) c from tb_user_tx t where t.tx_status = 1
+
 
 
 

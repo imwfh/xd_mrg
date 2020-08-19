@@ -2,6 +2,7 @@ package com.ruoyi.system.service.impl;
 
 import com.ruoyi.common.utils.DateUtils;
 import com.ruoyi.system.domain.StaticsRet;
+import com.ruoyi.system.domain.UserStatInfo;
 import com.ruoyi.system.mapper.StaticsMapper;
 import com.ruoyi.system.service.StaticsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,6 +71,19 @@ public class StaticsServiceImpl implements StaticsService {
         //净利润=总充值-提现数-用户账户总额度（四个钱包）
 
         //今天的净利润
+        p.clear();
+        p.put("times", DateUtils.addOrDisOneDayOfNow(0));
+        UserStatInfo userStatInfo = staticsMapper.getUserWallet(p);
+        BigDecimal userWallet = userStatInfo.getUserJbMoney().add(userStatInfo.getUserMoney()).add(userStatInfo.getUserSyMoney()).add(userStatInfo.getUserYlMoney());
+        BigDecimal r = fxt.subtract(userWallet);
+        ret.setFtl(r);
+
+        //所有净利润
+        UserStatInfo userStatInfoAll = staticsMapper.getUserWallet(null);
+        BigDecimal userWalletAll = userStatInfoAll.getUserJbMoney().add(userStatInfoAll.getUserMoney()).add(userStatInfoAll.getUserSyMoney()).add(userStatInfoAll.getUserYlMoney());
+        BigDecimal rA = fxAll.subtract(userWalletAll);
+        ret.setFtlAll(rA);
+
         return ret;
     }
 }

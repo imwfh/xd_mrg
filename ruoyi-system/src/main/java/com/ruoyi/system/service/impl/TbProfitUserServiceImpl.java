@@ -50,7 +50,8 @@ public class TbProfitUserServiceImpl implements ITbProfitUserService {
      */
     @Override
     public List<TbProfitUser> selectTbProfitUserList(TbProfitUser tbProfitUser) {
-        return tbProfitUserMapper.selectTbProfitUserList(tbProfitUser);
+        List<TbProfitUser> tpus = tbProfitUserMapper.selectTbProfitUserList(tbProfitUser);
+        return tpus;
     }
 
     /**

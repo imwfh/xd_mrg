@@ -1,5 +1,7 @@
 package com.ruoyi.system.mapper;
 
+import com.ruoyi.system.domain.UserStatInfo;
+
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
@@ -14,4 +16,6 @@ public interface StaticsMapper {
     BigDecimal getFillSum(Map<String, Object> param);
 
     BigDecimal getTxSum(Map<String, Object> param);
+
+    UserStatInfo getUserWallet(Map<String, Object> param);
 }

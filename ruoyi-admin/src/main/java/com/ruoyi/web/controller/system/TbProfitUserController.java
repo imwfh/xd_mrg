@@ -7,6 +7,7 @@ import com.ruoyi.common.core.page.TableDataInfo;
 import com.ruoyi.common.enums.BusinessType;
 import com.ruoyi.common.utils.poi.ExcelUtil;
 import com.ruoyi.system.domain.TbProfitUser;
+import com.ruoyi.system.mapper.StaticsMapper;
 import com.ruoyi.system.service.ITbProfitUserService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,9 @@ public class TbProfitUserController extends BaseController
 	
 	@Autowired
 	private ITbProfitUserService tbProfitUserService;
+
+	@Autowired
+	private StaticsMapper staticsMapper;
 	
 	@RequiresPermissions("system:tbProfitUser:view")
 	@GetMapping()
@@ -48,6 +52,8 @@ public class TbProfitUserController extends BaseController
 	{
 		startPage();
         List<TbProfitUser> list = tbProfitUserService.selectTbProfitUserList(tbProfitUser);
+//		UserStatInfo usi = staticsMapper.getUserWallet(null);
+//        mmap.put("ret", usi);
 		return getDataTable(list);
 	}
 	

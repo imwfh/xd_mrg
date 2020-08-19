@@ -72,6 +72,16 @@ public class TbProfitUser extends BaseEntity
 	/** 是否是无限代 0:不是  1:是 */
 	private Integer isNoLimit;
 
+	private UserStatInfo usi;
+
+	public UserStatInfo getUsi() {
+		return usi;
+	}
+
+	public void setUsi(UserStatInfo usi) {
+		this.usi = usi;
+	}
+
 	public String getUserLevel() {
 		return userLevel;
 	}

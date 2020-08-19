@@ -64,6 +64,28 @@ public class StaticsRet {
     //所有沉淀利润
     private BigDecimal fxAll;
 
+    //今天的净利
+    private BigDecimal ftl;
+
+    //所有的净利
+    private BigDecimal ftlAll;
+
+    public BigDecimal getFtlAll() {
+        return ftlAll;
+    }
+
+    public void setFtlAll(BigDecimal ftlAll) {
+        this.ftlAll = ftlAll;
+    }
+
+    public BigDecimal getFtl() {
+        return ftl;
+    }
+
+    public void setFtl(BigDecimal ftl) {
+        this.ftl = ftl;
+    }
+
     public BigDecimal getFxAll() {
         return fxAll;
     }
