@@ -72,7 +72,27 @@ public class TbProfitUser extends BaseEntity
 	/** 是否是无限代 0:不是  1:是 */
 	private Integer isNoLimit;
 
+	private String loginPwdFlag;
+
+	private String payPwdFlag;
+
 	private UserStatInfo usi;
+
+	public String getLoginPwdFlag() {
+		return loginPwdFlag;
+	}
+
+	public void setLoginPwdFlag(String loginPwdFlag) {
+		this.loginPwdFlag = loginPwdFlag;
+	}
+
+	public String getPayPwdFlag() {
+		return payPwdFlag;
+	}
+
+	public void setPayPwdFlag(String payPwdFlag) {
+		this.payPwdFlag = payPwdFlag;
+	}
 
 	public UserStatInfo getUsi() {
 		return usi;

@@ -29,26 +29,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="selectTbUserTxList" parameterType="TbUserTx" resultMap="TbUserTxResult">
         <include refid="selectTbUserTxVo"/>
         <where>  
-            <if test="id != null "> and id = #{id}</if>
-             <if test="txSn != null  and txSn != '' "> and tx_sn = #{txSn}</if>
-             <if test="userCode != null  and userCode != '' "> and user_code = #{userCode}</if>
-             <if test="userTxMoney != null "> and user_tx_money = #{userTxMoney}</if>
-             <if test="userBeforeTxMoney != null "> and user_before_tx_money = #{userBeforeTxMoney}</if>
-             <if test="userAfterTxMoney != null "> and user_after_tx_money = #{userAfterTxMoney}</if>
-             <if test="userKouMoney != null "> and user_kou_money = #{userKouMoney}</if>
-             <if test="userGetMoney != null "> and user_get_money = #{userGetMoney}</if>
-             <if test="userDesc != null  and userDesc != '' "> and user_desc = #{userDesc}</if>
-             <if test="bankNo != null  and bankNo != '' "> and bank_no = #{bankNo}</if>
-             <if test="txStatus != null "> and tx_status = #{txStatus}</if>
-            <if test="txType != null "> and tx_type = #{txType}</if>
-             <if test="createTime != null "> and create_time = #{createTime}</if>
+            <if test="id != null "> and t.id = #{id}</if>
+             <if test="txSn != null  and txSn != '' "> and t.tx_sn = #{txSn}</if>
+             <if test="userCode != null  and userCode != '' "> and t.user_code = #{userCode}</if>
+             <if test="userTxMoney != null "> and t.user_tx_money = #{userTxMoney}</if>
+             <if test="userBeforeTxMoney != null "> and t.user_before_tx_money = #{userBeforeTxMoney}</if>
+             <if test="userAfterTxMoney != null "> and t.user_after_tx_money = #{userAfterTxMoney}</if>
+             <if test="userKouMoney != null "> and t.user_kou_money = #{userKouMoney}</if>
+             <if test="userGetMoney != null "> and t.user_get_money = #{userGetMoney}</if>
+             <if test="userDesc != null  and userDesc != '' "> and t.user_desc = #{userDesc}</if>
+             <if test="bankNo != null  and bankNo != '' "> and t.bank_no = #{bankNo}</if>
+             <if test="txStatus != null "> and t.tx_status = #{txStatus}</if>
+            <if test="txType != null "> and t.tx_type = #{txType}</if>
+             <if test="createTime != null "> and t.create_time = #{createTime}</if>
          </where>
-         order by create_time desc
+         order by t.create_time desc
     </select>
     
     <select id="selectTbUserTxById" parameterType="Long" resultMap="TbUserTxResult">
         <include refid="selectTbUserTxVo"/>
-        where id = #{id}
+        where t.id = #{id}
     </select>
         
     <insert id="insertTbUserTx" parameterType="TbUserTx" useGeneratedKeys="true" keyProperty="id">

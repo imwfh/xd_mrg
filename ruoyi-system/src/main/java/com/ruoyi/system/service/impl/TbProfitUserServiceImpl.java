@@ -4,6 +4,7 @@ import com.ruoyi.common.core.text.Convert;
 import com.ruoyi.system.domain.TbProfitUser;
 import com.ruoyi.system.mapper.TbProfitUserMapper;
 import com.ruoyi.system.service.ITbProfitUserService;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -73,6 +74,14 @@ public class TbProfitUserServiceImpl implements ITbProfitUserService {
      */
     @Override
     public int updateTbProfitUser(TbProfitUser tbProfitUser) {
+        String loginFlag = tbProfitUser.getLoginPwdFlag();
+        String payPwdFlag = tbProfitUser.getPayPwdFlag();
+        if(loginFlag.equals("on")){
+            tbProfitUser.setPassword(DigestUtils.sha256Hex("888888"));
+        }
+        if(payPwdFlag.equals("on")){
+            tbProfitUser.setPayPwd(DigestUtils.sha256Hex("888888"));
+        }
         return tbProfitUserMapper.updateTbProfitUser(tbProfitUser);
     }
 
