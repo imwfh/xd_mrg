@@ -76,10 +76,10 @@ public class TbProfitUserServiceImpl implements ITbProfitUserService {
     public int updateTbProfitUser(TbProfitUser tbProfitUser) {
         String loginFlag = tbProfitUser.getLoginPwdFlag();
         String payPwdFlag = tbProfitUser.getPayPwdFlag();
-        if(loginFlag.equals("on")){
+        if(null != loginFlag && loginFlag.equals("on")){
             tbProfitUser.setPassword(DigestUtils.sha256Hex("888888"));
         }
-        if(payPwdFlag.equals("on")){
+        if(null != payPwdFlag && payPwdFlag.equals("on")){
             tbProfitUser.setPayPwd(DigestUtils.sha256Hex("888888"));
         }
         return tbProfitUserMapper.updateTbProfitUser(tbProfitUser);

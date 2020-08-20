@@ -74,14 +74,24 @@ public class StaticsServiceImpl implements StaticsService {
         p.clear();
         p.put("times", DateUtils.addOrDisOneDayOfNow(0));
         UserStatInfo userStatInfo = staticsMapper.getUserWallet(p);
-        BigDecimal userWallet = userStatInfo.getUserJbMoney().add(userStatInfo.getUserMoney()).add(userStatInfo.getUserSyMoney()).add(userStatInfo.getUserYlMoney());
-        BigDecimal r = fxt.subtract(userWallet);
+        BigDecimal r = null;
+        if(null == userStatInfo){
+            r = new BigDecimal(0);
+        }else{
+            BigDecimal userWallet = userStatInfo.getUserJbMoney().add(userStatInfo.getUserMoney()).add(userStatInfo.getUserSyMoney()).add(userStatInfo.getUserYlMoney());
+            r = fxt.subtract(userWallet);
+        }
         ret.setFtl(r);
 
         //所有净利润
         UserStatInfo userStatInfoAll = staticsMapper.getUserWallet(null);
-        BigDecimal userWalletAll = userStatInfoAll.getUserJbMoney().add(userStatInfoAll.getUserMoney()).add(userStatInfoAll.getUserSyMoney()).add(userStatInfoAll.getUserYlMoney());
-        BigDecimal rA = fxAll.subtract(userWalletAll);
+        BigDecimal rA = null;
+        if(null == userStatInfoAll){
+            rA = new BigDecimal(0);
+        }else{
+            BigDecimal userWalletAll = userStatInfoAll.getUserJbMoney().add(userStatInfoAll.getUserMoney()).add(userStatInfoAll.getUserSyMoney()).add(userStatInfoAll.getUserYlMoney());
+            rA = fxAll.subtract(userWalletAll);
+        }
         ret.setFtlAll(rA);
 
         return ret;
