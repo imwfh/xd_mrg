@@ -34,7 +34,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
              <if test="operaType != null "> and t.opera_type = #{operaType}</if>
              <if test="createTime != null and createTime != '' "> and t.create_time = #{createTime}</if>
          </where>
-         order t.create_time desc
+         order by t.create_time desc
     </select>
     
     <select id="selectSyTradeRecById" parameterType="Integer" resultMap="SyTradeRecResult">
