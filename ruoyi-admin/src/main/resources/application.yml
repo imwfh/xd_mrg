@@ -82,7 +82,7 @@ spring:
     time-zone: GMT+8
     date-format: yyyy-MM-dd HH:mm:ss
   profiles:
-    active: lt
+    active: xy
   # 文件上传
   servlet:
     multipart:
