@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SyOrderMapper">
+    
+    <resultMap type="SyOrder" id="SyOrderResult">
+        <result property="id"    column="id"    />
+        <result property="orderSn"    column="order_sn"    />
+        <result property="cartHashcode"    column="cart_hashcode"    />
+        <result property="prepayId"    column="prepay_id"    />
+        <result property="tradeNo"    column="trade_no"    />
+        <result property="userCode"    column="user_code"    />
+        <result property="addressId"    column="address_id"    />
+        <result property="logisticCode"    column="logistic_code"    />
+        <result property="orderStatus"    column="order_status"    />
+        <result property="postscripts"    column="postscripts"    />
+        <result property="subject"    column="subject"    />
+        <result property="goodsCount"    column="goods_count"    />
+        <result property="shippingId"    column="shipping_id"    />
+        <result property="payId"    column="pay_id"    />
+        <result property="goodsAmount"    column="goods_amount"    />
+        <result property="orderAmount"    column="order_amount"    />
+        <result property="diusAmount"    column="dius_amount"    />
+        <result property="refundStatus"    column="refund_status"    />
+        <result property="orderTime"    column="order_time"    />
+        <result property="refundNo"    column="refund_no"    />
+        <result property="orderType"    column="order_type"    />
+        <result property="returnFlag"    column="return_flag"    />
+        <result property="orderPayTime"    column="order_pay_time"    />
+        <result property="version"    column="version"    />
+    </resultMap>
+	
+	<sql id="selectSyOrderVo">
+        select id, order_sn, cart_hashcode, prepay_id, trade_no, user_code, address_id, logistic_code, order_status, postscripts, subject, goods_count, shipping_id, pay_id, goods_amount, order_amount, dius_amount, refund_status, order_time, refund_no, order_type, return_flag, order_pay_time, version from sy_order
+    </sql>
+	
+    <select id="selectSyOrderList" parameterType="SyOrder" resultMap="SyOrderResult">
+        <include refid="selectSyOrderVo"/>
+        <where>  
+            <if test="id != null "> and id = #{id}</if>
+             <if test="orderSn != null  and orderSn != '' "> and order_sn = #{orderSn}</if>
+             <if test="cartHashcode != null  and cartHashcode != '' "> and cart_hashcode = #{cartHashcode}</if>
+             <if test="prepayId != null  and prepayId != '' "> and prepay_id = #{prepayId}</if>
+             <if test="tradeNo != null  and tradeNo != '' "> and trade_no = #{tradeNo}</if>
+             <if test="userCode != null  and userCode != '' "> and user_code = #{userCode}</if>
+             <if test="addressId != null  and addressId != '' "> and address_id = #{addressId}</if>
+             <if test="logisticCode != null  and logisticCode != '' "> and logistic_code = #{logisticCode}</if>
+             <if test="orderStatus != null "> and order_status = #{orderStatus}</if>
+             <if test="postscripts != null  and postscripts != '' "> and postscripts = #{postscripts}</if>
+             <if test="subject != null  and subject != '' "> and subject = #{subject}</if>
+             <if test="goodsCount != null "> and goods_count = #{goodsCount}</if>
+             <if test="shippingId != null  and shippingId != '' "> and shipping_id = #{shippingId}</if>
+             <if test="payId != null  and payId != '' "> and pay_id = #{payId}</if>
+             <if test="goodsAmount != null "> and goods_amount = #{goodsAmount}</if>
+             <if test="orderAmount != null "> and order_amount = #{orderAmount}</if>
+             <if test="diusAmount != null "> and dius_amount = #{diusAmount}</if>
+             <if test="refundStatus != null "> and refund_status = #{refundStatus}</if>
+             <if test="orderTime != null "> and order_time = #{orderTime}</if>
+             <if test="refundNo != null  and refundNo != '' "> and refund_no = #{refundNo}</if>
+             <if test="orderType != null "> and order_type = #{orderType}</if>
+             <if test="returnFlag != null "> and return_flag = #{returnFlag}</if>
+             <if test="orderPayTime != null "> and order_pay_time = #{orderPayTime}</if>
+             <if test="version != null "> and version = #{version}</if>
+         </where>
+    </select>
+    
+    <select id="selectSyOrderById" parameterType="Integer" resultMap="SyOrderResult">
+        <include refid="selectSyOrderVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertSyOrder" parameterType="SyOrder" useGeneratedKeys="true" keyProperty="id">
+        insert into sy_order
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="orderSn != null  and orderSn != ''  ">order_sn,</if>
+			<if test="cartHashcode != null  and cartHashcode != ''  ">cart_hashcode,</if>
+			<if test="prepayId != null  and prepayId != ''  ">prepay_id,</if>
+			<if test="tradeNo != null  and tradeNo != ''  ">trade_no,</if>
+			<if test="userCode != null  and userCode != ''  ">user_code,</if>
+			<if test="addressId != null  and addressId != ''  ">address_id,</if>
+			<if test="logisticCode != null  and logisticCode != ''  ">logistic_code,</if>
+			<if test="orderStatus != null  ">order_status,</if>
+			<if test="postscripts != null  and postscripts != ''  ">postscripts,</if>
+			<if test="subject != null  and subject != ''  ">subject,</if>
+			<if test="goodsCount != null  ">goods_count,</if>
+			<if test="shippingId != null  and shippingId != ''  ">shipping_id,</if>
+			<if test="payId != null  and payId != ''  ">pay_id,</if>
+			<if test="goodsAmount != null  ">goods_amount,</if>
+			<if test="orderAmount != null  ">order_amount,</if>
+			<if test="diusAmount != null  ">dius_amount,</if>
+			<if test="refundStatus != null  ">refund_status,</if>
+			<if test="orderTime != null  ">order_time,</if>
+			<if test="refundNo != null  and refundNo != ''  ">refund_no,</if>
+			<if test="orderType != null  ">order_type,</if>
+			<if test="returnFlag != null  ">return_flag,</if>
+			<if test="orderPayTime != null  ">order_pay_time,</if>
+			<if test="version != null  ">version,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="orderSn != null  and orderSn != ''  ">#{orderSn},</if>
+			<if test="cartHashcode != null  and cartHashcode != ''  ">#{cartHashcode},</if>
+			<if test="prepayId != null  and prepayId != ''  ">#{prepayId},</if>
+			<if test="tradeNo != null  and tradeNo != ''  ">#{tradeNo},</if>
+			<if test="userCode != null  and userCode != ''  ">#{userCode},</if>
+			<if test="addressId != null  and addressId != ''  ">#{addressId},</if>
+			<if test="logisticCode != null  and logisticCode != ''  ">#{logisticCode},</if>
+			<if test="orderStatus != null  ">#{orderStatus},</if>
+			<if test="postscripts != null  and postscripts != ''  ">#{postscripts},</if>
+			<if test="subject != null  and subject != ''  ">#{subject},</if>
+			<if test="goodsCount != null  ">#{goodsCount},</if>
+			<if test="shippingId != null  and shippingId != ''  ">#{shippingId},</if>
+			<if test="payId != null  and payId != ''  ">#{payId},</if>
+			<if test="goodsAmount != null  ">#{goodsAmount},</if>
+			<if test="orderAmount != null  ">#{orderAmount},</if>
+			<if test="diusAmount != null  ">#{diusAmount},</if>
+			<if test="refundStatus != null  ">#{refundStatus},</if>
+			<if test="orderTime != null  ">#{orderTime},</if>
+			<if test="refundNo != null  and refundNo != ''  ">#{refundNo},</if>
+			<if test="orderType != null  ">#{orderType},</if>
+			<if test="returnFlag != null  ">#{returnFlag},</if>
+			<if test="orderPayTime != null  ">#{orderPayTime},</if>
+			<if test="version != null  ">#{version},</if>
+         </trim>
+    </insert>
+	 
+    <update id="updateSyOrder" parameterType="SyOrder">
+        update sy_order
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="orderSn != null  and orderSn != ''  ">order_sn = #{orderSn},</if>
+            <if test="cartHashcode != null  and cartHashcode != ''  ">cart_hashcode = #{cartHashcode},</if>
+            <if test="prepayId != null  and prepayId != ''  ">prepay_id = #{prepayId},</if>
+            <if test="tradeNo != null  and tradeNo != ''  ">trade_no = #{tradeNo},</if>
+            <if test="userCode != null  and userCode != ''  ">user_code = #{userCode},</if>
+            <if test="addressId != null  and addressId != ''  ">address_id = #{addressId},</if>
+            <if test="logisticCode != null  and logisticCode != ''  ">logistic_code = #{logisticCode},</if>
+            <if test="orderStatus != null  ">order_status = #{orderStatus},</if>
+            <if test="postscripts != null  and postscripts != ''  ">postscripts = #{postscripts},</if>
+            <if test="subject != null  and subject != ''  ">subject = #{subject},</if>
+            <if test="goodsCount != null  ">goods_count = #{goodsCount},</if>
+            <if test="shippingId != null  and shippingId != ''  ">shipping_id = #{shippingId},</if>
+            <if test="payId != null  and payId != ''  ">pay_id = #{payId},</if>
+            <if test="goodsAmount != null  ">goods_amount = #{goodsAmount},</if>
+            <if test="orderAmount != null  ">order_amount = #{orderAmount},</if>
+            <if test="diusAmount != null  ">dius_amount = #{diusAmount},</if>
+            <if test="refundStatus != null  ">refund_status = #{refundStatus},</if>
+            <if test="orderTime != null  ">order_time = #{orderTime},</if>
+            <if test="refundNo != null  and refundNo != ''  ">refund_no = #{refundNo},</if>
+            <if test="orderType != null  ">order_type = #{orderType},</if>
+            <if test="returnFlag != null  ">return_flag = #{returnFlag},</if>
+            <if test="orderPayTime != null  ">order_pay_time = #{orderPayTime},</if>
+            <if test="version != null  ">version = #{version},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+	<delete id="deleteSyOrderById" parameterType="Integer">
+        delete from sy_order where id = #{id}
+    </delete>
+	
+    <delete id="deleteSyOrderByIds" parameterType="String">
+        delete from sy_order where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>

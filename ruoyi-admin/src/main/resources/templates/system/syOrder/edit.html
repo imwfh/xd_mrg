@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+	<th:block th:include="include :: header('修改采购订单')" />
+</head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-syOrder-edit" th:object="${syOrder}">
+            <input id="id" name="id" th:field="*{id}"  type="hidden">
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">订单号 自已平台的：</label>
+				<div class="col-sm-8">
+					<input id="orderSn" name="orderSn" th:field="*{orderSn}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">购物车编码：</label>
+				<div class="col-sm-8">
+					<input id="cartHashcode" name="cartHashcode" th:field="*{cartHashcode}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">支付平台返回的支付号 wx：</label>
+				<div class="col-sm-8">
+					<input id="prepayId" name="prepayId" th:field="*{prepayId}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">支付平台回调时的订单号：</label>
+				<div class="col-sm-8">
+					<input id="tradeNo" name="tradeNo" th:field="*{tradeNo}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">用户ID：</label>
+				<div class="col-sm-8">
+					<input id="userCode" name="userCode" th:field="*{userCode}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">收货地址id：</label>
+				<div class="col-sm-8">
+					<input id="addressId" name="addressId" th:field="*{addressId}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">物流信息编号：</label>
+				<div class="col-sm-8">
+					<input id="logisticCode" name="logisticCode" th:field="*{logisticCode}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">订单状态 0 支付中 1 待付款 2 待发货 3 已发货 4 已完成：</label>
+				<div class="col-sm-8">
+					<input id="orderStatus" name="orderStatus" th:field="*{orderStatus}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">订单附言：</label>
+				<div class="col-sm-8">
+					<input id="postscripts" name="postscripts" th:field="*{postscripts}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">商品主题：</label>
+				<div class="col-sm-8">
+					<input id="subject" name="subject" th:field="*{subject}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">商品个数：</label>
+				<div class="col-sm-8">
+					<input id="goodsCount" name="goodsCount" th:field="*{goodsCount}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">送货方式编号：</label>
+				<div class="col-sm-8">
+					<input id="shippingId" name="shippingId" th:field="*{shippingId}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">支付方式ID  1:支付宝  2:微信  3:个人网银  4:对公网银  5:线下汇款：</label>
+				<div class="col-sm-8">
+					<input id="payId" name="payId" th:field="*{payId}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">商品总金额，原有商品价格的总和，不包含种优惠：</label>
+				<div class="col-sm-8">
+					<input id="goodsAmount" name="goodsAmount" th:field="*{goodsAmount}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">订单总金额 等于商品总额（无论是否被优惠）+邮费：</label>
+				<div class="col-sm-8">
+					<input id="orderAmount" name="orderAmount" th:field="*{orderAmount}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">被优惠的金额 商品总金额-订单总金额,即参与活动后的金额有多少：</label>
+				<div class="col-sm-8">
+					<input id="diusAmount" name="diusAmount" th:field="*{diusAmount}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">退款状态 0:未发生退款 1:退款成功 2:退款关闭：</label>
+				<div class="col-sm-8">
+					<input id="refundStatus" name="refundStatus" th:field="*{refundStatus}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">下单时间：</label>
+				<div class="col-sm-8">
+					<input id="orderTime" name="orderTime" th:field="*{orderTime}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">退款订单号：</label>
+				<div class="col-sm-8">
+					<input id="refundNo" name="refundNo" th:field="*{refundNo}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">0:商品购买  1:用户充值：</label>
+				<div class="col-sm-8">
+					<input id="orderType" name="orderType" th:field="*{orderType}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">0:未能返佣 1：成功返佣：</label>
+				<div class="col-sm-8">
+					<input id="returnFlag" name="returnFlag" th:field="*{returnFlag}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">实际支付时间：</label>
+				<div class="col-sm-8">
+					<input id="orderPayTime" name="orderPayTime" th:field="*{orderPayTime}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">：</label>
+				<div class="col-sm-8">
+					<input id="version" name="version" th:field="*{version}" class="form-control" type="text">
+				</div>
+			</div>
+		</form>
+    </div>
+    <div th:include="include::footer"></div>
+    <script type="text/javascript">
+		var prefix = ctx + "system/syOrder";
+		$("#form-syOrder-edit").validate({
+			rules:{
+				xxxx:{
+					required:true,
+				},
+			},
+			focusCleanup: true
+		});
+		
+		function submitHandler() {
+	        if ($.validate.form()) {
+	            $.operate.save(prefix + "/edit", $('#form-syOrder-edit').serialize());
+	        }
+	    }
+	</script>
+</body>
+</html>
