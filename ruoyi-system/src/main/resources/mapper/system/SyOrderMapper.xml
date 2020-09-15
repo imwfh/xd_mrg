@@ -29,40 +29,43 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="returnFlag"    column="return_flag"    />
         <result property="orderPayTime"    column="order_pay_time"    />
         <result property="version"    column="version"    />
+        <result property="userName"    column="username"    />
     </resultMap>
 	
 	<sql id="selectSyOrderVo">
-        select id, order_sn, cart_hashcode, prepay_id, trade_no, user_code, address_id, logistic_code, order_status, postscripts, subject, goods_count, shipping_id, pay_id, goods_amount, order_amount, dius_amount, refund_status, order_time, refund_no, order_type, return_flag, order_pay_time, version from sy_order
+        select t.id, t.order_sn, t.cart_hashcode, t.prepay_id, t.trade_no, t.user_code, t1.username, t.address_id, t.logistic_code, t.order_status, t.postscripts, t.subject, t.goods_count, t.shipping_id, t.pay_id, t.goods_amount,
+        t.order_amount, t.dius_amount, t.refund_status, t.order_time, t.refund_no, t.order_type, t.return_flag, t.order_pay_time, t.version from sy_order t inner join tb_profit_user t1 on t.user_code = t1.user_code
     </sql>
 	
     <select id="selectSyOrderList" parameterType="SyOrder" resultMap="SyOrderResult">
         <include refid="selectSyOrderVo"/>
         <where>  
-            <if test="id != null "> and id = #{id}</if>
-             <if test="orderSn != null  and orderSn != '' "> and order_sn = #{orderSn}</if>
-             <if test="cartHashcode != null  and cartHashcode != '' "> and cart_hashcode = #{cartHashcode}</if>
-             <if test="prepayId != null  and prepayId != '' "> and prepay_id = #{prepayId}</if>
-             <if test="tradeNo != null  and tradeNo != '' "> and trade_no = #{tradeNo}</if>
-             <if test="userCode != null  and userCode != '' "> and user_code = #{userCode}</if>
-             <if test="addressId != null  and addressId != '' "> and address_id = #{addressId}</if>
-             <if test="logisticCode != null  and logisticCode != '' "> and logistic_code = #{logisticCode}</if>
-             <if test="orderStatus != null "> and order_status = #{orderStatus}</if>
-             <if test="postscripts != null  and postscripts != '' "> and postscripts = #{postscripts}</if>
-             <if test="subject != null  and subject != '' "> and subject = #{subject}</if>
-             <if test="goodsCount != null "> and goods_count = #{goodsCount}</if>
-             <if test="shippingId != null  and shippingId != '' "> and shipping_id = #{shippingId}</if>
-             <if test="payId != null  and payId != '' "> and pay_id = #{payId}</if>
-             <if test="goodsAmount != null "> and goods_amount = #{goodsAmount}</if>
-             <if test="orderAmount != null "> and order_amount = #{orderAmount}</if>
-             <if test="diusAmount != null "> and dius_amount = #{diusAmount}</if>
-             <if test="refundStatus != null "> and refund_status = #{refundStatus}</if>
-             <if test="orderTime != null "> and order_time = #{orderTime}</if>
-             <if test="refundNo != null  and refundNo != '' "> and refund_no = #{refundNo}</if>
-             <if test="orderType != null "> and order_type = #{orderType}</if>
-             <if test="returnFlag != null "> and return_flag = #{returnFlag}</if>
-             <if test="orderPayTime != null "> and order_pay_time = #{orderPayTime}</if>
-             <if test="version != null "> and version = #{version}</if>
+            <if test="id != null "> and t.id = #{id}</if>
+             <if test="orderSn != null  and orderSn != '' "> and t.order_sn = #{orderSn}</if>
+             <if test="cartHashcode != null  and cartHashcode != '' "> and t.cart_hashcode = #{cartHashcode}</if>
+             <if test="prepayId != null  and prepayId != '' "> and t.prepay_id = #{prepayId}</if>
+             <if test="tradeNo != null  and tradeNo != '' "> and t.trade_no = #{tradeNo}</if>
+             <if test="userCode != null  and userCode != '' "> and t.user_code = #{userCode}</if>
+             <if test="addressId != null  and addressId != '' "> and t.address_id = #{addressId}</if>
+             <if test="logisticCode != null  and logisticCode != '' "> and t.logistic_code = #{logisticCode}</if>
+             <if test="orderStatus != null "> and t.order_status = #{orderStatus}</if>
+             <if test="postscripts != null  and postscripts != '' "> and t.postscripts = #{postscripts}</if>
+             <if test="subject != null  and subject != '' "> and t.subject = #{subject}</if>
+             <if test="goodsCount != null "> and t.goods_count = #{goodsCount}</if>
+             <if test="shippingId != null  and shippingId != '' "> and t.shipping_id = #{shippingId}</if>
+             <if test="payId != null  and payId != '' "> and t.pay_id = #{payId}</if>
+             <if test="goodsAmount != null "> and t.goods_amount = #{goodsAmount}</if>
+             <if test="orderAmount != null "> and t.order_amount = #{orderAmount}</if>
+             <if test="diusAmount != null "> and t.dius_amount = #{diusAmount}</if>
+             <if test="refundStatus != null "> and t.refund_status = #{refundStatus}</if>
+             <if test="orderTime != null "> and t.order_time = #{orderTime}</if>
+             <if test="refundNo != null  and refundNo != '' "> and t.refund_no = #{refundNo}</if>
+             <if test="orderType != null "> and t.order_type = #{orderType}</if>
+             <if test="returnFlag != null "> and t.return_flag = #{returnFlag}</if>
+             <if test="orderPayTime != null "> and t.order_pay_time = #{orderPayTime}</if>
+             <if test="version != null "> and t.version = #{version}</if>
          </where>
+        order by t.order_time desc
     </select>
     
     <select id="selectSyOrderById" parameterType="Integer" resultMap="SyOrderResult">

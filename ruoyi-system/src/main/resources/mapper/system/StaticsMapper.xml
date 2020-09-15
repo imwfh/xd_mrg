@@ -61,8 +61,11 @@
                                                 <> 1 and DATE_FORMAT(t.comfirm_time, '%Y-%m') = DATE_FORMAT(now(), '%Y-%m')
                                                 UNION ALL
                                                 -- 当月已被确认的订单总额
+                                               select a.c + b.c as c from (
                                                 select ROUND(IFNULL(sum(t.revert_money),0),2) c from sy_investment t where t.platform_comfirm = 1 and
-                                                DATE_FORMAT(t.comfirm_time, '%Y-%m') = DATE_FORMAT(now(), '%Y-%m')
+                                                                                                DATE_FORMAT(t.comfirm_time, '%Y-%m') = DATE_FORMAT(now(), '%Y-%m')) a,
+                                                (
+                                                select ROUND(IFNULL(sum(t.order_amount),0),2) c from sy_order t where t.order_status = 4 and DATE_FORMAT(t.order_time, '%Y-%m') = DATE_FORMAT(now(), '%Y-%m')) b
                                                 UNION ALL
                                                 -- 当天申请提现人数
                                                 select count(1) c from tb_user_tx t where DATE_FORMAT(t.create_time, '%Y-%m-%d') = DATE_FORMAT(now(), '%Y-%m-%d') and t.tx_status = 0

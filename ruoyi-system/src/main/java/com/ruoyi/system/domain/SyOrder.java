@@ -28,6 +28,7 @@ public class SyOrder extends BaseEntity
 	private String tradeNo;
 	/** 用户ID */
 	private String userCode;
+	private String userName;
 	/** 收货地址id */
 	private String addressId;
 	/** 物流信息编号 */
@@ -65,7 +66,15 @@ public class SyOrder extends BaseEntity
 	/**  */
 	private Integer version;
 
-	public void setId(Integer id) 
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public void setId(Integer id)
 	{
 		this.id = id;
 	}
