@@ -34,14 +34,43 @@ public class TbUserTx extends BaseEntity
 	private BigDecimal userGetMoney;
 	/** 备注 */
 	private String userDesc;
-	/**  */
+	private String btcCode;
+
 	private String bankNo;
+
+	private String bankUserName;
+
+	private String bankName;
 	/** 0:提现中 1:提现成功 -1:提现失败 */
 	private Integer txStatus;
 
 	//**100:本金钱包提现   101:用户收益流水钱包  102:赢利钱包提现
 
 	private Integer txType;
+
+	public String getBtcCode() {
+		return btcCode;
+	}
+
+	public void setBtcCode(String btcCode) {
+		this.btcCode = btcCode;
+	}
+
+	public String getBankUserName() {
+		return bankUserName;
+	}
+
+	public void setBankUserName(String bankUserName) {
+		this.bankUserName = bankUserName;
+	}
+
+	public String getBankName() {
+		return bankName;
+	}
+
+	public void setBankName(String bankName) {
+		this.bankName = bankName;
+	}
 
 	public String getUserName() {
 		return userName;

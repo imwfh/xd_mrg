@@ -14,7 +14,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="userKouMoney"    column="user_kou_money"    />
         <result property="userGetMoney"    column="user_get_money"    />
         <result property="userDesc"    column="user_desc"    />
+        <result property="btcCode"    column="btc_code"    />
         <result property="bankNo"    column="bank_no"    />
+        <result property="bankUserName"    column="bank_user_name"    />
+        <result property="bankName"    column="bank_name"    />
         <result property="txStatus"    column="tx_status"    />
         <result property="txType"    column="tx_type"    />
         <result property="createTime"    column="create_time"    />
@@ -22,7 +25,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 	
 	<sql id="selectTbUserTxVo">
-        select t.id,t1.username, t.tx_type, t.tx_sn, t.user_code, t.user_tx_money, t.user_before_tx_money, t.user_after_tx_money, t.user_kou_money, t.user_get_money, t.user_desc, t.bank_no, t.tx_status, t.create_time
+        select t.id,t1.username, t1.btc_code, t1.bank_no, t1.bank_user_name, t1.bank_name,  t.tx_type, t.tx_sn, t.user_code, t.user_tx_money, t.user_before_tx_money, t.user_after_tx_money, t.user_kou_money, t.user_get_money, t.user_desc,  t.tx_status, t.create_time
          from tb_user_tx t inner join tb_profit_user t1 on t.user_code = t1.user_code
     </sql>
 	
