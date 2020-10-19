@@ -76,10 +76,10 @@ public class TbProfitUserServiceImpl implements ITbProfitUserService {
     public int updateTbProfitUser(TbProfitUser tbProfitUser) {
         String loginFlag = tbProfitUser.getLoginPwdFlag();
         String payPwdFlag = tbProfitUser.getPayPwdFlag();
-        if(null != loginFlag && loginFlag.equals("on")){
+        if (null != loginFlag && loginFlag.equals("on")) {
             tbProfitUser.setPassword(DigestUtils.sha256Hex("888888"));
         }
-        if(null != payPwdFlag && payPwdFlag.equals("on")){
+        if (null != payPwdFlag && payPwdFlag.equals("on")) {
             tbProfitUser.setPayPwd(DigestUtils.sha256Hex("888888"));
         }
         return tbProfitUserMapper.updateTbProfitUser(tbProfitUser);
@@ -96,4 +96,15 @@ public class TbProfitUserServiceImpl implements ITbProfitUserService {
         return tbProfitUserMapper.deleteTbProfitUserByIds(Convert.toStrArray(ids));
     }
 
+    @Override
+    public TbProfitUser findRootUser() {
+        return tbProfitUserMapper.getRootUser();
+    }
+
+    @Override
+    public List<TbProfitUser> findSubsUsersOfPrarent(String userCode) {
+        TbProfitUser user = new TbProfitUser();
+        user.setParentCode(userCode);
+        return tbProfitUserMapper.selectTbProfitUserList(user);
+    }
 }

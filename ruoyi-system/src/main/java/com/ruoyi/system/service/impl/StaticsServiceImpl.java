@@ -1,14 +1,21 @@
 package com.ruoyi.system.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.ruoyi.common.utils.DateUtils;
+import com.ruoyi.system.domain.DataChildren;
 import com.ruoyi.system.domain.StaticsRet;
+import com.ruoyi.system.domain.TbProfitUser;
 import com.ruoyi.system.domain.UserStatInfo;
 import com.ruoyi.system.mapper.StaticsMapper;
+import com.ruoyi.system.service.ITbProfitUserService;
 import com.ruoyi.system.service.StaticsService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +28,11 @@ public class StaticsServiceImpl implements StaticsService {
 
     @Autowired
     private StaticsMapper staticsMapper;
+
+    @Autowired
+    private ITbProfitUserService iTbProfitUserService;
+
+    private static final Logger logger = LoggerFactory.getLogger("StaticsService");
 
     @Override
     public StaticsRet getStatic() {
@@ -75,9 +87,9 @@ public class StaticsServiceImpl implements StaticsService {
         p.put("times", DateUtils.addOrDisOneDayOfNow(0));
         UserStatInfo userStatInfo = staticsMapper.getUserWallet(p);
         BigDecimal r = null;
-        if(null == userStatInfo){
+        if (null == userStatInfo) {
             r = new BigDecimal(0);
-        }else{
+        } else {
             BigDecimal userWallet = userStatInfo.getUserJbMoney().add(userStatInfo.getUserMoney()).add(userStatInfo.getUserSyMoney()).add(userStatInfo.getUserYlMoney());
             r = fxt.subtract(userWallet);
         }
@@ -86,14 +98,58 @@ public class StaticsServiceImpl implements StaticsService {
         //所有净利润
         UserStatInfo userStatInfoAll = staticsMapper.getUserWallet(null);
         BigDecimal rA = null;
-        if(null == userStatInfoAll){
+        if (null == userStatInfoAll) {
             rA = new BigDecimal(0);
-        }else{
+        } else {
             BigDecimal userWalletAll = userStatInfoAll.getUserJbMoney().add(userStatInfoAll.getUserMoney()).add(userStatInfoAll.getUserSyMoney()).add(userStatInfoAll.getUserYlMoney());
             rA = fxAll.subtract(userWalletAll);
         }
         ret.setFtlAll(rA);
 
         return ret;
+    }
+
+    private void findSubsUsers(String userCode, DataChildren root) {
+        List<DataChildren> rootChildren = new ArrayList<>();
+        List<TbProfitUser> users = iTbProfitUserService.findSubsUsersOfPrarent(userCode);
+        users.stream().forEach(e -> {
+            DataChildren sub = new DataChildren();
+            sub.setName(e.getUsername()+" > " + e.getUserMoney() + " | " + e.getTotalMoney());
+            sub.setValue(e.getTotalMoney());
+            rootChildren.add(sub);
+            findSubsUsers(e.getUserCode(), sub);
+        });
+        root.setChildren(rootChildren);
+    }
+
+
+    public DataChildren getRelations() {
+        DataChildren root = new DataChildren();
+
+        //先找到root根节点 即没有上级的用户
+        TbProfitUser rootUser = iTbProfitUserService.findRootUser();
+        root.setName(rootUser.getUsername());
+        root.setValue(rootUser.getTotalMoney());
+        findSubsUsers(rootUser.getUserCode(), root);
+
+//        DataChildren root = new DataChildren();
+//        List<DataChildren> rootChildren = new ArrayList<>();
+//        root.setName("root");
+//        root.setValue(12);
+//
+//        DataChildren root1L = new DataChildren();
+//        root1L.setName("root1L");
+//        root1L.setValue(120);
+//        rootChildren.add(root1L);
+//
+//        DataChildren root2L = new DataChildren();
+//        root2L.setName("root2L");
+//        root2L.setValue(130);
+//        rootChildren.add(root2L);
+//
+//        root.setChildren(rootChildren);
+//        System.out.println(JSONObject.toJSONString(rootSubUsers));
+        System.out.println(JSONObject.toJSONString(root));
+        return root;
     }
 }

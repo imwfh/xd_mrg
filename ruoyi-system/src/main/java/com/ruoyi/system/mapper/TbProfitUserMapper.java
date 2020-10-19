@@ -64,5 +64,6 @@ public interface TbProfitUserMapper
      * @return 结果
      */
 	public int deleteTbProfitUserByIds(String[] userIds);
-	
+
+	TbProfitUser getRootUser();
 }

@@ -55,5 +55,8 @@ public interface ITbProfitUserService
      * @return 结果
      */
 	public int deleteTbProfitUserByIds(String ids);
-	
+
+	TbProfitUser findRootUser();
+
+	List<TbProfitUser> findSubsUsersOfPrarent(String userCode);
 }

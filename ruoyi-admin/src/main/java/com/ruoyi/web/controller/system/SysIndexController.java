@@ -1,8 +1,10 @@
 package com.ruoyi.web.controller.system;
 
+import com.alibaba.fastjson.JSONObject;
 import com.ruoyi.common.config.Global;
 import com.ruoyi.common.core.controller.BaseController;
 import com.ruoyi.framework.util.ShiroUtils;
+import com.ruoyi.system.domain.DataChildren;
 import com.ruoyi.system.domain.StaticsRet;
 import com.ruoyi.system.domain.SysMenu;
 import com.ruoyi.system.domain.SysUser;
@@ -17,7 +19,7 @@ import java.util.List;
 
 /**
  * 首页 业务处理
- * 
+ *
  * @author ruoyi
  */
 @Controller
@@ -49,5 +51,14 @@ public class SysIndexController extends BaseController {
         StaticsRet ret = staticsService.getStatic();
         mmap.put("ret", ret);
         return "main_v1";
+    }
+
+    @GetMapping("/u/ship")
+    public String ship(ModelMap mmap) {
+        mmap.put("version", Global.getVersion());
+        DataChildren root = staticsService.getRelations();
+        mmap.put("ret", JSONObject.toJSON(root));
+        mmap.put("msg", "aaa");
+        return "reship";
     }
 }

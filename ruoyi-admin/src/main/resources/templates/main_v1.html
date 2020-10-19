@@ -23,7 +23,8 @@
                     <h5>日总收入</h5>
                 </div>
                 <div class="ibox-content">
-                    <h1 class="no-margins">[[${ret.nowDayNoComfireOrderTotal}]] <span style="color: #1a2226; font-size: 12px">rmb</span> </h1>
+                    <h1 class="no-margins">[[${ret.nowDayNoComfireOrderTotal}]] <span
+                            style="color: #1a2226; font-size: 12px">rmb</span></h1>
                     <div class="stat-percent font-bold text-primary">当日未被确认的订单总额 <i class="fa fa-bolt"></i>
                     </div>
                     <small>说明</small>
@@ -37,7 +38,8 @@
                     <h5>日总收入</h5>
                 </div>
                 <div class="ibox-content">
-                    <h1 class="no-margins">[[${ret.nowDayYesComfireOrderTotal}]] <span style="color: #1a2226; font-size: 12px">rmb</span></h1>
+                    <h1 class="no-margins">[[${ret.nowDayYesComfireOrderTotal}]] <span
+                            style="color: #1a2226; font-size: 12px">rmb</span></h1>
                     <div class="stat-percent font-bold text-primary">当日已被确认的订单总额 <i class="fa fa-bolt"></i>
                     </div>
                     <small>说明</small>
@@ -52,7 +54,8 @@
                     <h5>月总收入</h5>
                 </div>
                 <div class="ibox-content">
-                    <h1 class="no-margins">[[${ret.nowMonthNoComfireOrderTotal}]] <span style="color: #1a2226; font-size: 12px">rmb</span></h1>
+                    <h1 class="no-margins">[[${ret.nowMonthNoComfireOrderTotal}]] <span
+                            style="color: #1a2226; font-size: 12px">rmb</span></h1>
                     <div class="stat-percent font-bold text-success">当月未被确认(或错误)的订单总额 <i class="fa fa-bolt"></i>
                     </div>
                     <small>说明</small>
@@ -66,7 +69,8 @@
                     <h5>月总收入</h5>
                 </div>
                 <div class="ibox-content">
-                    <h1 class="no-margins">[[${ret.nowMonthYesComfireOrderTotal}]] <span style="color: #1a2226; font-size: 12px">rmb</span></h1>
+                    <h1 class="no-margins">[[${ret.nowMonthYesComfireOrderTotal}]] <span
+                            style="color: #1a2226; font-size: 12px">rmb</span></h1>
                     <div class="stat-percent font-bold text-success">当月已被确认的订单总额 <i class="fa fa-bolt"></i>
                     </div>
                     <small>说明</small>
@@ -220,8 +224,6 @@
         </div>
 
 
-
-
         <div class="col-sm-3">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
@@ -252,264 +254,197 @@
 
     </div>
 
-    <!--    <div class="row">-->
-    <!--        <div class="col-sm-12">-->
-    <!--            <div class="ibox float-e-margins">-->
-    <!--                <div class="ibox-title">-->
-    <!--                    <h5>订单</h5>-->
-    <!--                    <div class="pull-right">-->
-    <!--                        <div class="btn-group">-->
-    <!--                            <button type="button" class="btn btn-xs btn-white active">天</button>-->
-    <!--                            <button type="button" class="btn btn-xs btn-white">月</button>-->
-    <!--                            <button type="button" class="btn btn-xs btn-white">年</button>-->
-    <!--                        </div>-->
-    <!--                    </div>-->
-    <!--                </div>-->
-    <!--                <div class="ibox-content">-->
-    <!--                    <div class="row">-->
-    <!--                        <div class="col-sm-9">-->
-    <!--                            <div class="flot-chart">-->
-    <!--                                <div class="flot-chart-content" id="flot-dashboard-chart"></div>-->
-    <!--                            </div>-->
-    <!--                        </div>-->
-    <!--                        <div class="col-sm-3">-->
-    <!--                            <ul class="stat-list">-->
-    <!--                                <li>-->
-    <!--                                    <h2 class="no-margins">2,346</h2>-->
-    <!--                                    <small>订单总数</small>-->
-    <!--                                    <div class="stat-percent">48% <i class="fa fa-level-up text-navy"></i>-->
-    <!--                                    </div>-->
-    <!--                                    <div class="progress progress-mini">-->
-    <!--                                        <div style="width: 48%;" class="progress-bar"></div>-->
-    <!--                                    </div>-->
-    <!--                                </li>-->
-    <!--                                <li>-->
-    <!--                                    <h2 class="no-margins ">4,422</h2>-->
-    <!--                                    <small>最近一个月订单</small>-->
-    <!--                                    <div class="stat-percent">60% <i class="fa fa-level-down text-navy"></i>-->
-    <!--                                    </div>-->
-    <!--                                    <div class="progress progress-mini">-->
-    <!--                                        <div style="width: 60%;" class="progress-bar"></div>-->
-    <!--                                    </div>-->
-    <!--                                </li>-->
-    <!--                                <li>-->
-    <!--                                    <h2 class="no-margins ">9,180</h2>-->
-    <!--                                    <small>最近一个月销售额</small>-->
-    <!--                                    <div class="stat-percent">22% <i class="fa fa-bolt text-navy"></i>-->
-    <!--                                    </div>-->
-    <!--                                    <div class="progress progress-mini">-->
-    <!--                                        <div style="width: 22%;" class="progress-bar"></div>-->
-    <!--                                    </div>-->
-    <!--                                </li>-->
-    <!--                            </ul>-->
-    <!--                        </div>-->
-    <!--                    </div>-->
-    <!--                </div>-->
-    <!--            </div>-->
-    <!--        </div>-->
-    <!--    </div>-->
+    <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
+    <div id="main" style="width: 1000px;height:1000px;"></div>
 
-    <!--    <div class="row">-->
-    <!--        <div class="col-sm-12">-->
-    <!--            <div class="ibox float-e-margins">-->
-    <!--                <div class="ibox-title">-->
-    <!--                    <h5>用户项目列表</h5>-->
-    <!--                    <div class="ibox-tools">-->
-    <!--                        <a class="collapse-link">-->
-    <!--                            <i class="fa fa-chevron-up"></i>-->
-    <!--                        </a>-->
-    <!--                        <a class="close-link">-->
-    <!--                            <i class="fa fa-times"></i>-->
-    <!--                        </a>-->
-    <!--                    </div>-->
-    <!--                </div>-->
-    <!--                <div class="ibox-content">-->
-    <!--                    <table class="table table-hover no-margins">-->
-    <!--                        <thead>-->
-    <!--                        <tr>-->
-    <!--                            <th>状态</th>-->
-    <!--                            <th>日期</th>-->
-    <!--                            <th>用户</th>-->
-    <!--                            <th>值</th>-->
-    <!--                        </tr>-->
-    <!--                        </thead>-->
-    <!--                        <tbody>-->
-    <!--                        <tr>-->
-    <!--                            <td><small>进行中...</small>-->
-    <!--                            </td>-->
-    <!--                            <td><i class="fa fa-clock-o"></i> 11:20</td>-->
-    <!--                            <td>青衣5858</td>-->
-    <!--                            <td class="text-navy"><i class="fa fa-level-up"></i> 24%</td>-->
-    <!--                        </tr>-->
-    <!--                        <tr>-->
-    <!--                            <td><span class="label label-warning">已取消</span>-->
-    <!--                            </td>-->
-    <!--                            <td><i class="fa fa-clock-o"></i> 10:40</td>-->
-    <!--                            <td>徐子崴</td>-->
-    <!--                            <td class="text-navy"><i class="fa fa-level-up"></i> 66%</td>-->
-    <!--                        </tr>-->
-    <!--                        <tr>-->
-    <!--                            <td><small>进行中...</small>-->
-    <!--                            </td>-->
-    <!--                            <td><i class="fa fa-clock-o"></i> 01:30</td>-->
-    <!--                            <td>姜岚昕</td>-->
-    <!--                            <td class="text-navy"><i class="fa fa-level-up"></i> 54%</td>-->
-    <!--                        </tr>-->
-    <!--                        <tr>-->
-    <!--                            <td><small>进行中...</small>-->
-    <!--                            </td>-->
-    <!--                            <td><i class="fa fa-clock-o"></i> 02:20</td>-->
-    <!--                            <td>武汉大兵哥</td>-->
-    <!--                            <td class="text-navy"><i class="fa fa-level-up"></i> 12%</td>-->
-    <!--                        </tr>-->
-    <!--                        <tr>-->
-    <!--                            <td><small>进行中...</small>-->
-    <!--                            </td>-->
-    <!--                            <td><i class="fa fa-clock-o"></i> 09:40</td>-->
-    <!--                            <td>荆莹儿</td>-->
-    <!--                            <td class="text-navy"><i class="fa fa-level-up"></i> 22%</td>-->
-    <!--                        </tr>-->
-    <!--                        <tr>-->
-    <!--                            <td><span class="label label-primary">已完成</span>-->
-    <!--                            </td>-->
-    <!--                            <td><i class="fa fa-clock-o"></i> 04:10</td>-->
-    <!--                            <td>栾某某</td>-->
-    <!--                            <td class="text-navy"><i class="fa fa-level-up"></i> 66%</td>-->
-    <!--                        </tr>-->
-    <!--                        <tr>-->
-    <!--                            <td><small>进行中...</small>-->
-    <!--                            </td>-->
-    <!--                            <td><i class="fa fa-clock-o"></i> 12:08</td>-->
-    <!--                            <td>范范范二妮</td>-->
-    <!--                            <td class="text-navy"><i class="fa fa-level-up"></i> 23%</td>-->
-    <!--                        </tr>-->
-    <!--                        </tbody>-->
-    <!--                    </table>-->
-    <!--                </div>-->
-    <!--            </div>-->
-    <!--        </div>-->
-    <!--    </div>-->
 </div>
 </div>
 <script th:src="@{/js/jquery.min.js}"></script>
 <script th:src="@{/js/bootstrap.min.js}"></script>
 <script th:src="@{/ajax/libs/flot/jquery.flot.js}"></script>
+<script th:src="@{/js/echarts.min.js}"></script>
 
 <th:block th:include="include :: sparkline-js"/>
 <script type="text/javascript">
     $(document).ready(function () {
-        var data2 = [
-            [gd(2012, 1, 1), 7], [gd(2012, 1, 2), 6], [gd(2012, 1, 3), 4], [gd(2012, 1, 4), 8],
-            [gd(2012, 1, 5), 9], [gd(2012, 1, 6), 7], [gd(2012, 1, 7), 5], [gd(2012, 1, 8), 4],
-            [gd(2012, 1, 9), 7], [gd(2012, 1, 10), 8], [gd(2012, 1, 11), 9], [gd(2012, 1, 12), 6],
-            [gd(2012, 1, 13), 4], [gd(2012, 1, 14), 5], [gd(2012, 1, 15), 11], [gd(2012, 1, 16), 8],
-            [gd(2012, 1, 17), 8], [gd(2012, 1, 18), 11], [gd(2012, 1, 19), 11], [gd(2012, 1, 20), 6],
-            [gd(2012, 1, 21), 6], [gd(2012, 1, 22), 8], [gd(2012, 1, 23), 11], [gd(2012, 1, 24), 13],
-            [gd(2012, 1, 25), 7], [gd(2012, 1, 26), 9], [gd(2012, 1, 27), 9], [gd(2012, 1, 28), 8],
-            [gd(2012, 1, 29), 5], [gd(2012, 1, 30), 8], [gd(2012, 1, 31), 25]
-        ];
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main'));
 
-        var data3 = [
-            [gd(2012, 1, 1), 800], [gd(2012, 1, 2), 500], [gd(2012, 1, 3), 600], [gd(2012, 1, 4), 700],
-            [gd(2012, 1, 5), 500], [gd(2012, 1, 6), 456], [gd(2012, 1, 7), 800], [gd(2012, 1, 8), 589],
-            [gd(2012, 1, 9), 467], [gd(2012, 1, 10), 876], [gd(2012, 1, 11), 689], [gd(2012, 1, 12), 700],
-            [gd(2012, 1, 13), 500], [gd(2012, 1, 14), 600], [gd(2012, 1, 15), 700], [gd(2012, 1, 16), 786],
-            [gd(2012, 1, 17), 345], [gd(2012, 1, 18), 888], [gd(2012, 1, 19), 888], [gd(2012, 1, 20), 888],
-            [gd(2012, 1, 21), 987], [gd(2012, 1, 22), 444], [gd(2012, 1, 23), 999], [gd(2012, 1, 24), 567],
-            [gd(2012, 1, 25), 786], [gd(2012, 1, 26), 666], [gd(2012, 1, 27), 888], [gd(2012, 1, 28), 900],
-            [gd(2012, 1, 29), 178], [gd(2012, 1, 30), 555], [gd(2012, 1, 31), 993]
-        ];
-
-
-        var dataset = [
-            {
-                label: "订单数",
-                data: data3,
-                color: "#1ab394",
-                bars: {
-                    show: true,
-                    align: "center",
-                    barWidth: 24 * 60 * 60 * 600,
-                    lineWidth: 0
+        var data = {
+            "name": "flare",
+            "children": [
+                {
+                    "name": "data",
+                    "children": [
+                        {
+                            "name": "converters",
+                            "children": [
+                                {"name": "Converters", "value": 721},
+                                {"name": "DelimitedTextConverter", "value": 4294}
+                            ]
+                        },
+                        {
+                            "name": "DataUtil",
+                            "value": 3322
+                        }
+                    ]
+                },
+                {
+                    "name": "display",
+                    "children": [
+                        {"name": "DirtySprite", "value": 8833},
+                        {"name": "LineSprite", "value": 1732},
+                        {"name": "RectSprite", "value": 3623}
+                    ]
+                },
+                {
+                    "name": "flex",
+                    "children": [
+                        {"name": "FlareVis", "value": 4116}
+                    ]
+                },
+                {
+                    "name": "query",
+                    "children": [
+                        {"name": "AggregateExpression", "value": 1616},
+                        {"name": "And", "value": 1027},
+                        {"name": "Arithmetic", "value": 3891},
+                        {"name": "Average", "value": 891},
+                        {"name": "BinaryExpression", "value": 2893},
+                        {"name": "Comparison", "value": 5103},
+                        {"name": "CompositeExpression", "value": 3677},
+                        {"name": "Count", "value": 781},
+                        {"name": "DateUtil", "value": 4141},
+                        {"name": "Distinct", "value": 933},
+                        {"name": "Expression", "value": 5130},
+                        {"name": "ExpressionIterator", "value": 3617},
+                        {"name": "Fn", "value": 3240},
+                        {"name": "If", "value": 2732},
+                        {"name": "IsA", "value": 2039},
+                        {"name": "Literal", "value": 1214},
+                        {"name": "Match", "value": 3748},
+                        {"name": "Maximum", "value": 843},
+                        {
+                            "name": "methods",
+                            "children": [
+                                {"name": "add", "value": 593},
+                                {"name": "and", "value": 330},
+                                {"name": "average", "value": 287},
+                                {"name": "count", "value": 277},
+                                {"name": "distinct", "value": 292},
+                                {"name": "div", "value": 595},
+                                {"name": "eq", "value": 594},
+                                {"name": "fn", "value": 460},
+                                {"name": "gt", "value": 603},
+                                {"name": "gte", "value": 625},
+                                {"name": "iff", "value": 748},
+                                {"name": "isa", "value": 461},
+                                {"name": "lt", "value": 597},
+                                {"name": "lte", "value": 619},
+                                {"name": "max", "value": 283},
+                                {"name": "min", "value": 283},
+                                {"name": "mod", "value": 591},
+                                {"name": "mul", "value": 603},
+                                {"name": "neq", "value": 599},
+                                {"name": "not", "value": 386},
+                                {"name": "or", "value": 323},
+                                {"name": "orderby", "value": 307},
+                                {"name": "range", "value": 772},
+                                {"name": "select", "value": 296},
+                                {"name": "stddev", "value": 363},
+                                {"name": "sub", "value": 600},
+                                {"name": "sum", "value": 280},
+                                {"name": "update", "value": 307},
+                                {"name": "variance", "value": 335},
+                                {"name": "where", "value": 299},
+                                {"name": "xor", "value": 354},
+                                {"name": "x_x", "value": 264}
+                            ]
+                        },
+                        {"name": "Minimum", "value": 843},
+                        {"name": "Not", "value": 1554},
+                        {"name": "Or", "value": 970},
+                        {"name": "Query", "value": 13896},
+                        {"name": "Range", "value": 1594},
+                        {"name": "StringUtil", "value": 4130},
+                        {"name": "Sum", "value": 791},
+                        {"name": "Variable", "value": 1124},
+                        {"name": "Variance", "value": 1876},
+                        {"name": "Xor", "value": 1101}
+                    ]
+                },
+                {
+                    "name": "scale",
+                    "children": [
+                        {"name": "IScaleMap", "value": 2105},
+                        {"name": "LinearScale", "value": 1316},
+                        {"name": "LogScale", "value": 3151},
+                        {"name": "OrdinalScale", "value": 3770},
+                        {"name": "QuantileScale", "value": 2435},
+                        {"name": "QuantitativeScale", "value": 4839},
+                        {"name": "RootScale", "value": 1756},
+                        {"name": "Scale", "value": 4268},
+                        {"name": "ScaleType", "value": 1821},
+                        {"name": "TimeScale", "value": 5833}
+                    ]
                 }
-
-            }, {
-                label: "付款数",
-                data: data2,
-                yaxis: 2,
-                color: "#464f88",
-                lines: {
-                    lineWidth: 1,
-                    show: true,
-                    fill: true,
-                    fillColor: {
-                        colors: [{
-                            opacity: 0.2
-                        }, {
-                            opacity: 0.2
-                        }]
-                    }
-                },
-                splines: {
-                    show: false,
-                    tension: 0.6,
-                    lineWidth: 1,
-                    fill: 0.1
-                },
-            }
-        ];
-
-
-        var options = {
-            xaxis: {
-                mode: "time",
-                tickSize: [3, "day"],
-                tickLength: 0,
-                axisLabel: "Date",
-                axisLabelUseCanvas: true,
-                axisLabelFontSizePixels: 12,
-                axisLabelFontFamily: 'Arial',
-                axisLabelPadding: 10,
-                color: "#838383"
-            },
-            yaxes: [{
-                position: "left",
-                max: 1070,
-                color: "#838383",
-                axisLabelUseCanvas: true,
-                axisLabelFontSizePixels: 12,
-                axisLabelFontFamily: 'Arial',
-                axisLabelPadding: 3
-            }, {
-                position: "right",
-                clolor: "#838383",
-                axisLabelUseCanvas: true,
-                axisLabelFontSizePixels: 12,
-                axisLabelFontFamily: ' Arial',
-                axisLabelPadding: 67
-            }
-            ],
-            legend: {
-                noColumns: 1,
-                labelBoxBorderColor: "#000000",
-                position: "nw"
-            },
-            grid: {
-                hoverable: false,
-                borderWidth: 0,
-                color: '#838383'
-            }
+            ]
         };
 
-        function gd(year, month, day) {
-            return new Date(year, month - 1, day).getTime();
-        }
+        var option = {
+            tooltip: {
+                trigger: 'item',
+                triggerOn: 'mousemove'
+            },
+            series:[
+                {
+                    type: 'tree',
+                    id: 0,
+                    name: 'tree1',
+                    data: [data],
 
-        var previousPoint = null,
-            previousLabel = null;
+                    top: '10%',
+                    left: '8%',
+                    bottom: '22%',
+                    right: '20%',
 
-        $.plot($("#flot-dashboard-chart"), dataset, options);
+                    symbolSize: 7,
+
+                    edgeShape: 'polyline',
+                    edgeForkPosition: '63%',
+                    initialTreeDepth: 3,
+
+                    lineStyle: {
+                        width: 2
+                    },
+
+                    label: {
+                        backgroundColor: '#fff',
+                        position: 'left',
+                        verticalAlign: 'middle',
+                        align: 'right'
+                    },
+
+                    leaves: {
+                        label: {
+                            position: 'right',
+                            verticalAlign: 'middle',
+                            align: 'left'
+                        }
+                    },
+
+                    expandAndCollapse: true,
+                    animationDuration: 550,
+                    animationDurationUpdate: 750
+                }
+            ]
+        };
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
     });
+
+
 </script>
 </body>
 </html>

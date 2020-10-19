@@ -40,6 +40,11 @@
         select user_jb_money, user_yl_money, user_sy_money, user_id, user_code, btc_code, user_gpfg, user_level, parent_code, username, mobile, password, user_type,is_examine, user_status, is_auth, user_money, user_return_money, is_first_fill, total_money_month, total_money, pay_pwd, version, bind_time, is_hf, is_tx, is_no_limit, create_time from tb_profit_user
     </sql>
 
+    <select id="getRootUser" resultMap="TbProfitUserResult">
+        <include refid="selectTbProfitUserVo"/>
+        where parent_code is null limit 1
+    </select>
+
     <select id="selectTbProfitUserList" parameterType="TbProfitUser" resultMap="TbProfitUserResult">
         <include refid="selectTbProfitUserVo"/>
         <where>
