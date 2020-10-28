@@ -77,7 +77,7 @@
         <div class="form-group">
             <label class="col-sm-3 control-label">账单确认</label>
             <div class="col-sm-8">
-                <select name="platformComfirm" class="form-control m-b">
+                <select name="platformComfirm" class="form-control m-b platformComfirm">
                     <option value="">----请选择账单确认状态----</option>
                     <option text="待平台确认" value="0" selected="*{platformComfirm == 0 ? selected : ''}"
                             th:field="*{platformComfirm}">待平台确认
@@ -95,7 +95,8 @@
         <div class="form-group">
             <label class="col-sm-3 control-label">错误订单描述：</label>
             <div class="col-sm-8">
-                <input id="failDesc" placeholder="审核失败请填写审核失败原因" name="failDesc" th:field="*{failDesc}" class="form-control" type="text">
+                <input id="failDesc" placeholder="审核失败请填写审核失败原因" name="failDesc" th:field="*{failDesc}"
+                       class="form-control" type="text">
             </div>
         </div>
 
@@ -123,10 +124,16 @@
 </div>
 <div th:include="include::footer"></div>
 <script type="text/javascript">
-    $(function(){
-        imgenlarge('Img')
-    })
+    $(function () {
+        imgenlarge('Img');
 
+        var message = [[${syInvestment.platformComfirm}]];
+        if (0 === message) {
+            $('.platformComfirm').attr("disabled", false);
+        }else{
+            $('.platformComfirm').attr("disabled", "disabled");
+        }
+    });
     var prefix = ctx + "system/syInvestment";
     $("#form-syInvestment-edit").validate({
         rules: {
@@ -138,28 +145,27 @@
     });
 
 
-
     function submitHandler() {
         if ($.validate.form()) {
             $.operate.save(prefix + "/edit", $('#form-syInvestment-edit').serialize());
         }
     }
 
-    function imgenlarge(val){
-        var flag=true
+    function imgenlarge(val) {
+        var flag = true
         var img = document.getElementById(val)
-        console.log("imgbyid",img)
-        img.onclick=function(){
+        console.log("imgbyid", img)
+        img.onclick = function () {
             var imgH = img.height
             var imgW = img.width
-            if(flag){
-                flag=false
-                img.height = imgH*3
-                img.width = imgW*3
-            }else{
-                flag=true
-                img.height = imgH/3
-                img.width = imgW/3
+            if (flag) {
+                flag = false
+                img.height = imgH * 3
+                img.width = imgW * 3
+            } else {
+                flag = true
+                img.height = imgH / 3
+                img.width = imgW / 3
             }
         }
     }

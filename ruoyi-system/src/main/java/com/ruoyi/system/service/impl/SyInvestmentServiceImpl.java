@@ -82,6 +82,13 @@ public class SyInvestmentServiceImpl implements ISyInvestmentService {
         syInvestment.setComfirmTime(new Date());
         SyInvestment si = selectSyInvestmentById(syInvestment.getId());
         TbProfitUser user = iTbProfitUserService.selectTbProfitUserByUserCode(si.getUserCode());
+
+        if (new Integer("-1").compareTo(si.getPlatformComfirm()) == 0 ||
+                new Integer("1").compareTo(si.getPlatformComfirm()) == 0) {
+            //如果订单错误或者已经确认过,将不在处理
+            return -1;
+        }
+
         //将订单中的余额更新到用户账户中 只有当审核通过时才会执行
         if (new Integer("1").compareTo(syInvestment.getPlatformComfirm()) == 0 && null != user) {
             BigDecimal orderMoney = si.getRevertMoney().setScale(2, BigDecimal.ROUND_HALF_UP);
