@@ -19,12 +19,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="userName"    column="username"    />
         <result property="yinl"    column="yinl"    />
         <result property="kuis"    column="kuis"    />
+        <result property="openNums"    column="open_nums"    />
     </resultMap>
 	
 	<sql id="selectGameInOrderVo">
-        select t.id, t.user_code, t1.username, t.stage_no, t.in_nums, t.in_rank, t.in_jf, t.rev_jf, IFNULL(case t.`status` when -1 then t.in_jf end,0)  as yinl,
+        select t.id, t.user_code, t1.username, t.stage_no, t.in_nums, t2.open_nums, t.in_rank, t.in_jf, t.rev_jf, IFNULL(case t.`status` when -1 then t.in_jf end,0)  as yinl,
   IFNULL(case t.`status` when 1 then t.rev_jf - t.in_jf end,0) as kuis, t.in_times, t.add_time, t.status, t.game_type
-        from game_in_order t inner join tb_profit_user t1 on t.user_code = t1.user_code
+        from game_in_order t inner join tb_profit_user t1 on t.user_code = t1.user_code LEFT JOIN game_open_rec t2 on t.stage_no = t2.stage_no
     </sql>
 	
     <select id="selectGameInOrderList" parameterType="GameInOrder" resultMap="GameInOrderResult">

@@ -42,6 +42,16 @@ public class GameInOrder extends BaseEntity
 	/** 0:赛车  1:飞艇 */
 	private Integer gameType;
 
+	private String openNums;
+
+	public String getOpenNums() {
+		return openNums;
+	}
+
+	public void setOpenNums(String openNums) {
+		this.openNums = openNums;
+	}
+
 	public BigDecimal getYinl() {
 		return yinl;
 	}
