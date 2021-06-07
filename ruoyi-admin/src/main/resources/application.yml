@@ -25,7 +25,7 @@ ftp:
   MinIdel: 2
   MaxIdle: 5
   MaxWaitMillis: 3000
-  domain: https://api.sondata.com.cn/ftpfiles/
+  domain: http://ftp.liangzi1314.xyz/ftpfiles/
 
 
 # 开发环境配置
@@ -58,7 +58,7 @@ user:
 # Spring配置
 spring:
   redis:
-    password: redis_xdap
+    password: redis_suplier
     host: 127.0.0.1
     port: 6380
     timeout: 1000
@@ -82,7 +82,7 @@ spring:
     time-zone: GMT+8
     date-format: yyyy-MM-dd HH:mm:ss
   profiles:
-    active: ds
+    active: hb
   # 文件上传
   servlet:
     multipart:
