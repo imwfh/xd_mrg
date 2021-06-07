@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+	<th:block th:include="include :: header('修改火币用户下单')" />
+</head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-hbOrderInfo-edit" th:object="${hbOrderInfo}">
+            <input id="id" name="id" th:field="*{id}"  type="hidden">
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">用户唯一编码：</label>
+				<div class="col-sm-8">
+					<input id="userCode" name="userCode" th:field="*{userCode}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">HB account id：</label>
+				<div class="col-sm-8">
+					<input id="accountId" name="accountId" th:field="*{accountId}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">订单号 自已平台的：</label>
+				<div class="col-sm-8">
+					<input id="orderSn" name="orderSn" th:field="*{orderSn}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">：</label>
+				<div class="col-sm-8">
+					<input id="hbSn" name="hbSn" th:field="*{hbSn}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">下单的交易对：</label>
+				<div class="col-sm-8">
+					<input id="symbol" name="symbol" th:field="*{symbol}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">：</label>
+				<div class="col-sm-8">
+					<input id="inUsdt" name="inUsdt" th:field="*{inUsdt}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">下单总金额：</label>
+				<div class="col-sm-8">
+					<input id="price" name="price" th:field="*{price}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">止损价格：</label>
+				<div class="col-sm-8">
+					<input id="stopPrice" name="stopPrice" th:field="*{stopPrice}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">下单数量：</label>
+				<div class="col-sm-8">
+					<input id="amount" name="amount" th:field="*{amount}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">火币已成交数量(买入的是哪个B种数量)：</label>
+				<div class="col-sm-8">
+					<input id="hbAmount" name="hbAmount" th:field="*{hbAmount}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">总共花了多少个U买入的当前币种：</label>
+				<div class="col-sm-8">
+					<input id="hbTotalPrice" name="hbTotalPrice" th:field="*{hbTotalPrice}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">火币成交单价(几个U)：</label>
+				<div class="col-sm-8">
+					<input id="hbPrice" name="hbPrice" th:field="*{hbPrice}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">B成交的手续费：</label>
+				<div class="col-sm-8">
+					<input id="hbFieldFees" name="hbFieldFees" th:field="*{hbFieldFees}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">操作类型：</label>
+				<div class="col-sm-8">
+					<input id="type" name="type" th:field="*{type}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">0:买入  1:卖出  2:补仓：</label>
+				<div class="col-sm-8">
+					<input id="orderType" name="orderType" th:field="*{orderType}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">0:买入  1:卖出：</label>
+				<div class="col-sm-8">
+					<input id="orderAction" name="orderAction" th:field="*{orderAction}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">0:未能校对 1：已校对：</label>
+				<div class="col-sm-8">
+					<input id="orderVerify" name="orderVerify" th:field="*{orderVerify}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">订单状态 0：支付成功  -1：支付失败：</label>
+				<div class="col-sm-8">
+					<input id="orderStatus" name="orderStatus" th:field="*{orderStatus}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">状态描述：</label>
+				<div class="col-sm-8">
+					<input id="orderStatusDesc" name="orderStatusDesc" th:field="*{orderStatusDesc}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">是否被计算 0:否 1:是：</label>
+				<div class="col-sm-8">
+					<input id="isCal" name="isCal" th:field="*{isCal}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">订单创建时间：</label>
+				<div class="col-sm-8">
+					<input id="createTime" name="createTime" th:field="*{createTime}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">：</label>
+				<div class="col-sm-8">
+					<input id="version" name="version" th:field="*{version}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">购买次数：</label>
+				<div class="col-sm-8">
+					<input id="orderTimes" name="orderTimes" th:field="*{orderTimes}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">：</label>
+				<div class="col-sm-8">
+					<input id="updateTime" name="updateTime" th:field="*{updateTime}" class="form-control" type="text">
+				</div>
+			</div>
+		</form>
+    </div>
+    <div th:include="include::footer"></div>
+    <script type="text/javascript">
+		var prefix = ctx + "system/hbOrderInfo";
+		$("#form-hbOrderInfo-edit").validate({
+			rules:{
+				xxxx:{
+					required:true,
+				},
+			},
+			focusCleanup: true
+		});
+		
+		function submitHandler() {
+	        if ($.validate.form()) {
+	            $.operate.save(prefix + "/edit", $('#form-hbOrderInfo-edit').serialize());
+	        }
+	    }
+	</script>
+</body>
+</html>

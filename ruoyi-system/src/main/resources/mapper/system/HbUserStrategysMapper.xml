@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.HbUserStrategysMapper">
+    
+    <resultMap type="HbUserStrategys" id="HbUserStrategysResult">
+        <result property="id"    column="id"    />
+        <result property="userCode"    column="user_code"    />
+        <result property="symbolName"    column="symbol_name"    />
+        <result property="strategyNo"    column="strategy_no"    />
+        <result property="firstMoney"    column="first_money"    />
+        <result property="orderNumber"    column="order_number"    />
+        <result property="profitStopRate"    column="profit_stop_rate"    />
+        <result property="profitBackRate"    column="profit_back_rate"    />
+        <result property="buyInRate"    column="buy_in_rate"    />
+        <result property="buyInBackRate"    column="buy_in_back_rate"    />
+        <result property="status"    column="status"    />
+        <result property="strategyType"    column="strategy_type"    />
+        <result property="createTime"    column="create_time"    />
+    </resultMap>
+	
+	<sql id="selectHbUserStrategysVo">
+        select id, user_code, symbol_name, strategy_no, first_money, order_number, profit_stop_rate, profit_back_rate, buy_in_rate, buy_in_back_rate, status, strategy_type, create_time from hb_user_strategys
+    </sql>
+	
+    <select id="selectHbUserStrategysList" parameterType="HbUserStrategys" resultMap="HbUserStrategysResult">
+        <include refid="selectHbUserStrategysVo"/>
+        <where>  
+            <if test="id != null "> and id = #{id}</if>
+             <if test="userCode != null  and userCode != '' "> and user_code = #{userCode}</if>
+             <if test="symbolName != null  and symbolName != '' "> and symbol_name = #{symbolName}</if>
+             <if test="strategyNo != null  and strategyNo != '' "> and strategy_no = #{strategyNo}</if>
+             <if test="firstMoney != null "> and first_money = #{firstMoney}</if>
+             <if test="orderNumber != null "> and order_number = #{orderNumber}</if>
+             <if test="profitStopRate != null "> and profit_stop_rate = #{profitStopRate}</if>
+             <if test="profitBackRate != null "> and profit_back_rate = #{profitBackRate}</if>
+             <if test="buyInRate != null  and buyInRate != '' "> and buy_in_rate = #{buyInRate}</if>
+             <if test="buyInBackRate != null "> and buy_in_back_rate = #{buyInBackRate}</if>
+             <if test="status != null "> and status = #{status}</if>
+             <if test="strategyType != null "> and strategy_type = #{strategyType}</if>
+             <if test="createTime != null "> and create_time = #{createTime}</if>
+         </where>
+        order by create_time desc
+    </select>
+    
+    <select id="selectHbUserStrategysById" parameterType="Integer" resultMap="HbUserStrategysResult">
+        <include refid="selectHbUserStrategysVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertHbUserStrategys" parameterType="HbUserStrategys" useGeneratedKeys="true" keyProperty="id">
+        insert into hb_user_strategys
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="userCode != null  and userCode != ''  ">user_code,</if>
+			<if test="symbolName != null  and symbolName != ''  ">symbol_name,</if>
+			<if test="strategyNo != null  and strategyNo != ''  ">strategy_no,</if>
+			<if test="firstMoney != null  ">first_money,</if>
+			<if test="orderNumber != null  ">order_number,</if>
+			<if test="profitStopRate != null  ">profit_stop_rate,</if>
+			<if test="profitBackRate != null  ">profit_back_rate,</if>
+			<if test="buyInRate != null  and buyInRate != ''  ">buy_in_rate,</if>
+			<if test="buyInBackRate != null  ">buy_in_back_rate,</if>
+			<if test="status != null  ">status,</if>
+			<if test="strategyType != null  ">strategy_type,</if>
+			<if test="createTime != null  ">create_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="userCode != null  and userCode != ''  ">#{userCode},</if>
+			<if test="symbolName != null  and symbolName != ''  ">#{symbolName},</if>
+			<if test="strategyNo != null  and strategyNo != ''  ">#{strategyNo},</if>
+			<if test="firstMoney != null  ">#{firstMoney},</if>
+			<if test="orderNumber != null  ">#{orderNumber},</if>
+			<if test="profitStopRate != null  ">#{profitStopRate},</if>
+			<if test="profitBackRate != null  ">#{profitBackRate},</if>
+			<if test="buyInRate != null  and buyInRate != ''  ">#{buyInRate},</if>
+			<if test="buyInBackRate != null  ">#{buyInBackRate},</if>
+			<if test="status != null  ">#{status},</if>
+			<if test="strategyType != null  ">#{strategyType},</if>
+			<if test="createTime != null  ">#{createTime},</if>
+         </trim>
+    </insert>
+	 
+    <update id="updateHbUserStrategys" parameterType="HbUserStrategys">
+        update hb_user_strategys
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userCode != null  and userCode != ''  ">user_code = #{userCode},</if>
+            <if test="symbolName != null  and symbolName != ''  ">symbol_name = #{symbolName},</if>
+            <if test="strategyNo != null  and strategyNo != ''  ">strategy_no = #{strategyNo},</if>
+            <if test="firstMoney != null  ">first_money = #{firstMoney},</if>
+            <if test="orderNumber != null  ">order_number = #{orderNumber},</if>
+            <if test="profitStopRate != null  ">profit_stop_rate = #{profitStopRate},</if>
+            <if test="profitBackRate != null  ">profit_back_rate = #{profitBackRate},</if>
+            <if test="buyInRate != null  and buyInRate != ''  ">buy_in_rate = #{buyInRate},</if>
+            <if test="buyInBackRate != null  ">buy_in_back_rate = #{buyInBackRate},</if>
+            <if test="status != null  ">status = #{status},</if>
+            <if test="strategyType != null  ">strategy_type = #{strategyType},</if>
+            <if test="createTime != null  ">create_time = #{createTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+	<delete id="deleteHbUserStrategysById" parameterType="Integer">
+        delete from hb_user_strategys where id = #{id}
+    </delete>
+	
+    <delete id="deleteHbUserStrategysByIds" parameterType="String">
+        delete from hb_user_strategys where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>

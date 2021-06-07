@@ -38,10 +38,10 @@
             <!--				<a class="btn btn-primary btn-edit disabled" onclick="$.operate.edit()" shiro:hasPermission="system:syNotice:edit">-->
             <!--					<i class="fa fa-edit"></i> 修改-->
             <!--				</a>-->
-<!--            <a class="btn btn-danger btn-del disabled" onclick="$.operate.removeAll()"-->
-<!--               shiro:hasPermission="system:syNotice:remove">-->
-<!--                <i class="fa fa-remove"></i> 删除-->
-<!--            </a>-->
+            <!--            <a class="btn btn-danger btn-del disabled" onclick="$.operate.removeAll()"-->
+            <!--               shiro:hasPermission="system:syNotice:remove">-->
+            <!--                <i class="fa fa-remove"></i> 删除-->
+            <!--            </a>-->
             <!--				<a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="system:syNotice:export">-->
             <!--						<i class="fa fa-download"></i> 导出-->
             <!--				 </a>-->
@@ -97,6 +97,8 @@
                             return '<span class="badge badge-primary">平台公告</span>';
                         } else if (value == 1) {
                             return '<span class="badge badge-warning">平台简介</span>';
+                        } else if (value == 2) {
+                            return '<span class="badge badge-warning">平台简介</span>';
                         }
                     }
                 },
@@ -112,7 +114,7 @@
                     align: 'center',
                     formatter: function (value, row, index) {
                         var actions = [];
-                        if (0 == row.languageType){
+                        if (0 == row.languageType) {
                             actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="$.operate.edit(\'' + row.id + '\')"><i class="fa fa-edit"></i>编辑</a> ');
                             actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.id + '\')"><i class="fa fa-remove"></i>删除</a>');
                         }

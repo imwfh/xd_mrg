@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.HbOrderInfoMapper">
+    
+    <resultMap type="HbOrderInfo" id="HbOrderInfoResult">
+        <result property="id"    column="id"    />
+        <result property="userCode"    column="user_code"    />
+        <result property="accountId"    column="account_id"    />
+        <result property="orderSn"    column="order_sn"    />
+        <result property="hbSn"    column="hb_sn"    />
+        <result property="symbol"    column="symbol"    />
+        <result property="inUsdt"    column="in_usdt"    />
+        <result property="price"    column="price"    />
+        <result property="stopPrice"    column="stop_price"    />
+        <result property="amount"    column="amount"    />
+        <result property="hbAmount"    column="hb_amount"    />
+        <result property="hbTotalPrice"    column="hb_total_price"    />
+        <result property="hbPrice"    column="hb_price"    />
+        <result property="hbFieldFees"    column="hb_field_fees"    />
+        <result property="type"    column="type"    />
+        <result property="orderType"    column="order_type"    />
+        <result property="orderAction"    column="order_action"    />
+        <result property="orderVerify"    column="order_verify"    />
+        <result property="orderStatus"    column="order_status"    />
+        <result property="orderStatusDesc"    column="order_status_desc"    />
+        <result property="isCal"    column="is_cal"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="version"    column="version"    />
+        <result property="orderTimes"    column="order_times"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+	
+	<sql id="selectHbOrderInfoVo">
+        select id, user_code, account_id, order_sn, hb_sn, symbol, in_usdt, price, stop_price, amount, hb_amount, hb_total_price, hb_price, hb_field_fees, type, order_type, order_action, order_verify, order_status, order_status_desc, is_cal, create_time, version, order_times, update_time from hb_order_info
+    </sql>
+	
+    <select id="selectHbOrderInfoList" parameterType="HbOrderInfo" resultMap="HbOrderInfoResult">
+        <include refid="selectHbOrderInfoVo"/>
+        <where>  
+            <if test="id != null "> and id = #{id}</if>
+             <if test="userCode != null  and userCode != '' "> and user_code = #{userCode}</if>
+             <if test="accountId != null  and accountId != '' "> and account_id = #{accountId}</if>
+             <if test="orderSn != null  and orderSn != '' "> and order_sn = #{orderSn}</if>
+             <if test="hbSn != null  and hbSn != '' "> and hb_sn = #{hbSn}</if>
+             <if test="symbol != null  and symbol != '' "> and symbol = #{symbol}</if>
+             <if test="inUsdt != null  and inUsdt != '' "> and in_usdt = #{inUsdt}</if>
+             <if test="price != null  and price != '' "> and price = #{price}</if>
+             <if test="stopPrice != null  and stopPrice != '' "> and stop_price = #{stopPrice}</if>
+             <if test="amount != null  and amount != '' "> and amount = #{amount}</if>
+             <if test="hbAmount != null  and hbAmount != '' "> and hb_amount = #{hbAmount}</if>
+             <if test="hbTotalPrice != null  and hbTotalPrice != '' "> and hb_total_price = #{hbTotalPrice}</if>
+             <if test="hbPrice != null  and hbPrice != '' "> and hb_price = #{hbPrice}</if>
+             <if test="hbFieldFees != null  and hbFieldFees != '' "> and hb_field_fees = #{hbFieldFees}</if>
+             <if test="type != null  and type != '' "> and type = #{type}</if>
+             <if test="orderType != null "> and order_type = #{orderType}</if>
+             <if test="orderAction != null "> and order_action = #{orderAction}</if>
+             <if test="orderVerify != null "> and order_verify = #{orderVerify}</if>
+             <if test="orderStatus != null "> and order_status = #{orderStatus}</if>
+             <if test="orderStatusDesc != null  and orderStatusDesc != '' "> and order_status_desc = #{orderStatusDesc}</if>
+             <if test="isCal != null "> and is_cal = #{isCal}</if>
+             <if test="createTime != null "> and create_time = #{createTime}</if>
+             <if test="version != null "> and version = #{version}</if>
+             <if test="orderTimes != null "> and order_times = #{orderTimes}</if>
+             <if test="updateTime != null "> and update_time = #{updateTime}</if>
+         </where>
+        order by create_time desc
+    </select>
+    
+    <select id="selectHbOrderInfoById" parameterType="Integer" resultMap="HbOrderInfoResult">
+        <include refid="selectHbOrderInfoVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertHbOrderInfo" parameterType="HbOrderInfo" useGeneratedKeys="true" keyProperty="id">
+        insert into hb_order_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="userCode != null  and userCode != ''  ">user_code,</if>
+			<if test="accountId != null  and accountId != ''  ">account_id,</if>
+			<if test="orderSn != null  and orderSn != ''  ">order_sn,</if>
+			<if test="hbSn != null  and hbSn != ''  ">hb_sn,</if>
+			<if test="symbol != null  and symbol != ''  ">symbol,</if>
+			<if test="inUsdt != null  and inUsdt != ''  ">in_usdt,</if>
+			<if test="price != null  and price != ''  ">price,</if>
+			<if test="stopPrice != null  and stopPrice != ''  ">stop_price,</if>
+			<if test="amount != null  and amount != ''  ">amount,</if>
+			<if test="hbAmount != null  and hbAmount != ''  ">hb_amount,</if>
+			<if test="hbTotalPrice != null  and hbTotalPrice != ''  ">hb_total_price,</if>
+			<if test="hbPrice != null  and hbPrice != ''  ">hb_price,</if>
+			<if test="hbFieldFees != null  and hbFieldFees != ''  ">hb_field_fees,</if>
+			<if test="type != null  and type != ''  ">type,</if>
+			<if test="orderType != null  ">order_type,</if>
+			<if test="orderAction != null  ">order_action,</if>
+			<if test="orderVerify != null  ">order_verify,</if>
+			<if test="orderStatus != null  ">order_status,</if>
+			<if test="orderStatusDesc != null  and orderStatusDesc != ''  ">order_status_desc,</if>
+			<if test="isCal != null  ">is_cal,</if>
+			<if test="createTime != null  ">create_time,</if>
+			<if test="version != null  ">version,</if>
+			<if test="orderTimes != null  ">order_times,</if>
+			<if test="updateTime != null  ">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="userCode != null  and userCode != ''  ">#{userCode},</if>
+			<if test="accountId != null  and accountId != ''  ">#{accountId},</if>
+			<if test="orderSn != null  and orderSn != ''  ">#{orderSn},</if>
+			<if test="hbSn != null  and hbSn != ''  ">#{hbSn},</if>
+			<if test="symbol != null  and symbol != ''  ">#{symbol},</if>
+			<if test="inUsdt != null  and inUsdt != ''  ">#{inUsdt},</if>
+			<if test="price != null  and price != ''  ">#{price},</if>
+			<if test="stopPrice != null  and stopPrice != ''  ">#{stopPrice},</if>
+			<if test="amount != null  and amount != ''  ">#{amount},</if>
+			<if test="hbAmount != null  and hbAmount != ''  ">#{hbAmount},</if>
+			<if test="hbTotalPrice != null  and hbTotalPrice != ''  ">#{hbTotalPrice},</if>
+			<if test="hbPrice != null  and hbPrice != ''  ">#{hbPrice},</if>
+			<if test="hbFieldFees != null  and hbFieldFees != ''  ">#{hbFieldFees},</if>
+			<if test="type != null  and type != ''  ">#{type},</if>
+			<if test="orderType != null  ">#{orderType},</if>
+			<if test="orderAction != null  ">#{orderAction},</if>
+			<if test="orderVerify != null  ">#{orderVerify},</if>
+			<if test="orderStatus != null  ">#{orderStatus},</if>
+			<if test="orderStatusDesc != null  and orderStatusDesc != ''  ">#{orderStatusDesc},</if>
+			<if test="isCal != null  ">#{isCal},</if>
+			<if test="createTime != null  ">#{createTime},</if>
+			<if test="version != null  ">#{version},</if>
+			<if test="orderTimes != null  ">#{orderTimes},</if>
+			<if test="updateTime != null  ">#{updateTime},</if>
+         </trim>
+    </insert>
+	 
+    <update id="updateHbOrderInfo" parameterType="HbOrderInfo">
+        update hb_order_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userCode != null  and userCode != ''  ">user_code = #{userCode},</if>
+            <if test="accountId != null  and accountId != ''  ">account_id = #{accountId},</if>
+            <if test="orderSn != null  and orderSn != ''  ">order_sn = #{orderSn},</if>
+            <if test="hbSn != null  and hbSn != ''  ">hb_sn = #{hbSn},</if>
+            <if test="symbol != null  and symbol != ''  ">symbol = #{symbol},</if>
+            <if test="inUsdt != null  and inUsdt != ''  ">in_usdt = #{inUsdt},</if>
+            <if test="price != null  and price != ''  ">price = #{price},</if>
+            <if test="stopPrice != null  and stopPrice != ''  ">stop_price = #{stopPrice},</if>
+            <if test="amount != null  and amount != ''  ">amount = #{amount},</if>
+            <if test="hbAmount != null  and hbAmount != ''  ">hb_amount = #{hbAmount},</if>
+            <if test="hbTotalPrice != null  and hbTotalPrice != ''  ">hb_total_price = #{hbTotalPrice},</if>
+            <if test="hbPrice != null  and hbPrice != ''  ">hb_price = #{hbPrice},</if>
+            <if test="hbFieldFees != null  and hbFieldFees != ''  ">hb_field_fees = #{hbFieldFees},</if>
+            <if test="type != null  and type != ''  ">type = #{type},</if>
+            <if test="orderType != null  ">order_type = #{orderType},</if>
+            <if test="orderAction != null  ">order_action = #{orderAction},</if>
+            <if test="orderVerify != null  ">order_verify = #{orderVerify},</if>
+            <if test="orderStatus != null  ">order_status = #{orderStatus},</if>
+            <if test="orderStatusDesc != null  and orderStatusDesc != ''  ">order_status_desc = #{orderStatusDesc},</if>
+            <if test="isCal != null  ">is_cal = #{isCal},</if>
+            <if test="createTime != null  ">create_time = #{createTime},</if>
+            <if test="version != null  ">version = #{version},</if>
+            <if test="orderTimes != null  ">order_times = #{orderTimes},</if>
+            <if test="updateTime != null  ">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+	<delete id="deleteHbOrderInfoById" parameterType="Integer">
+        delete from hb_order_info where id = #{id}
+    </delete>
+	
+    <delete id="deleteHbOrderInfoByIds" parameterType="String">
+        delete from hb_order_info where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>

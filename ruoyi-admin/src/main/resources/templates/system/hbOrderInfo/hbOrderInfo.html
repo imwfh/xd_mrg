@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <th:block th:include="include :: header('火币用户下单列表')"/>
+</head>
+<body class="gray-bg">
+<div class="container-div">
+    <div class="row">
+        <div class="col-sm-12 search-collapse">
+            <form id="formId">
+                <div class="select-list">
+                    <ul>
+                        <li>
+                            用户编码：<input type="text" name="userCode"/>
+                        </li>
+
+                        <li>
+                            订单号：<input type="text" name="orderSn"/>
+                        </li>
+
+                        <li>
+                            火币订单号：<input type="text" name="hbSn"/>
+                        </li>
+
+                        <li>
+                            交易对：<input type="text" name="symbol"/>
+                        </li>
+
+                        <li>
+                            类型：
+                            <select name="orderType">
+                                <option value="">所有</option>
+                                <option text="0" value="0">买入</option>
+                                <option text="1" value="1">卖出</option>
+                                <option text="2" value="2">补仓</option>
+                                <option text="-2" value="-2">订单错误</option>
+                            </select>
+                        </li>
+
+
+                        <li>
+                            <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i
+                                    class="fa fa-search"></i>&nbsp;搜索</a>
+                            <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i
+                                    class="fa fa-refresh"></i>&nbsp;重置</a>
+                        </li>
+                    </ul>
+                </div>
+            </form>
+        </div>
+
+        <div class="btn-group-sm" id="toolbar" role="group">
+            <a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="system:hbOrderInfo:add">
+                <i class="fa fa-plus"></i> 添加
+            </a>
+            <a class="btn btn-primary btn-edit disabled" onclick="$.operate.edit()"
+               shiro:hasPermission="system:hbOrderInfo:edit">
+                <i class="fa fa-edit"></i> 修改
+            </a>
+            <a class="btn btn-danger btn-del disabled" onclick="$.operate.removeAll()"
+               shiro:hasPermission="system:hbOrderInfo:remove">
+                <i class="fa fa-remove"></i> 删除
+            </a>
+            <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="system:hbOrderInfo:export">
+                <i class="fa fa-download"></i> 导出
+            </a>
+        </div>
+        <div class="col-sm-12 select-table table-striped">
+            <table id="bootstrap-table" data-mobile-responsive="true"></table>
+        </div>
+    </div>
+</div>
+<div th:include="include :: footer"></div>
+<script th:inline="javascript">
+    var editFlag = [[${@permission.hasPermi('system:hbOrderInfo:edit')}]];
+    var removeFlag = [[${@permission.hasPermi('system:hbOrderInfo:remove')}]];
+    var prefix = ctx + "system/hbOrderInfo";
+
+    $(function () {
+        var options = {
+            url: prefix + "/list",
+            createUrl: prefix + "/add",
+            updateUrl: prefix + "/edit/{id}",
+            removeUrl: prefix + "/remove",
+            exportUrl: prefix + "/export",
+            modalName: "火币用户下单",
+            showExport: true,
+            columns: [{
+                checkbox: true
+            },
+                {
+                    field: 'id',
+                    title: '',
+                    visible: false
+                },
+                {
+                    field: 'userCode',
+                    title: '用户编码',
+                    sortable: true
+                },
+                {
+                    field: 'accountId',
+                    title: 'account id',
+                    sortable: true
+                },
+                {
+                    field: 'orderSn',
+                    title: '订单号',
+                    sortable: true
+                },
+                {
+                    field: 'hbSn',
+                    title: '火币订单号',
+                    sortable: true
+                },
+                {
+                    field: 'symbol',
+                    title: '交易对',
+                    sortable: true
+                },
+                {
+                    field: 'inUsdt',
+                    title: '投入U',
+                    sortable: true
+                },
+                {
+                    field: 'price',
+                    title: '下单总金额',
+                    sortable: true
+                },
+                {
+                    field: 'hbAmount',
+                    title: '火币已成交数量',
+                    sortable: true
+                },
+                {
+                    field: 'hbTotalPrice',
+                    title: '花费U',
+                    sortable: true
+                },
+                {
+                    field: 'hbPrice',
+                    title: '火币成交单价(U)',
+                    sortable: true
+                },
+                {
+                    field: 'orderType',
+                    title: '类型',
+                    sortable: true,
+                    formatter: function (value, row, index) {
+                        if (value == 0) {
+                            return '<span class="badge badge-info">买入</span>';
+                        } else if (value == 1) {
+                            return '<span class="badge badge-primary">卖出</span>';
+                        } else if (value == 2) {
+                            return '<span class="badge badge-important">补仓</span>';
+                        } else if (value == -2) {
+                            return '<span class="badge badge-warning">订单错误</span>';
+                        }
+                    }
+                },
+                {
+                    field: 'orderStatusDesc',
+                    title: '状态描述',
+                    sortable: true
+                },
+                {
+                    field: 'createTime',
+                    title: '订单创建时间',
+                    sortable: true
+                },
+                {
+                    title: '操作',
+                    align: 'center',
+                    formatter: function (value, row, index) {
+                        var actions = [];
+                        actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="$.operate.edit(\'' + row.id + '\')"><i class="fa fa-edit"></i>编辑</a> ');
+                        actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.id + '\')"><i class="fa fa-remove"></i>删除</a>');
+                        return actions.join('');
+                    }
+                }]
+        };
+        $.table.init(options);
+    });
+</script>
+</body>
+</html>
