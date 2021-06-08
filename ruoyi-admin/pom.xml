@@ -95,19 +95,27 @@
         <!--                </configuration>   -->
         <!--		   </plugin>   -->
         <!--        </plugins>-->
-        <finalName>${artifactId}</finalName>
+        <finalName>robot-admin</finalName>
         <resources>
             <resource>
                 <targetPath>${project.build.directory}/classes</targetPath>
                 <directory>src/main/resources</directory>
                 <filtering>true</filtering>
+                <excludes>
+                    <exclude>
+                        static/**
+                    </exclude>
+                </excludes>
+            </resource>
+            <resource>
+                <targetPath>${project.build.directory}/classes</targetPath>
+                <directory>src/main/resources</directory>
+                <filtering>false</filtering>
                 <includes>
-                    <include>**/*.xml</include>
-                    <include>**/*.yml</include>
-                    <include>**/*.properties</include>
-                    <include>**/*.*</include>
+                    <include>static/**</include>
                 </includes>
             </resource>
+
             <!--            <resource>-->
             <!--                <targetPath>${project.build.directory}/classes/META-INF</targetPath>-->
             <!--                <directory>src/main/resources</directory>-->
@@ -118,16 +126,6 @@
             <!--                </includes>-->
             <!--            </resource>-->
 
-            <!--            <resource>-->
-            <!--                <targetPath>${project.build.directory}</targetPath>-->
-            <!--                <directory>src/main/resources</directory>-->
-            <!--                <filtering>true</filtering>-->
-            <!--                <includes>-->
-            <!--                    <include>**/*.png</include>-->
-            <!--                    <include>**/*.jpg</include>-->
-            <!--                    <include>**/*.*</include>-->
-            <!--                </includes>-->
-            <!--            </resource>-->
         </resources>
         <pluginManagement>
             <plugins>
@@ -153,6 +151,20 @@
                                 </pluginExecution>
                             </pluginExecutions>
                         </lifecycleMappingMetadata>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <configuration>
+                        <encoding>utf-8</encoding>
+                        <useDefaultDelimiters>true</useDefaultDelimiters>
+                        <nonFilteredFileExtensions>
+                            <nonFilteredFileExtension>woff</nonFilteredFileExtension>
+                            <nonFilteredFileExtension>woff2</nonFilteredFileExtension>
+                            <nonFilteredFileExtension>eot</nonFilteredFileExtension>
+                            <nonFilteredFileExtension>ttf</nonFilteredFileExtension>
+                            <nonFilteredFileExtension>svg</nonFilteredFileExtension>
+                        </nonFilteredFileExtensions>
                     </configuration>
                 </plugin>
             </plugins>
