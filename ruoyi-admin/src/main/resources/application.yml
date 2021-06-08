@@ -25,7 +25,7 @@ ftp:
   MinIdel: 2
   MaxIdle: 5
   MaxWaitMillis: 3000
-  domain: http://ftp.liangzi1314.xyz/ftpfiles/
+  domain: http://ftp.liangzi1314.xyz/
 
 
 # 开发环境配置
